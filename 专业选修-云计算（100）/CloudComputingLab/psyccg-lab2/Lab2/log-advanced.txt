@@ -1,0 +1,125 @@
+[TRACE] Checking tools...
+[TRACE] Checking tools finished.
+[TRACE] Building server...
+[TRACE] Building server finished.
+[TRACE] Testing http...
+[TRACE] Waiting in 1s for server to start...
+main >> parameters are as below
+IP: 127.0.0.1
+Port: 8080
+Threads: 8
+No proxy specified.
+-------------------------------------
+HTTPServer started at 127.0.0.1:8080
+[INFO ] GET: Path /index.html pass.
+[INFO ] GET: Path /error pass.
+[INFO ] GET: Path /api/list pass.
+[INFO ] GET: Path /api/search?id=1&name=Foo pass.
+[INFO ] GET: Path /test/test.html pass.
+[INFO ] POST: Path /api/upload pass.
+[TRACE] Testing HTTP finished.
+[WARN ] Trying to kill the HTTP Server...
+[TRACE] Waiting in 1s for server to stop...
+[TRACE] The HTTP Server is stopped.
+[TRACE] Testing pipelinging...
+[TRACE] Waiting in 1s for server to start...
+main >> parameters are as below
+IP: 127.0.0.1
+Port: 8080
+Threads: 8
+No proxy specified.
+-------------------------------------
+HTTPServer started at 127.0.0.1:8080
+[INFO ] Pipelining: paths - /index.html /404.html /501.html pass.
+[INFO ] Pipelining: paths - /404.html /index.html /501.html pass.
+[TRACE] Testing pipe finished.
+[WARN ] Trying to kill the HTTP Server...
+[TRACE] Waiting in 1s for server to stop...
+[TRACE] The HTTP Server is stopped.
+[TRACE] Testing proxy...
+[TRACE] Waiting in 1s for server to start...
+main >> parameters are as below
+IP: 127.0.0.1
+Port: 8080
+Threads: 8
+Proxy specified.
+Proxy: http://example.com
+-------------------------------------
+parsing proxy as below
+parsing: proxy_name: example.com
+parsing: proxy_port: 80
+-------------------------------------------
+HTTPServer started at 127.0.0.1:8080
+Resolved host name: example.com
+[INFO ] Proxy: Path / pass.
+Resolved host name: example.com
+[INFO ] Proxy: Path /index.html pass.
+[TRACE] Testing proxy finished.
+[WARN ] Trying to kill the HTTP Server...
+[TRACE] Waiting in 1s for server to stop...
+[TRACE] The HTTP Server is stopped.
+[TRACE] Testing performance...
+[TRACE] Waiting in 1s for server to start...
+main >> parameters are as below
+IP: 127.0.0.1
+Port: 8080
+Threads: 8
+No proxy specified.
+-------------------------------------
+HTTPServer started at 127.0.0.1:8080
+[TRACE] ab stdout output:
+This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient).....done
+
+
+Server Software:        
+Server Hostname:        127.0.0.1
+Server Port:            8080
+
+Document Path:          /api/search?id=1
+Document Length:        38 bytes
+
+Concurrency Level:      10
+Time taken for tests:   0.005 seconds
+Complete requests:      100
+Failed requests:        0
+Non-2xx responses:      100
+Total transferred:      11600 bytes
+HTML transferred:       3800 bytes
+Requests per second:    20004.00 [#/sec] (mean)
+Time per request:       0.500 [ms] (mean)
+Time per request:       0.050 [ms] (mean, across all concurrent requests)
+Transfer rate:          2266.08 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       0
+Processing:     0    0   0.1      0       1
+Waiting:        0    0   0.1      0       1
+Total:          0    0   0.1      0       1
+
+Percentage of the requests served within a certain time (ms)
+  50%      0
+  66%      0
+  75%      0
+  80%      0
+  90%      1
+  95%      1
+  98%      1
+  99%      1
+ 100%      1 (longest request)
+
+[TRACE] Testing performance finished.
+[WARN ] Trying to kill the HTTP Server...
+[TRACE] Waiting in 1s for server to stop...
+[TRACE] The HTTP Server is stopped.
+[INFO ] -------TESTER RESULTS------
+[INFO ] HTTP test items: all 6, passes 6
+[INFO ] Pepelining test items: all 2, passes 2
+[INFO ] Proxy test items: all 2, passes 2
+[INFO ] Perfermance test 1 times.
+[INFO ] No.1: requests 100, concurrency 10, reqs/s 20004, time/req 0.05
+[INFO ] -------TESTER RESULTS------

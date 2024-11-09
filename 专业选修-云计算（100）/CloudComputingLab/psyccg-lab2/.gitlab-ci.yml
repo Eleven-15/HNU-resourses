@@ -1,0 +1,12 @@
+stages:          # List of stages for jobs, and their order of execution
+  - test
+
+unit-test-job:
+  stage: test
+  script:
+    - cd Lab2/tester-linux-x64
+    - chmod 777 ./http-server-tester
+    - ./http-server-tester run --mode basic
+    - ./http-server-tester run --mode advanced
+  tags:
+    - cloud-compute

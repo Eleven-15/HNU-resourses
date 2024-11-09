@@ -1,0 +1,13 @@
+stages:          # List of stages for jobs, and their order of execution
+  - test
+
+unit-test-job:
+  stage: test
+  script:
+    - cd Lab1/src/Sudoku
+    - chmod 777 ./Lab1.sh
+    - ./Lab1.sh test_group answer_group
+    - cd /home
+    - ls -l
+  tags:
+    - cloud-compute
