@@ -1,0 +1,256 @@
+C51 COMPILER V9.51   SHISHISHIZHONG                                                        04/15/2020 23:29:17 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE SHISHISHIZHONG
+OBJECT MODULE PLACED IN shishishizhong.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE shishishizhong.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include"STC15F2K60S2.H" //头文件
+   2          #include"intrins.H" //头文件
+   3          #include"ctype.h"
+   4          //宏定义
+   5          #define uchar unsigned char        
+   6          #define uint unsigned int
+   7          
+   8          //DS1302寄存器的定义
+   9          #define DS1302_second_write  0X80
+  10          #define DS1302_minutes_write  0X82
+  11          #define DS1302_hour_write  0X84
+  12          #define DS1302_date_write  0X86
+  13          #define DS1302_week_write  0X8A
+  14          #define DS1302_month_write  0X88
+  15          #define DS1302_year_write  0X8C
+  16          
+  17          #define DS1302_second_read  0X81
+  18          #define DS1302_minutes_read  0X83
+  19          #define DS1302_hour_read  0X85
+  20          #define DS1302_date_read  0X87
+  21          #define DS1302_week_read  0X8B
+  22          #define DS1302_month_read  0X89
+  23          #define DS1302_year_read  0X8D
+  24          
+  25          //位定义
+  26          sbit RTC_sclk=P1^5;//时钟控制引脚，控制数据的输入输出
+  27          sbit RTC_rst=P1^6;//CE引脚，读写时必须置高电平
+  28          sbit RTC_io=P5^4;//数据引脚
+  29          
+  30          //显示的位定义
+  31          sbit led_sel=P2^3;
+  32          uchar wei[]={0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07};    //数码管位选
+  33          uchar duan[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71}; //显示0-f
+  34          
+  35          //定义时间结构体
+  36          typedef struct _systemtime_
+  37          {
+  38             uchar second;
+  39                   uchar minute;
+  40                   uchar hour;
+  41                   uchar day;
+  42                   uchar week;
+  43                   uchar  month;
+  44             uchar year;
+  45          }systemtime;
+  46          
+  47          systemtime t;
+  48                  uchar i;
+  49          uchar temp;
+  50          int sec=0;
+  51          char flag_100mS=0;
+  52          
+  53          //DS1302写一个字节的数据
+  54          void DS1302WriteByte(uchar dat)
+  55          {
+C51 COMPILER V9.51   SHISHISHIZHONG                                                        04/15/2020 23:29:17 PAGE 2   
+
+  56   1              uchar i;
+  57   1        RTC_sclk=0;//初始时钟线置0
+  58   1              _nop_();
+  59   1              _nop_();
+  60   1              for(i=0;i<8;i++)//开始传输8位数据
+  61   1              {
+  62   2                      RTC_io=dat&0x01;//取最低位
+  63   2                      _nop_();
+  64   2                _nop_();
+  65   2                      RTC_sclk=1;//时钟线拉高，制造上升沿，数据被传输 
+  66   2                      _nop_();
+  67   2                _nop_();
+  68   2                      RTC_sclk=0;//时钟线拉低，为下一个上升沿做准备
+  69   2                      dat>>=1;//数据右移一位，准备传输下一位数据
+  70   2              }
+  71   1      }
+  72          
+  73          ////DS1302读一个字节的数据
+  74          uchar DS1302ReadByte()
+  75          {
+  76   1              uchar i,dat;
+  77   1                      _nop_();
+  78   1                _nop_();
+  79   1              for(i=0;i<8;i++)
+  80   1              {
+  81   2                      dat>>=1;//要返回的数据右移一位
+  82   2                      if(RTC_io==1)//当数据线为高时，证明该位数据为1
+  83   2                      dat|=0x80;
+  84   2                      RTC_sclk=1;
+  85   2                      _nop_();
+  86   2                _nop_();
+  87   2                      RTC_sclk=0;//制造下降沿
+  88   2                      _nop_();
+  89   2                _nop_();
+  90   2              }
+  91   1              return dat;//返回读取出的数据
+  92   1      }
+  93          
+  94          //读相应地址中写一个字节的数据
+  95          uchar DS1302Read(uchar cmd)
+  96          {
+  97   1              uchar dat;
+  98   1              RTC_rst=0;//初始CE置0
+  99   1              RTC_sclk=0;//初始时钟置0
+ 100   1              RTC_rst=1;//初始CE置1，传输开始
+ 101   1              DS1302WriteByte(cmd);//传输命令字，
+ 102   1              dat=DS1302ReadByte();//读取得到的时间
+ 103   1              RTC_sclk=1;//时钟线拉高
+ 104   1              RTC_rst=0;//读取结束，CE置0，结束数据传输
+ 105   1              return dat;//返回得到的时间日期
+ 106   1      }
+ 107          
+ 108          //在相应地址中写数据
+ 109          void DS1302Write(uchar cmd,uchar dat)
+ 110          {
+ 111   1              RTC_rst=0;//初始CE置0
+ 112   1              RTC_sclk=0;//初始时钟置0
+ 113   1              RTC_rst=1;//置1，传输开始
+ 114   1              DS1302WriteByte(cmd);//传输命令字，要写入的时间的地址
+ 115   1              DS1302WriteByte(dat);//写入修改的时间
+ 116   1              RTC_sclk=1;//时钟线拉高
+ 117   1              RTC_rst=0;//读取结束，CE=0，结束数据的传输
+C51 COMPILER V9.51   SHISHISHIZHONG                                                        04/15/2020 23:29:17 PAGE 3   
+
+ 118   1      }
+ 119          //DS1302的时间值获取程序
+ 120          systemtime GetDA1302()
+ 121          {
+ 122   1              systemtime time;
+ 123   1              uchar realvalue;
+ 124   1              realvalue=DS1302Read(DS1302_second_read);
+ 125   1              time.second=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 126   1                      realvalue=DS1302Read(DS1302_minutes_read);
+ 127   1              time.minute=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 128   1                      realvalue=DS1302Read(DS1302_hour_read );
+ 129   1              time.hour=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 130   1                      realvalue=DS1302Read(DS1302_date_read );
+ 131   1              time.day=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 132   1                      realvalue=DS1302Read(DS1302_week_read);
+ 133   1              time.week=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 134   1                      realvalue=DS1302Read(DS1302_month_read);
+ 135   1              time.month=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 136   1                              realvalue=DS1302Read(DS1302_year_read);
+ 137   1              time.year=((realvalue&0x70)>>4)*10+(realvalue&0x0f);
+ 138   1              return time;
+ 139   1      }
+ 140          //DS1302初始化程序
+ 141          void Init_DS1302()
+ 142          {       unsigned char hour,min,sec;
+ 143   1      //    unsigned char code DataStr[]=__DATE__;      //格式: "Jan 13 2017"   12字符（含结束符）
+ 144   1          unsigned char code DataStr[]=__TIME__;        //格式："09:12:04"      9字符（含结束符）
+ 145   1      
+ 146   1          hour=((toint(DataStr[0]))<<4)+toint(DataStr[1]);
+ 147   1              min=((toint(DataStr[3]))<<4)+toint(DataStr[4]);
+ 148   1              sec=((toint(DataStr[6]))<<4)+toint(DataStr[7]);
+ 149   1      
+ 150   1              DS1302Write(0X8E,0X00);//写保护关
+ 151   1              DS1302Write(DS1302_second_write,sec);
+ 152   1              DS1302Write(DS1302_minutes_write,min);
+ 153   1              DS1302Write(DS1302_hour_write,hour);
+ 154   1      //    DS1302Write(DS1302_week_write,0X00);
+ 155   1      //      DS1302Write(DS1302_month_write,0X00);
+ 156   1      //      DS1302Write(DS1302_date_write,0X00);
+ 157   1      //      DS1302Write(DS1302_year_write,0X00);
+ 158   1              temp=DS1302Read(DS1302_second_read)&0x7f;
+ 159   1              DS1302Write(DS1302_second_write,temp);
+ 160   1      //      DS1302Write(0x90,0xa9);         //  充电设置：允许充电，2个二极管，2K电 
+ 161   1              DS1302Write(0X8E,0X80);//写保护置1
+ 162   1      }
+ 163          
+ 164          void set_charge_DS1302()
+ 165          { 
+ 166   1              DS1302Write(0X8E,0X00); //写保护关
+ 167   1              DS1302Write(0x90,0xa9); //  充电设置：允许充电，2个二极管，2K电 
+ 168   1              DS1302Write(0X8E,0X80); //写保护置1
+ 169   1      }
+ 170          
+ 171          //系统初始化程序
+ 172          void init()
+ 173          {       P3=0xEF;                                  //关蜂鸣器
+ 174   1              P2M0=0XFF;
+ 175   1              P2M1=0X00;
+ 176   1              P0M0=0XFF;
+ 177   1              P0M1=0X00;
+ 178   1      
+ 179   1              led_sel=0;//选通数码管
+C51 COMPILER V9.51   SHISHISHIZHONG                                                        04/15/2020 23:29:17 PAGE 4   
+
+ 180   1              TMOD=0X01;//定时器0，工作方式1
+ 181   1              EA=1;//打开总中断
+ 182   1              TH0=(65535-1000)/256;//设置定时初值
+ 183   1              TL0=(65535-1000)%256;
+ 184   1              TR0=1;//启动定时器
+ 185   1              ET0=1;//开启定时器中断
+ 186   1      }
+ 187          
+ 188          void time0() interrupt 1
+ 189          {
+ 190   1              TH0=(65535-1000)/256;//设置定时初值
+ 191   1              TL0=(65535-1000)%256;
+ 192   1              EA=0;
+ 193   1              i++;
+ 194   1              if(++sec==100) {sec=0; flag_100mS=1; }
+ 195   1              if(i==8)
+ 196   1                      i=0;
+ 197   1              led_sel=0;
+ 198   1              P0=0X00;
+ 199   1              P2=wei[i];
+ 200   1              
+ 201   1              switch(i)
+ 202   1              {
+ 203   2                      case 0:P0=duan[t.hour/10];break;
+ 204   2                      case 1:P0=duan[t.hour%10];break;
+ 205   2                              case 3:P0=duan[t.minute/10];break;
+ 206   2                      case 4:P0=duan[t.minute%10];break;
+ 207   2                              case 6:P0=duan[t.second/10];break;
+ 208   2                      case 7:P0=duan[t.second%10];break;
+ 209   2                      default :P0=0x40;break;
+ 210   2              }
+ 211   1              EA=1;
+ 212   1      }
+ 213          
+ 214          void main()
+ 215          {
+ 216   1              init();
+ 217   1              if(DS1302Read(DS1302_second_read)&0X80) Init_DS1302();
+ 218   1              set_charge_DS1302();
+ 219   1              while(1)
+ 220   1              {
+ 221   2                      if (flag_100mS==1)
+ 222   2                      {
+ 223   3                       t=GetDA1302();
+ 224   3                       flag_100mS=0;
+ 225   3                      }
+ 226   2              }
+ 227   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    624    ----
+   CONSTANT SIZE    =      9    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     36       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,107 @@
+C51 COMPILER V9.54   MAIN                                                                  06/30/2023 00:29:14 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE source\main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\inc) DEBUG OBJECTEXTEND 
+                    -PRINT(.\list\main.lst) TABS(2) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          //√Î±Ì£∫ ˝¬Îπ‹œ‘ æ∑÷°¢√Î°¢∫¡√Î
+   2          #include "STC15F2K60S2.H"
+   3          #include "displayer.h"
+   4          #include "beep.h"
+   5          #include "Key.h"
+   6          #include "sys.h"
+   7          
+   8          code unsigned long SysClock=11059200;         
+   9          //±ÿ–Î°£∂®“ÂœµÕ≥π§◊˜ ±÷”∆µ¬ (Hz)£¨”√ªß±ÿ–Î–ﬁ∏ƒ≥…”Î µº π§◊˜∆µ¬ £®œ¬‘ÿ ±—°‘Òµƒ£©“ª÷¬
+  10          
+  11          #ifdef _displayer_H_                          
+  12          //œ‘ æƒ£øÈ—°”√ ±±ÿ–Î°££® ˝¬Îπ‹œ‘ æ“Î¬Î±Ì£¨”√ëÙø…–ﬁ∏ƒ°¢‘ˆº”µ»£© 
+  13          code char decode_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x08,0x40,0x01, 0x41, 0x4
+             -8, 
+  14                          /* –Ú∫≈:   0   1    2    3    4     5    6    7   8    9   10    11   12   13    14     15    
+             -*/
+  15                          /* œ‘ æ:   0   1    2    3    4     5    6    7   8    9  (Œﬁ)   œ¬-  ÷–-  …œ-  …œ÷–-  ÷–œ
+             -¬-  */  
+  16                                   0x3f|0x80,0x06|0x80,0x5b|0x80,0x4f|0x80,0x66|0x80,0x6d|0x80,0x7d|0x80,0x07|0x80,0x
+             -7f|0x80,0x6f|0x80 };  
+  17                       /* ¥¯–° ˝µ„     0         1         2         3         4         5         6         7      
+             -   8         9        */
+  18          #endif
+  19          unsigned int time=0;     //√Î±Ìº∆ ±
+  20          bit flag_t=0;      //=0£¨Õ£÷πº∆ ±£¨=1£¨º∆ ±
+  21          
+  22          void mykey()
+  23          { 
+  24   1        unsigned char status;
+  25   1        status=GetKeyAct(enumKey1); 
+  26   1      
+  27   1        if (flag_t == 0)            
+  28   1         { if ( status == enumKeyPress )    {time=0; /*SetBeep(800,100);*/}    
+  29   2         //∞¥œ¬∞¥º¸£∫º∆ ±«Â¡„°¢∑¢¡Ó‘§±∏
+  30   2           if (time == 0)
+  31   2                if (status== enumKeyRelease) {flag_t=1; /*SetBeep(1500,20);*/}    
+  32   2             //À…ø™∞¥º¸£∫ø™ º±»»¸°¢∑¢¡Ó±»»¸
+  33   2         }
+  34   1        else                                       
+  35   1          //»Áπ˚√Î±Ìªπ‘⁄º∆ ±
+  36   1         { if (flag_t == 1)   
+  37   2             if (status == enumKeyPress) { flag_t=0; /*SetBeep(1000,20);*/ }     //√Î±ÌÕ£÷π
+  38   2         }    
+  39   1      }
+  40          
+  41          void my1mSfun()
+  42          { 
+  43   1        unsigned char d0,d1,d2,d3,d4,d5,d6,d7;
+  44   1        if(flag_t ==1)  time++;
+  45   1        
+  46   1        //min
+  47   1        d7=((time/1000)/60)/10;
+  48   1        d6=((time/1000)/60)%10;
+  49   1        d5=12;//∂Ã∫·-
+C51 COMPILER V9.54   MAIN                                                                  06/30/2023 00:29:14 PAGE 2   
+
+  50   1        //s
+  51   1        d4=(time/1000)%60/10;
+  52   1        d3=(time/1000)%10+16;
+  53   1        //ms
+  54   1        d2=(time/100)%10;
+  55   1        d1=(time/10)%10;
+  56   1        d0=(time%10);
+  57   1        
+  58   1        Seg7Print(d7,d6,d5,d4,d3,d2,d1,d0);
+  59   1      }
+  60          
+  61          void main()
+  62          { 
+  63   1        DisplayerInit();
+  64   1        BeepInit();
+  65   1        KeyInit();
+  66   1        SetEventCallBack(enumEventSys1mS, my1mSfun);  
+  67   1        SetEventCallBack(enumEventKey,mykey);
+  68   1        
+  69   1        SetDisplayerArea(0,7);
+  70   1        LedPrint(0);
+  71   1      
+  72   1        MySTC_Init();
+  73   1        while(1)
+  74   1         { MySTC_OS();
+  75   2         }
+  76   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    274    ----
+   CONSTANT SIZE    =     30    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

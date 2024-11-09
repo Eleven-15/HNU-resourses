@@ -1,0 +1,14 @@
+# 第三版课本P262 图11.20 
+6               # Number of vertices
+A B C D E F			# 输入时每个顶点信息之间要以空格分割 
+U               # Undirected graph
+8								# 边数 
+A C 7
+A E 9
+B C 5
+B F 6
+C D 1
+C F 2
+D F 2
+E F 1
+ 

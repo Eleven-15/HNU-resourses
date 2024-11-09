@@ -1,0 +1,101 @@
+C51 COMPILER V9.51   BUZZER                                                                06/27/2023 11:02:17 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE BUZZER
+OBJECT MODULE PLACED IN buzzer.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE buzzer.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /**********************
+   2          myBeep 蜂鸣器测试
+   3          型号:STC15F2K60S2 主频:11.0592MHz
+   4          ************************/
+   5          #include <STC15F2K60S2.H>
+   6          #define uint  unsigned int
+   7          #define uchar unsigned char
+   8          
+   9          /*---------引脚别名定义---------*/
+  10          sbit sbtBeep = P3 ^ 4;                  //蜂鸣器引脚
+  11          sbit sbtKey1 = P3 ^ 2;                  //按键1引脚
+  12          sbit  a = P3^5;
+  13          
+  14          /*---------变量定义---------*/
+  15          bit btBeepFlag;                        //控制蜂鸣器开关的标志位
+  16          
+  17          /*---------初始化函数--------*/
+  18          void init()
+  19          {
+  20   1          P3M1 = 0x00;
+  21   1          P3M0 = 0x10;                  //设置P3^4为推挽模式
+  22   1      
+  23   1          TMOD = 0x00;                  //设置定时器0，工作方式0，16位自动重装定时器
+  24   1          TH0 = 0xff;                   //设定定时器0的初值
+  25   1          TL0 = 0x03;
+  26   1          EA = 1;                       //打开总中断
+  27   1          ET0 = 1;                      //打开定时器0中断允许位
+  28   1          TR0 = 1;
+  29   1      
+  30   1          btBeepFlag = 0;                //标志位置1
+  31   1          P0 = 0x00;                    //关闭P0端口
+  32   1          sbtBeep = 0;                  //蜂鸣器引脚置0，以保护蜂鸣器 
+  33   1          a = 0;    
+  34   1      }
+  35          
+  36          /*---------延时子函数--------*/
+  37          void delay( uint xms )
+  38          {
+  39   1          uchar i;
+  40   1          for( ; xms > 0; xms-- )
+  41   1              for( i = 114; i > 0; i-- )
+  42   1              {
+  43   2                  ;
+  44   2              }
+  45   1      }
+  46          
+  47          /*---------主函数--------*/
+  48          void main()
+  49          {
+  50   1          init();
+  51   1          while( 1 )
+  52   1          {
+  53   2              if( sbtKey1 == 0 )
+  54   2              {
+  55   3                  delay( 10 );                     //延时消抖
+C51 COMPILER V9.51   BUZZER                                                                06/27/2023 11:02:17 PAGE 2   
+
+  56   3                  if( sbtKey1 == 0 )
+  57   3                  {
+  58   4                      while( !sbtKey1 );
+  59   4                      btBeepFlag = ~btBeepFlag;    //蜂鸣器开关标志位翻转
+  60   4                  }
+  61   3              }
+  62   2          }
+  63   1      }
+  64          
+  65          /*---------T0定时器中断服务处理函数--------*/
+  66          void T0_Process() interrupt 1
+  67          {
+  68   1          if( btBeepFlag )
+  69   1          {
+  70   2              sbtBeep = ~sbtBeep;            //产生方波使得蜂鸣器发声
+  71   2          }
+  72   1          else
+  73   1          {
+  74   2              sbtBeep = 0;                  //停止发声，并将sbtBeep端口置于低电平
+  75   2          }
+  76   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     82    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

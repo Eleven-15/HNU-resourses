@@ -1,0 +1,12 @@
+5               # Number of vertices
+A B C D E				# 输入时每个顶点信息之间要以空格分割 
+U               # Undirected graph
+7								# 边数 
+A B 10
+B D 5
+A D 20
+A C 3
+C B 2
+C E 15
+D E 11         
+

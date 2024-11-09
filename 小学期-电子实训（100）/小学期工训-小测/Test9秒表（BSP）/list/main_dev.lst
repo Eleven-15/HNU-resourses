@@ -1,0 +1,509 @@
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN_DEV
+OBJECT MODULE PLACED IN .\output\main_dev.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE source\main_dev.c BROWSE INCDIR(.\inc) DEBUG OBJECTEXTEND PRINT(.\list\main
+                    -_dev.lst) TABS(2) OBJECT(.\output\main_dev.obj)
+
+line level    source
+
+   1          /**********************************  Ver3.3 ËµÃ÷ *********************************************************
+             -***********
+   2            (1) ÏµÍ³¹¤×÷Ê±ÖÓÆµÂÊ¿ÉÒÔÔÚmain.cÖĞĞŞ¸Ä SysClock¸³Öµ£¨µ¥Î»Hz£©¡£
+   3                Èç£ºcode long SysClock=11059200; ¶¨ÒåÏµÍ³¹¤×÷Ê±ÖÓÆµÂÊÎª11059200Hz£¨Ò²¼´11.0592MHz£©   
+   4                ÏµÍ³¹¤×÷ÆµÂÊ±ØĞëÓëÊµ¼Ê¹¤×÷ÆµÂÊ£¨ÏÂÔØÊ±Ñ¡ÔñµÄ£©Ò»ÖÂ£¬ÒÔÃâÓë¶¨Ê±Ïà¹ØµÄËùÓĞ¹¦ÄÜ³öÏÖÎó²î»ò´íÎó¡£
+   5            (2) Ê¹ÓÃ·½·¨£º
+   6                    1£¬ÔÚ¹¤³ÌÖĞ¼ÓÔØmain.cÎÄ¼şºÍSTC_BSP.lib¿âÎÄ¼ş
+   7                    2£¬ÔÚmain.cÖĞÑ¡Ôñ°üº¬ÒÔÏÂÍ·ÎÄ¼ş£¨Èç¹ûÒªÊ¹ÓÃ¿ÉÑ¡Ä£¿éÌá¹©µÄº¯ÊıºÍ·½·¨£¬¾Í±ØĞë°üº¬ÆäÍ·ÎÄ¼ş£© £º
+   8                          #include "STC15F2K60S2.H"        //±ØĞë£¬"STC-BÑ§Ï°°å"Ê¹ÓÃMCUÖ¸¶¨µÄÍ·ÎÄ¼ş
+   9                          #include "sys.H"                 //±ØĞë£¬sys£¨MySTC_OSµ÷¶È³ÌĞò£©Í·ÎÄ¼ş
+  10                          #include "display.H"             //¿ÉÑ¡£¬display£¨ÏÔÊ¾Ä£¿é£©Í·ÎÄ¼ş¡£          
+  11                          #include "key.H"                 //¿ÉÑ¡£¬key£¨°´¼üÄ£¿é£©Í·ÎÄ¼ş¡£
+  12                          #include "hall.H"                //¿ÉÑ¡£¬hall£¨»ô¶û´«¸ĞÆ÷Ä£¿é£©Í·ÎÄ¼ş¡£
+  13                          #include "Vib.h"                 //¿ÉÑ¡£¬Vib£¨Õñ¶¯´«¸ĞÆ÷Ä£¿é£©Í·ÎÄ¼ş¡£                 
+  14                          #include "beep.H"                //¿ÉÑ¡£¬beep£¨·äÃùÆ÷Ä£¿é£©Í·ÎÄ¼ş¡£         
+  15                          #include "music.h"               //¿ÉÑ¡£¬music£¨ÒôÀÖ²¥·Å£©Í·ÎÄ¼ş¡£  
+  16                          #include "adc.h"                 //¿ÉÑ¡£¬adc£¨ÈÈÃô¡¢¹âÃô¡¢µ¼º½°´¼ü¡¢À©Õ¹½Ó¿ÚADC¹¦ÄÜ£©Í·ÎÄ¼ş¡£ 
+  17                          #include "uart1.h"               //¿ÉÑ¡£¬uart1£¨´®¿Ú1Í¨ĞÅ£©Í·ÎÄ¼ş¡£
+  18                          #include "uart2.h"               //¿ÉÑ¡£¬uart2£¨´®¿Ú2Í¨ĞÅ£©Í·ÎÄ¼ş¡£
+  19                          #include "stepmotor.h"           //¿ÉÑ¡£¬²½½øµç»ú      
+  20                          #include "DS1302.h"              //¿ÉÑ¡£¬DS1302ÊµÊ±Ê±ÖÓ
+  21                          #include "M24C02.h"              //¿ÉÑ¡£¬24C02·ÇÒ×Ê§ĞÔ´æ´¢Æ÷
+  22                          #include "FM_Radio.h"            //¿ÉÑ¡£¬FMÊÕÒô»ú
+  23                          #include "EXT.h"                 //¿ÉÑ¡£¬EXTÀ©Õ¹½Ó¿Ú£¨µç×Ó³Ó¡¢³¬Éù²¨²â¾à¡¢Ğı×ª±àÂëÆ÷¡¢PWMÊ
+             -ä³ö¿ØÖÆµç»ú¿ìÂıºÍÕı·´×ª£©
+  24                          #include "IR.h"                  //¿ÉÑ¡£¬38KHzºìÍâÍ¨ĞÅ
+  25                          
+  26                    3£¬MySTC_Init()ÊÇsys³õÊ¼»¯º¯Êı£¬±ØĞëÖ´ĞĞÒ»´Î£»
+  27                       MySTC_OS()ÊÇsysµ÷¶Èº¯Êı£¬Ó¦ÖÃÓÚwhile£¨1£©Ñ­»·ÖĞ£»
+  28                    4£¬¸÷¿ÉÑ¡Ä£¿éÈç¹ûÑ¡ÓÃ£¬±ØĞëÔÚÊ¹ÓÃÄ£¿éÆäËüº¯ÊıºÍ·½·¨Ç°Ö´ĞĞÒ»´ÎÄ£¿éËùÌá¹©µÄÇı¶¯º¯Êı£¨ÉèÖÃÏà¹ØÓ²¼ş¡¢²¢ÔÚ
+             -sysÖĞ¼ÓÔØÆä¹¦ÄÜµ÷¶È£©£º
+  29                          DisplayerInit();      //ÏÔÊ¾Ä£¿éÇı¶¯ 
+  30                          Key_Init();           //°´¼üÄ£¿éÇı¶¯
+  31                          BeepInit();           //·äÃùÆ÷Ä£¿éÇı¶¯
+  32                          MusicPlayerInit();    //·äÃùÆ÷²¥·ÅÒôÀÖÇı¶¯
+  33                          HallInit();           //»ô¶û´«¸ĞÆ÷Ä£¿éÇı¶¯                      
+  34                          VibInit();            //Õñ¶¯´«¸ĞÆ÷Ä£¿éÇı¶¯          
+  35                          AdcInit();            //Ä£Êı×ª»»ADCÄ£¿éÇı¶¯£¨º¬ÎÂ¶È¡¢¹âÕÕ¡¢µ¼º½°´¼üÓë°´¼üKey3¡¢EXTÀ©Õ¹½Ó¿ÚÉ
+             -ÏµÄADC£©
+  36                          StepMotorInit();      //²½½øµç»úÄ£¿éÇı¶¯                    
+  37                          DS1302Init();         //DS1302ÊµÊ±Ê±ÖÓÇı¶¯
+  38                          FMRadioInit();        //FMÊÕÒô»úÇı¶¯           
+  39                          EXTInit();            //À©Õ¹½Ó¿ÚÇı¶¯£¨º¬µç×Ó³Ó¡¢³¬Éù²¨²â¾à¡¢Ğı×ª±àÂëÆ÷¡¢PWMÊä³ö£¬µ«²»º¬EXT
+             -ÉÏUart2ºÍÓëÖ®Ïà¹ØÓ¦ÓÃ£©
+  40                          Uart1Init();          //Uart1£¨´®¿Ú1£©Çı¶¯£ºUSBÉÏ£¨Óë¼ÆËã»úÍ¨ĞÅ£©              
+  41                          Uart2Init();          //Uart2£¨´®¿Ú2£©Çı¶¯£º485½Ó¿Ú¡¢»òEXTÀ©Õ¹½Ó¿Ú£¨¶à»úÍ¨ĞÅ¡¢Uart·½Ê½Ä£¿é
+             -ÈçÀ¶ÑÀÄ£¿é£© 
+  42                          IrInit();             //38KHzºìÍâÍ¨ĞÅÄ£¿éÇı¶¯
+  43                          
+  44                        ËµÃ÷£ºÓĞ²¿·ÖÄ£¿é²»ĞèÒªÇı¶¯£»Çı¶¯º¯ÊıÓĞĞ©ÓĞ²ÎÊı¡££¨¾ßÌå¼û¸÷Ä£¿éÍ·ÎÄ¼şËµÃ÷£©
+  45                          
+  46                    5£¬sysºÍ¸÷Ä£¿é¹²Ìá¹©ÒÔÏÂÊÂ¼ş£º
+  47                          numEventSys1mS:              1mSÊÂ¼ş                        £¨"1ºÁÃëÊ±¼ä¼ä¸ôµ½"ÊÂ¼ş£©
+  48                          enumEventSys10mS:            10mSÊÂ¼ş                       £¨"10ºÁÃëÊ±¼ä¼ä¸ôµ½"ÊÂ¼ş£©
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 2   
+
+  49                          enumEventSys100mS:           100mSÊÂ¼ş                      £¨"100ºÁÃëÊ±¼ä¼ä¸ôµ½"ÊÂ¼ş£©
+  50                          enumEventSys1S:              1SÊÂ¼ş                         £¨"1ÃëÊ±¼ä¼ä¸ôµ½"ÊÂ¼ş£©
+  51                          enumEventKey:                °´¼üÊÂ¼ş                       £¨K1¡¢K2¡¢K3 Èı¸ö°´¼üÓĞ"°´ÏÂ"»ò"Ì§Æğ"²
+             -Ù×÷£©
+  52                          enumEventHall:               »ô¶û´«¸ĞÆ÷ÊÂ¼ş                 £¨»ô¶û´«¸ĞÆ÷ÓĞ"´Å³¡½Ó½ü"»ò"´Å³¡Àë¿ª"ÊÂ
+             -¼ş£©
+  53                          enumEventVib:                Õñ¶¯´«¸ĞÆ÷ÊÂ¼ş                 £¨Õñ¶¯¸ĞÆ÷¼ì²âµ½"Õñ¶¯"ÊÂ¼ş£©
+  54                          enumEventNav:                µ¼º½°´¼üÊÂ¼ş                   £¨µ¼º½°´¼ü5¸ö·½Ïò¡¢»ò°´¼üK3 ÓĞ"°´ÏÂ"»ò
+             -"Ì§Æğ"²Ù×÷£©
+  55                          enumEventXADC:               À©Õ¹½Ó¿ÚÉÏÍê³ÉÒ»´ÎADC×ª»»ÊÂ¼ş  £¨P1.0¡¢P1.1²ÉÈ¡µ½Ò»×éĞÂÊı¾İ£©
+  56                          enumEventUart1Rxd:           Uart1ÊÕµ½ÁËÒ»¸ö·ûºÏÖ¸¶¨ÒªÇó£¨Êı¾İ°üÍ·Æ¥Åä¡¢Êı¾İ°ü´óĞ¡Ò»ÖÂ£©µÄÊı¾İ°ü
+  57                          enumEventUart2Rxd:           Uart2ÊÕµ½ÁËÒ»¸ö·ûºÏÖ¸¶¨ÒªÇó£¨Êı¾İ°üÍ·Æ¥Åä¡¢Êı¾İ°ü´óĞ¡Ò»ÖÂ£©µÄÊ
+             -ı¾İ°ü   
+  58                          enumEventIrRxd:              ºìÍâ½ÓÊÕÆ÷IrÉÏÊÕµ½Ò»¸öÊı¾İ°ü           
+  59                          
+  60                          ¶ÔÕâĞ©ÊÂ¼ş£¬Ó¦²ÉÓÃ"»Øµ÷º¯Êı"·½·¨ÏìÓ¦£¨¼´ÓÃsysÌá¹©µÄSetEventCallBack()ÉèÖÃÓÃ»§»Øµ÷º¯Êı£©£¬ÒÔÌá¸ßÏµÍ
+             -³ĞÔÄÜ¡£
+  61                          
+  62                    6£¬¸÷¿ÉÑ¡Ä£¿éÌá¹©µÄÆäËüº¯ÊıºÍ¾ßÌåÊ¹ÓÃ·½·¨Çë²Î¼û£º
+  63                          ¸÷Ä£¿éÍ·ÎÄ¼şÖĞµÄËµÃ÷£»
+  64                          main.cÌá¹©µÄÍÆ¼ö³ÌĞò¿ò¼ÜºÍ²¿·ÖÊ¾Àı£»
+  65                          ÆäËü¿ÉÄÜ¼¼ÊõÎÄµµ»òÓ¦ÓÃÊ¾Àı
+  66                      
+  67          ±àĞ´£ºĞì³É£¨µç»°18008400450£©   2021Äê2ÔÂ26ÈÕÉè¼Æ£¬2021Äê9ÔÂ1ÈÕ¸üĞÂ
+  68          **************************************************************************/
+  69          
+  70          #include "STC15F2K60S2.H"
+  71          #include "sys.H" 
+  72          #include "displayer.H" 
+  73          #include "key.h"
+  74          #include "hall.h"
+  75          #include "Vib.h"
+  76          #include "beep.h"
+  77          #include "music.h"
+  78          #include "adc.h"
+  79          #include "uart1.h"
+  80          #include "uart2.h"
+  81          #include "stepmotor.h"
+  82          #include "DS1302.h"
+  83          #include "M24C02.h"
+  84          #include "FM_Radio.h" 
+  85          #include "EXT.h"
+  86          #include "IR.h"
+  87          #include "stdio.h"                            // Keil C51 ¿â£¬Ê¾ÀıÖĞÎªÓ¦ÓÃÆäsprintfº¯Êı
+  88          
+  89          code unsigned long SysClock=11059200L;        //±ØĞë¡£ £¨¶¨ÒåÏµÍ³¹¤×÷Ê±ÖÓÆµÂÊ£¬ÓÃ»§¿ÉÒÔĞŞ¸Ä£¬ÇÒ±ØĞëÓëÊµ¼Ê¹
+             -¤×÷ÆµÂÊ£¨ÏÂÔØÊ±Ñ¡ÔñµÄ£©Ò»ÖÂ
+  90          #define Uart1Band  1200
+  91          
+  92          #ifdef _displayer_H_                          //ÏÔÊ¾Ä£¿éÑ¡ÓÃÊ±±ØĞë¡££¨ÊıÂë¹ÜÏÔÊ¾ÒëÂë±í£¬ÓÃ‘ô¿ÉĞŞ¸Ä¡¢Ôö¼ÓµÈ
+             -£© 
+  93          code char decode_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x08,0x40,0x01 };   
+  94                          /* ĞòºÅ:   0   1    2    3    4     5    6    7   8    9   10    11   12   13*        /
+  95                          /* ÏÔÊ¾:   0   1    2    3    4     5    6    7   8    9  (ÎŞ)   ÏÂ-  ÖĞ-  ÉÏ-       */  
+  96          #endif
+  97          
+  98          //******* ÓÃ»§³ÌĞò¶Î1£ºÓÃ»§¶¨Òåº¯ÊıÉùÃ÷¿ªÊ¼ *************//
+  99          #include "song.c"
+ 100          char beat,tone;        //Ó¦ÓÃ³ÌĞòµ÷Õû ½ÚÅÄÂÊ Òôµ÷ ÓÃ±äÁ¿
+ 101          
+ 102          bit txd_flag=0;   //=1  £¬±íÊ¾ÓĞ×¼±¸ºÃµÄÊı¾İ°üĞèÒª·¢ËÍ
+ 103            
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 3   
+
+ 104          //******* ÓÃ»§³ÌĞò¶Î1£ºÓÃ»§¶¨Òåº¯ÊıÉùÃ÷½áÊø *************//
+ 105          
+ 106          //******* ÓÃ»§³ÌĞò¶Î2£ºÓÃ»§È«¾Ö±äÁ¿¶¨Òå¿ªÊ¼ *************//
+ 107          
+ 108          //******* ÓÃ»§³ÌĞò¶Î2£ºÓÃ»§È«¾Ö±äÁ¿¶¨Òå½áÊø *************// 
+ 109          
+ 110          //******* ÓÃ»§³ÌĞò¶Î3£ºÓÃ»§º¯Êı¿ªÊ¼ *************//
+ 111          
+ 112          xdata struct_DS1302_RTC t={0x30,0,9,0x31,8,1,0x21};
+ 113          xdata struct_FMRadio FM={955,5,1,0xff,0};
+ 114          xdata SysPerF SysPer;
+*** ERROR C129 IN LINE 114 OF source\main_dev.c: missing ';' before 'SysPer'
+ 115          unsigned int rxdcounter=0;                  //Í³¼ÆÊÕµ½ÓĞĞ§Êı¾İ°ü¸öÊı
+ 116                                                      //´®¿ÚĞèÒª³õÊ¼»¯¡¢ÉèÖÃ´®¿Ú½ÓÊÕ·½Ê½¡¢ÉèÖÃ»Øµ÷º¯Êı¡¢Ğ´»Øµ÷º¯ÊıµÈ
+             -¡£¸÷Ïà¹Ø²¿·Ö¼ûÏÂ
+ 117          
+ 118          /***************  ¾ÙÀı£º´®¿Ú1¡¢´®¿Ú2¡¢ºìÍâÍ¨ĞÅ²âÊÔ  *********************
+ 119          //ËüÃÇµÄ³õÊ¼»¯ÈçÏÂ£º¾ùÔÚÔÚmain()ÖĞ
+ 120              
+ 121              Uart1Init(Uart1Band);                            //¾ÙÀı£¬´®¿Ú1³õÊ¼»¯£¬ÉèÖÃUart1Í¨ĞÅ²¨ÌØÂÊÎª£ºUart1Band
+             -£¨ÓÉºê¶¨ÒåÁË£º1200£©
+ 122              Uart2Init(Uart1Band*2,Uart2Usedfor485);          //¾ÙÀı£¬´®¿Ú2³õÊ¼»¯£¬ÓĞ²ÎÊı£¬ÉèÖÃUart2Í¨ĞÅ²¨ÌØÂÊÎª£º2±
+             -¶Uart1Band£¬485½Ó¿Ú
+ 123          //    Uart2Init(Uart1Band*2,Uart2UsedforEXT);          //¾ÙÀı                                             
+             -               EXT½Ó¿Ú
+ 124              IrInit(NEC_R05d);                                //¾ÙÀı£¬ºìÍâ½Ó¿ÚÉèÖÃ
+ 125          
+ 126              SetUart1Rxd(&rxd, sizeof(rxd), rxdhead, sizeof(rxdhead));   //ÉèÖÃ´®¿Ú1½ÓÊÕ£º½ÓÊÕÊı¾İ°ü·ÅÖÃÔÚrxdÖĞ£¬Êı
+             -¾İ°ü´óĞ¡rxd´óĞ¡£¬Êı¾İ°üÍ·ĞèÒªÓërxdheadÆ¥Åä£¬Æ¥ÅäÊıÁ¿rxdhead´óĞ¡
+ 127              SetUart2Rxd(&rxd, sizeof(rxd), rxdhead, sizeof(rxdhead));   //ÉèÖÃ´®¿Ú2½ÓÊÕ£º½ÓÊÕÊı¾İ°ü·ÅÖÃÔÚrxdÖĞ£¬Êı¾
+             -İ°ü´óĞ¡rxd´óĞ¡£¬Êı¾İ°üÍ·ĞèÒªÓërxdheadÆ¥Åä£¬Æ¥ÅäÊıÁ¿rxdhead´óĞ¡
+ 128              SetIrRxd(&rxd);                                             //ÉèÖÃºìÍâ½ÓÊÕ£º ½ÓÊÕÊı¾İ°ü·ÅÖÃÔÚrxdÖĞ
+ 129          ************************************************************************/
+ 130          
+ 131          unsigned char rxd[8];                       //¾ÙÀı£º´®¿Ú½ÓÊÕ»º³åÇø8×Ö½Ú
+ 132          unsigned char rxdhead[2]={0xaa,0x55};       //¶¨Òå°üÍ·Æ¥Åä×Ö·û£º2×Ö½Ú£¨0xAA£¬0x55£©
+ 133          
+ 134          void myUart1Rxd_callback()                 //Èç¹û´®¿Ú1Èç¹ûÊÕµ½ºÏ·¨Êı¾İ°ü£º£¨AA£¬55£¬......¡£¹²8×Ö½Ú£©
+ 135          { (*(rxd+2))++;                            //½«µÚ3×Ö½Ú¼Ó1
+ 136            if ( GetUart2TxStatus() == enumUart2TxFree ) 
+ 137              Uart2Print(&rxd, sizeof(rxd));           //½«Êı¾İ°ü´Ó´®¿Ú2(485¡¢»òEXTÀ©Õ¹½Ó¿ÚÉÏ)·¢ËÍ³öÈ¥
+ 138          }
+ 139          
+ 140          void myUart2Rxd_callback()                 //Èç¹û´®¿Ú1Èç¹ûÊÕµ½ºÏ·¨Êı¾İ°ü£º£¨AA£¬55£¬......¡£¹²8×Ö½Ú£©
+ 141          { (*(rxd+3))--;                            //½«µÚ4×Ö½Ú¼õ1
+ 142            IrPrint(&rxd, sizeof(rxd));              //½«Êı¾İ°ü´ÓºìÍâ·¢ËÍ³öÈ¥
+ 143            LedPrint(*(rxd+3));                      //ÔÚÁ÷Ë®µÆÉÏÏÔÊ¾µÚ4×Ö½ÚÖµ
+ 144          }
+ 145          
+ 146          void myIrRxd_callback()                   
+ 147          { if(GetIrRxNum() !=0)                    //Èç¹ûºìÍâ½Ó¿ÚÊÕµ½Êı¾İ°ü
+ 148            { (*(rxd+4))++;                         //½«µÚ5×Ö½Ú¼Ó1
+ 149              Uart1Print(&rxd, sizeof(rxd));        //´Ó´®¿Ú1·¢ËÍ³öÈ¥
+ 150            }
+ 151          }
+ 152          //*********************************************************************************************
+ 153          
+ 154          
+ 155          
+ 156          void my1mS_callback()        //¾ÙÀı¡£Éè¼ÆÃ¿1mS±»µ÷¶ÈÒ»´Î
+ 157          {  
+ 158          
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 4   
+
+ 159          }
+ 160            
+ 161          
+ 162          void my10mS_callback()         //¾ÙÀı¡£Éè¼ÆÃ¿10mS±»µ÷¶ÈÒ»´Î
+ 163          {  
+ 164            xdata char counter[40];     //¾ÙÀı£º£¨´®¿Ú·¢ËÍ¡¢·Ç×èÈûº¯ÊıÊ¹ÓÃ¡¢ºº×Ö¡¢ÎÄ±¾Êä³öµÈ£©
+ 165            if((txd_flag == 1) &&  (GetUart1TxStatus()==enumUart1TxFree))               //Èç¹ûÓĞÊı¾İ°üÒª·¢ËÍ ÇÒ Uart
+             -1·¢ËÍ¿Ú¿ÕÏĞ ¿ªÊ¼·¢ËÍ£¬·ñÔò£¬ÏÂÒ»ÂÖÔÙ³¢ÊÔ·¢ËÍ  
+ 166               {  sprintf(&counter,"ÊÕµ½ÁË¸ñÊ½·ûºÏÒªÇóµÄµÚ %u ¸ö°ü\r\n",rxdcounter);    //×¼±¸·¢ËÍÄÚÈİ£ºÎÄ±¾·½Ê½·¢ËÍ£¨
+             -´®¿ÚÖúÊÖĞèÒªÉèÖÃÎÄ±¾·½Ê½½ÓÊÕ£©
+ 167                                                                                        //sprintf ÊÇKeil C51Ìá¹©µÄ¿âº¯Êı£¬ÕâÀïÄ¿µÄÊÇ½«rxdcounter×ª»»³ÉÎÄ±¾
+             -£¬²¢ºÍÆäËüÎÄ×Ö·ÅÔÚÒ»Æğ£¬×¼±¸·¢ËÍ                                                            
+ 168                  Uart1Print(&counter, sizeof(counter));                                //Æô¶¯Uart1·¢ËÍ£¬Çå·¢ËÍÇëÇó±ê¼Ç
+ 169                  txd_flag=0;
+ 170               }
+ 171          }
+ 172            
+ 173          void myADC_callback()
+ 174          { 
+ 175          //  static unsigned char i,d1,d2,d3,d4,d5,d6,d7,d8;
+ 176          //  static unsigned int a,b,a0,b0;  
+ 177                                                    
+ 178          //  a+=GetAdcResult(enumAdcXP10);
+ 179          //  b+=GetAdcResult(enumAdcXP11); 
+ 180          //  a+=GetAdcResult(enumAdcRt);               //¾ÙÀı£¬¶ÔÎÂ¶È¡¢¹âÕÕ½øĞĞ¼òµ¥µÄÆ½¾ù¼ÆËã£¬Ê¹ÆäÊä³öÖµÎÈ¶¨£¨Ã¿Ãë
+             -Êä³ö5´Î£©
+ 181          //  b+=GetAdcResult(enumAdcRop);  
+ 182          //  
+ 183          //  if (++i==67)
+ 184          //  { 
+ 185          //    a=a/2+a0;
+ 186          //    b=b/2+b0;
+ 187          //    a0=a/2;
+ 188          //    b0=b/2;
+ 189          //    a=a/67;
+ 190          //    b=b/67;
+ 191          //  if(GetPlayerMode() != enumModePlay)      //Èç¹û²»ÊÇÕıÔÚ²¥·ÅÒôÀÖ£¬ÊıÂë¹ÜSeg7ÏÔÊ¾ÎÂ¶ÈºÍ¹âÕÕ
+ 192          //    {   d1=b/100;
+ 193          //        d2=b/10%10;
+ 194          //        d3=b%10;
+ 195          //        d4=10;
+ 196          //        d5=10;
+ 197          //        d6=a/100;
+ 198          //        d7=a/10%10;
+ 199          //        d8=a%10;    
+ 200          //        Seg7Print(d1,d2,d3,d4,d5,d6,d7,d8);   
+ 201          //  }
+ 202          //   i=0;
+ 203          //  a=0;
+ 204          //  b=0;
+ 205          //   }
+ 206          }
+ 207          
+ 208          unsigned char kkk;
+ 209          
+ 210          void my100mS_callback()       //¾ÙÀı¡£Éè¼ÆÃ¿100mS±»µ÷¶ÈÒ»´Î
+ 211          {  
+ 212            static int a,aa;    //¾ÙÀı£º£¨ADC Ä£¿éÓ¦ÓÃ£¬ÎÂ¶È¡¢¹âÕÕADCÖµÏÔÊ¾£©
+ 213            unsigned char b,c,d,e;
+ 214          
+ 215          if(GetPlayerMode() != enumModePlay)      //Èç¹û²»ÊÇÕıÔÚ²¥·ÅÒôÀÖ£¬²âÊÔDS1302µÄÊ±ÖÓºÍ·ÇÒ×Ê§´æ´¢Æ÷
+ 216              {  
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 5   
+
+ 217          //        kkk = GetFMLED(); 
+ 218          //        kkk=NVM_Read(0);
+ 219                  kkk = M24C02_Read(1); 
+ 220                
+ 221                  t = RTC_Read(); 
+ 222          //        LedPrint(t.year);
+ 223                
+ 224                  if(kkk%6 == 0 )
+ 225                    { c=t.second;  //DS1302Read(DS1302_second_read) ;
+ 226                      d=t.minute;
+ 227                      e=t.hour;
+ 228                    }
+ 229                    
+ 230                  if(kkk%6 == 1 )
+ 231                    { c=t.day;
+ 232                      d=t.month;
+ 233                      e=t.year;
+ 234                    }
+ 235          
+ 236                  if(kkk%6 == 2 )
+ 237                    { a=GetFMRadio().frequency;
+ 238                      d=a/100;
+ 239                      e=a%100;
+ 240                      
+ 241                      c=((e/10)<<4)+(e%10);
+ 242                      d=((d/10)<<4)+(d%10);
+ 243                      
+ 244                      e=GetFMRadio().volume;
+ 245                      e=((e/10)<<4)+(e%10);
+ 246                    }
+ 247                  if(kkk%6 == 3 )
+ 248                   {  a=GetUltraSonic();
+ 249                      a=GetWeight();
+ 250                      
+ 251                      
+ 252                      d=a/100%100;
+ 253                      e=a%100;
+ 254                      
+ 255                      c=((e/10)<<4)+(e%10);
+ 256                      d=((d/10)<<4)+(d%10); 
+ 257          
+ 258                      e=a/10000;
+ 259                      if (a>=0) e=0; else e=12;
+ 260                   }
+ 261                   
+ 262                  if(kkk%6 == 4 )  
+ 263                    { c=GetADC().Rt%100;
+ 264                      e=GetADC().Rop%100; 
+ 265                      
+ 266                      c=((c/10)<<4)+(c%10);
+ 267                      d=0xcc;
+ 268                      e=((e/10)<<4)+(e%10);
+ 269                    }
+ 270                    
+ 271                  if(kkk%6 == 5 )   
+ 272                  {
+ 273                      aa=aa+GetDecode();
+ 274                      if (aa>=0) {a=aa; b=0;} 
+ 275                         else {a=-aa; b=12;}
+ 276                      
+ 277                      d=a/100%100;
+ 278                      e=a%100;
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 6   
+
+ 279                      
+ 280                      c=((e/10)<<4)+(e%10);
+ 281                      d=((d/10)<<4)+(d%10); 
+ 282          
+ 283                      e=a/10000;
+ 284                      e=(b<<4)+e;
+ 285                      
+ 286                  }
+ 287                    
+ 288                  Seg7Print(e/16,e%16,12,d/16,d%16,12,c/16,c%16); 
+ 289              }
+ 290          }
+ 291          
+ 292          void my1S_callback()           //Éè¼ÆÃ¿1S±»µ÷¶ÈÒ»´Î
+ 293          {   
+ 294           if(kkk%4 == 1 )  
+ 295           { SysPer=GetSysPerformance();
+ 296             if((GetUart1TxStatus()==enumUart1TxFree))  Uart1Print(&SysPer, sizeof(SysPer));    // Ïò´®¿Ú±¨¸æÏµÍ³ĞÔÄÜ
+             -£¬Hex¸ñÊ½¡ª¡ªok  
+ 297           }
+ 298           
+ 299            if(kkk%4 == 2 ) 
+ 300           { if((GetIrStatus()==enumIrFree))            IrPrint(&rxd, sizeof(rxd));
+ 301            
+ 302           }
+ 303           
+ 304            if(kkk%4 == 3 ) 
+ 305           { if((GetIrStatus()==enumIrFree))            IrTxdSet(&rxd, sizeof(rxd)); 
+ 306           }
+ 307           
+ 308          }
+ 309          
+ 310          void myKN_callback()           //
+ 311          {   static char i=0x08;                                                                               //¾ÙÀ
+             -ı£ºµ½µ¼º½°´¼ü£¬K3°´¼ü£¬¿ÉÓÃUart1Print·¢ËÍµ¥Æ¬»úÄÚÈÎÒâÊı¾İ
+ 312              if(GetAdcNavAct(enumAdcNavKeyRight) == enumKeyPress)   {LedPrint(i=i>>1); SetBeep(1000,20); }     //µ¼º½
+             -°´¼ü¼ì²â ¾ÙÀı
+ 313              if(GetAdcNavAct(enumAdcNavKeyLeft)  == enumKeyPress)   {LedPrint(i=i<<1); SetBeep(1500,20); }    
+ 314              if(GetAdcNavAct(enumAdcNavKey3)  == enumKeyPress) 
+ 315          //          {Uart1Print(&decode_table, sizeof(decode_table)); SetBeep(1500,50);}     //ADCÄ£Ê½ÏÂ£¬K3¼ì²â¡¢´
+             -®¿Ú·¢ËÍ¶ş½øÖÆÊı¾İ(Ñ¡ÔñÒëÂë±í)·¢ËÍ ¾ÙÀı
+ 316          //           NVM_Write(0,++kkk);  
+ 317                    M24C02_Write(1, ++kkk ); 
+ 318          
+ 319              if (GetAdcNavAct(enumAdcNavKeyUp)== enumKeyPress)                                                 //¾ÙÀı
+             -£ºÓÃµ¼º½°´¼ü¿ØÖÆÈı¸ö²½½øµç»ú
+ 320                {   SetBeep(1000,20);     
+ 321                    if (GetStepMotorStatus(enumStepMotor1) != enumStepMotorFree)  EmStop(enumStepMotor1);
+ 322                    else  SetStepMotor(enumStepMotor1,6,-600);
+ 323                }
+ 324              if (GetAdcNavAct(enumAdcNavKeyDown)== enumKeyPress)                                               //¾Ù
+             -Àı£ºÓÃµ¼º½°´¼ü¿ØÖÆÈı¸ö²½½øµç»ú
+ 325                {   SetBeep(1200,20);
+ 326                    if (GetStepMotorStatus(enumStepMotor2) != enumStepMotorFree)  EmStop(enumStepMotor2); 
+ 327                    else SetStepMotor(enumStepMotor2,10,-500);
+ 328                }
+ 329              if (GetAdcNavAct(enumAdcNavKeyCenter)== enumKeyPress)                                             //¾Ù
+             -Àı£ºÓÃµ¼º½°´¼ü¿ØÖÆÈı¸ö²½½øµç»ú
+ 330                {   SetBeep(1400,20);
+ 331                    if (GetStepMotorStatus(enumStepMotor3) != enumStepMotorFree)  EmStop(enumStepMotor3); 
+ 332                    else SetStepMotor(enumStepMotor3,15,1000);
+ 333                }       
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 7   
+
+ 334          }
+ 335          
+ 336          void mykey_callback()    //°´¼üÊÂ¼şº¯Êı
+ 337          { unsigned int a;
+ 338            //¾ÙÀı£º °´¼üÊ¹ÓÃ¡¢ÒôÀÖÄ£¿é¼°º¯Êı¡¢´®¿ÚÊä³öÎÄ±¾¡¢ºº×Ö
+ 339              if (GetKeyAct(enumKey2)== enumKeyPress)       //°´¼ü¼ì²â¡¢ÒôÀÖ²¥·Å/ÔİÍ£/¼ÌĞøÇĞ»» ¾ÙÀı               
+ 340                { if (GetPlayerMode() == enumModePlay) SetPlayerMode(enumModePause);                 
+ 341                    else 
+ 342                    { if (GetPlayerMode() == enumModeStop) SetMusic(beat, 0xfc, &song, sizeof(song), enumMscDrvSeg7andLed
+             -);
+ 343                      SetPlayerMode(enumModePlay);      
+ 344                    } 
+ 345                    a=GetFMRadio().volume;
+ 346                    FM.volume=++a;
+ 347          //         a=GetFMRadio().GP3;
+ 348          //         if (a==0) FM.GP3=1;
+ 349          //            else FM.GP3=0;          
+ 350                  SetFMRadio(FM);           
+ 351                }           
+ 352              if (GetKeyAct(enumKey1)== enumKeyPress)   
+ 353                { Uart1Print("¸÷Î»Í¬Ñ§´ó¼ÒºÃ£¡\r\n", sizeof("¸÷Î»Í¬Ñ§´ó¼ÒºÃ£¡\r\n"));  // °´¼ü¼ì²â¡¢´®¿ÚÎÄ±¾Í¨ĞÅ ¾ÙÀı   
+ 354                  a=GetFMRadio().frequency; 
+ 355                  FM.frequency=--a; 
+ 356                  SetFMRadio(FM);
+ 357                  t.year++;
+ 358                  RTC_Write(t);
+ 359                }
+ 360          }
+ 361          
+ 362          void myhall_callback()                                                                                //¾ÙÀı
+             -¡£ÓĞhall¼üÊÂ¼ş£¨´Å³¡½Ó½ü»òÀë¿ª£©Ê±±»µ÷¶È
+ 363          {   if (GetHallAct()== enumHallGetClose)                                                              //ha
+             -llÊÂ¼ş ¿ØÖÆÒôÀÖÔİÍ£/¼ÌĞø ¾ÙÀı                      
+ 364                { 
+ 365          //        if (GetPlayerMode() == enumModePause) SetPlayerMode(enumModePlay); 
+ 366          //        else  SetPlayerMode(enumModePause)
+ 367                    SetPlayerMode(enumModeStop);                                                                //Í£Ö¹ ¾ÙÀı
+ 368                }             
+ 369          }
+ 370          
+ 371          void mySV_callback()                        //Ê¾Àı: ÓĞÕñ¶¯Ê±, ÇĞ»»°´¼üÊÂ¼ş»Øµ÷º¯Êı
+ 372          {   
+ 373              if(GetVibAct())
+ 374              if (GetPlayerMode() == enumModePause) SetPlayerMode(enumModePlay); 
+ 375                  else  SetPlayerMode(enumModePause);     
+ 376          }
+ 377          
+ 378          //******* ÓÃ»§³ÌĞò¶Î3£ºÓÃ»§º¯Êı½áÊø *************// 
+ 379          
+ 380          void main()
+ 381          {  
+ 382            
+ 383          //******* ÓÃ»§³ÌĞò¶Î4£ºÓÃ»§¶¨Òå¾Ö²¿±äÁ¿¿ªÊ¼ *************//
+ 384          
+ 385          //******* ÓÃ»§³ÌĞò¶Î4£ºÓÃ»§¶¨Òå¾Ö²¿±äÁ¿½áÊø *************//   
+ 386          //1,¼ÓÔØÄ£¿é(ÓÉ¸÷Ä£¿éÌá¹©¼ÓÔØº¯Êı)
+ 387              Key_Init();                                      //¾ÙÀı£¬ĞèÒªÓÃµ½µÄÄ£¿é¼°Æäº¯Êı¡¢·½·¨£¬±ØĞë¶ÔÆä³õÊ¼»¯£
+             -¨ÈÃÆä×¼±¸¡¢¾ÍĞ÷ºÍÏìÓ¦×öºóÌ¨·şÎñ£©
+ 388              HallInit();                                      //¾ÙÀı
+ 389              VibInit();                                       //¾ÙÀı
+ 390              DisplayerInit();                                 //¾ÙÀı
+ 391              BeepInit();                                      //¾ÙÀı
+C51 COMPILER V9.51   MAIN_DEV                                                              11/04/2021 23:40:58 PAGE 8   
+
+ 392              MusicPlayerInit();                               //¾ÙÀı
+ 393              AdcInit(ADCexpEXT);                              //¾ÙÀı£¬ADCÄ£¿é³õÊ¼»¯£¬ÓĞ²ÎÊı£¬Ñ¡ÔñÀ©Õ¹½Ó¿ÚEXTÉÏP1.0¡¢
+             -P1.1ÊÇ·ñÒ²×öADC¹¦ÄÜ
+ 394              StepMotorInit();                                 //¾ÙÀı£¬²½½øµç»ú³õÊ¼»¯
+ 395              DS1302Init(t);                                   //¾ÙÀı£¬DS1302³õÊ¼»¯
+ 396              FMRadioInit(FM);                                 //¾ÙÀı£¬FMRadio³õÊ¼»¯¡£ÆµÂÊ£º95.5MHz,ÒôÁ¿£º5£¬ÁÁGP1
+ 397            
+ 398              EXTInit(enumEXTDecode);                             //¾ÙÀı£¬EXT³õÊ¼»¯
+ 399            
+ 400              Uart1Init(Uart1Band);                            //¾ÙÀı£¬´®¿Ú1³õÊ¼»¯£¬ÓĞ²ÎÊı£¬ÉèÖÃUart1Í¨ĞÅ²¨ÌØÂÊÎª£ºUa
+             -rt1Band£¨ÓÉºê¶¨Òå£©
+ 401              Uart2Init(Uart1Band*2,Uart2Usedfor485);          //¾ÙÀı£¬´®¿Ú2³õÊ¼»¯£¬ÓĞ²ÎÊı£¬ÉèÖÃUart2Í¨ĞÅ²¨ÌØÂÊÎª£º2±
+             -¶Uart1Band£¬485½Ó¿Ú
+ 402          //    Uart2Init(Uart1Band*2,Uart2UsedforEXT);          //¾ÙÀı£¬´®¿Ú2³õÊ¼»¯£¬ÓĞ²ÎÊı£¬ÉèÖÃUart2Í¨ĞÅ²¨ÌØÂÊÎª£
+             -º2±¶Uart1Band£¬EXT½Ó¿Ú
+ 403              IrInit(NEC_R05d);                                //¾ÙÀı£¬ºìÍâ½Ó¿ÚÉèÖÃ
+ 404            
+ 405          //2,ÓÃ»§³ÌĞò³õÊ¼»¯  
+ 406              SetDisplayerArea(0,7);                           //¾ÙÀı
+ 407              Seg7Print(12,10,10,10,10,10,10,10);              //¾ÙÀı
+ 408              LedPrint(0);                                     //¾ÙÀı
+ 409              beat=90;                                         //¾ÙÀı  
+ 410              tone=0xFC;                                       //¾ÙÀı
+ 411          
+ 412              SetPWM(10, 50, 0, 100);                            //¾ÙÀı£¬ÔÚEXTInit(enumEXTPWM)Ê±£¬ÉèÖÃEXTÉÏP1.0½ÅPWM
+             -£ºÕ¼¿Õ±È99%¡¢ÆµÂÊ3Hz£» P1.1½ÅPWM£ºÕ¼¿Õ±È90%¡¢ÆµÂÊ1Hz,
+ 413          
+ 414              SetUart1Rxd(&rxd, sizeof(rxd), rxdhead, sizeof(rxdhead));   //ÉèÖÃ´®¿Ú½ÓÊÕ·½Ê½£ºÊı¾İ°üÌõ¼ş£º½ÓÊÕÊı¾İ°ü·
+             -ÅÖÃÔÚrxdÖĞ£¬Êı¾İ°ü´óĞ¡rxd´óĞ¡£¬Êı¾İ°üÍ·ĞèÒªÓërxdheadÆ¥Åä£¬Æ¥ÅäÊıÁ¿rxdhead´óĞ¡
+ 415              SetUart2Rxd(&rxd, sizeof(rxd), rxdhead, sizeof(rxdhead)); 
+ 416              SetIrRxd(&rxd);
+ 417            
+ 418          //3,ÉèÖÃÊÂ¼ş»Øµ÷º¯Êı(ÓÉsysÌá¹©º¯ÊıÉèÖÃ) 
+ 419              SetEventCallBack(enumEventKey, mykey_callback);            //¾ÙÀı
+ 420              SetEventCallBack(enumEventSys1mS, my1mS_callback);         //¾ÙÀı
+ 421              SetEventCallBack(enumEventSys10mS, my10mS_callback);       //¾ÙÀı
+ 422              SetEventCallBack(enumEventSys100mS, my100mS_callback);     //¾ÙÀı
+ 423              SetEventCallBack(enumEventSys1S, my1S_callback);           //¾ÙÀı
+ 424              SetEventCallBack(enumEventHall, myhall_callback);          //¾ÙÀı
+ 425              SetEventCallBack(enumEventVib, mySV_callback);             //¾ÙÀı
+ 426              SetEventCallBack(enumEventNav, myKN_callback);             //¾ÙÀı£¬ÉèÖÃµ¼º½°´¼ü»Øµ÷º¯Êı
+ 427              SetEventCallBack(enumEventUart1Rxd, myUart1Rxd_callback);  //¾ÙÀı£¬ÉèÖÃ´®¿Ú½ÓÊÕ»Øµ÷º¯Êı
+ 428              SetEventCallBack(enumEventUart2Rxd, myUart2Rxd_callback);  //¾ÙÀı£¬ÉèÖÃ´®¿Ú½ÓÊÕ»Øµ÷º¯Êı
+ 429              SetEventCallBack(enumEventXADC,myADC_callback);            //À©Õ¹½Ó¿ÚÉÏĞÂµÄADÖµÊÂ¼ş
+ 430              SetEventCallBack(enumEventIrRxd,myIrRxd_callback);         //ºìÍâIrÉÏÊÕµ½Ò»¸öÊı¾İ°ü
+ 431          //******* ÓÃ»§³ÌĞò¶Î5£ºÓÃ»§³õÊ¼»¯³ÌĞò½áÊø *************// 
+ 432          //4,STC-BÑ§Ï°°åÏµÍ³³õÊ¼»¯   
+ 433                 MySTC_Init();               //´ËĞĞ±ØĞë£¡£¡£¡   
+ 434            while(1)                         //´ËĞĞ±ØĞë£¡£¡£¡   
+ 435          //5,×°ÔØSTC-BÑ§Ï°°åÏµÍ³( MySTC_OS£¨£©)    
+ 436              {  MySTC_OS();                 //´ËĞĞ±ØĞë£¡£¡£¡   
+ 437          //******* ÓÃ»§³ÌĞò¶Î6£ºÓÃ»§Ö÷Ñ­»·³ÌĞò¿ªÊ¼ *************//
+ 438                
+ 439          //******* ÓÃ»§³ÌĞò¶Î6£ºÓÃ»§Ö÷Ñ­»·³ÌĞò½áÊø *************//             
+ 440              } 
+ 441          }
+ 442          
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

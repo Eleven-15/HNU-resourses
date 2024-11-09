@@ -1,0 +1,98 @@
+C51 COMPILER V9.51   MAIN                                                                  05/24/2022 23:10:39 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE source\main.c BROWSE INCDIR(.\inc) DEBUG OBJECTEXTEND PRINT(.\list\main.lst
+                    -) TABS(2) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          //¹¦ÄÜ£ºË«Í¨µÀÃë±í£¬K3¡¢K1¶ÀÁ¢¿ØÖÆÁ½¸öÃë±í¼ÆÊ±¿ªÊ¼ºÍ½áÊø£¬¼ÆÊ±·Ö±æÂÊ0.01S
+   2          #include "STC15F2K60S2.H"
+   3          #include "displayer.h"
+   4          #include "beep.h"
+   5          #include "Key.h"
+   6          #include "sys.h"
+   7          
+   8          code unsigned long SysClock=11059200;         //±ØÐë¡£¶¨ÒåÏµÍ³¹¤×÷Ê±ÖÓÆµÂÊ(Hz)£¬ÓÃ»§±ØÐëÐÞ¸Ä³ÉÓëÊµ¼Ê¹¤×÷Æµ
+             -ÂÊ£¨ÏÂÔØÊ±Ñ¡ÔñµÄ£©Ò»ÖÂ
+   9          
+  10          #ifdef _displayer_H_                          //ÏÔÊ¾Ä£¿éÑ¡ÓÃÊ±±ØÐë¡££¨ÊýÂë¹ÜÏÔÊ¾ÒëÂë±í£¬ÓÃ‘ô¿ÉÐÞ¸Ä¡¢Ôö¼ÓµÈ
+             -£© 
+  11          code char decode_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x08,0x40,0x01, 0x41, 0x4
+             -8, 
+  12                          /* ÐòºÅ:   0   1    2    3    4     5    6    7   8    9   10    11   12   13    14     15    
+             - */
+  13                          /* ÏÔÊ¾:   0   1    2    3    4     5    6    7   8    9  (ÎÞ)   ÏÂ-  ÖÐ-  ÉÏ-  ÉÏÖÐ-  ÖÐÏ
+             -Â-   */  
+  14                                   0x3f|0x80,0x06|0x80,0x5b|0x80,0x4f|0x80,0x66|0x80,0x6d|0x80,0x7d|0x80,0x07|0x80,0x
+             -7f|0x80,0x6f|0x80 };  
+  15                       /* ´øÐ¡Êýµã     0         1         2         3         4         5         6         7      
+             -   8         9        */
+  16          #endif
+  17          unsigned int time1,time2;
+  18          bit flag_t1=0,flag_t2=0;
+  19          
+  20          void mykey()
+  21          { if (GetKeyAct(enumKey3) == enumKeyPress) 
+  22   1           { flag_t1=~flag_t1; 
+  23   2             if (flag_t1) time1=0; 
+  24   2             SetBeep(1000,20);
+  25   2           }
+  26   1        if (GetKeyAct(enumKey1) == enumKeyPress) 
+  27   1          { flag_t2=~flag_t2; 
+  28   2            if (flag_t2) time2=0; 
+  29   2            SetBeep(1500,20);
+  30   2          }
+  31   1      }
+  32          
+  33          void my10mSfun()
+  34          { unsigned char d0,d1,d2,d3,d4,d5,d6,d7;
+  35   1        if(flag_t1 ==1)  time1++;
+  36   1        if(flag_t2 ==1)  time2++; 
+  37   1        
+  38   1        d0=time1/1000%10; if (d0==0) d0=10;
+  39   1        d1=time1/100%10+16;
+  40   1        d2=time1/10%10;
+  41   1        d3=time1%10;
+  42   1        
+  43   1        d4=time2/1000%10;if (d4==0) d4=10;
+  44   1        d5=time2/100%10+16;
+  45   1        d6=time2/10%10;
+  46   1        d7=time2%10;
+  47   1        Seg7Print(d0,d1,d2,d3,d4,d5,d6,d7);
+C51 COMPILER V9.51   MAIN                                                                  05/24/2022 23:10:39 PAGE 2   
+
+  48   1      }
+  49          
+  50          void main()
+  51          { DisplayerInit();
+  52   1        BeepInit();
+  53   1        KeyInit();
+  54   1        
+  55   1        SetEventCallBack(enumEventSys10mS, my10mSfun);  
+  56   1        SetEventCallBack(enumEventKey,mykey);
+  57   1        
+  58   1        SetDisplayerArea(0,7);
+  59   1        LedPrint(0);
+  60   1      
+  61   1        MySTC_Init();
+  62   1        while(1)
+  63   1         { MySTC_OS();
+  64   2         }
+  65   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    316    ----
+   CONSTANT SIZE    =     30    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

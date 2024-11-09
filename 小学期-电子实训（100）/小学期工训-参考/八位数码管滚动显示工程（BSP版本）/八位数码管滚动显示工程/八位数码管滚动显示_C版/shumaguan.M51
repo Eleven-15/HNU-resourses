@@ -1,0 +1,233 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/24/2019  09:56:43  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL\C51\BIN\BL51.EXE STARTUP.obj, shumaguan.obj TO shumaguan
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  shumaguan.obj (SHUMAGUAN)
+  D:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  shumaguan (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0024H     UNIT         ?DT?SHUMAGUAN
+            IDATA   002CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0005H     UNIT         ?PR?MAIN?SHUMAGUAN
+                    0008H     0003H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     009EH     UNIT         ?PR?T0_PROCESS?SHUMAGUAN
+            CODE    00ACH     008CH     UNIT         ?C_C51STARTUP
+            CODE    0138H     0036H     UNIT         ?PR?INIT?SHUMAGUAN
+            CODE    016EH     001FH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   shumaguan (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?SHUMAGUAN
+  +--> ?C_INITSEG
+
+?PR?MAIN?SHUMAGUAN
+  +--> ?PR?INIT?SHUMAGUAN
+
+
+
+SYMBOL TABLE OF MODULE:  shumaguan (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:00ACH         SEGMENT       ?C_C51STARTUP
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/24/2019  09:56:43  PAGE 2
+
+
+  I:002CH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:00AFH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:00ACH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:00ACH         LINE#         133
+  C:00AEH         LINE#         134
+  C:00AFH         LINE#         135
+  C:00B0H         LINE#         136
+  C:00B2H         LINE#         185
+  C:00B5H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        SHUMAGUAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0093H         PUBLIC        P0M1
+  D:0096H         PUBLIC        P2M0
+  D:0080H         PUBLIC        P0
+  D:0095H         PUBLIC        P2M1
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  B:00A8H.7       PUBLIC        EA
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  C:0138H         PUBLIC        Init
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:0003H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:0008H         PUBLIC        ucSeg7State
+  D:0009H         PUBLIC        arrDigSelect
+  C:000EH         PUBLIC        T0_Process
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/24/2019  09:56:43  PAGE 3
+
+
+  B:00A8H.1       PUBLIC        ET0
+  D:0011H         PUBLIC        arrSegSelect
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  D:0023H         PUBLIC        ucDig1Tmp
+  D:0024H         PUBLIC        ucDig2Tmp
+  D:0025H         PUBLIC        ucDig3Tmp
+  D:0026H         PUBLIC        ucDig4Tmp
+  B:0088H.4       PUBLIC        TR0
+  D:0027H         PUBLIC        ucDig5Tmp
+  D:0028H         PUBLIC        ucDig6Tmp
+  D:0029H         PUBLIC        ucDig7Tmp
+  D:002AH         PUBLIC        ucDig8Tmp
+  D:002BH         PUBLIC        ucCount
+  D:00D0H         PUBLIC        PSW
+  D:0094H         PUBLIC        P0M0
+  -------         PROC          INIT
+  C:0138H         LINE#         29
+  C:0138H         LINE#         30
+  C:0138H         LINE#         31
+  C:013BH         LINE#         32
+  C:013EH         LINE#         33
+  C:0141H         LINE#         34
+  C:0143H         LINE#         36
+  C:0145H         LINE#         37
+  C:0147H         LINE#         39
+  C:0149H         LINE#         40
+  C:014CH         LINE#         41
+  C:014FH         LINE#         42
+  C:0152H         LINE#         43
+  C:0155H         LINE#         44
+  C:0158H         LINE#         45
+  C:015BH         LINE#         46
+  C:015EH         LINE#         48
+  C:0161H         LINE#         49
+  C:0163H         LINE#         50
+  C:0166H         LINE#         51
+  C:0169H         LINE#         52
+  C:016BH         LINE#         53
+  C:016DH         LINE#         54
+  -------         ENDPROC       INIT
+  -------         PROC          T0_PROCESS
+  C:000EH         LINE#         57
+  C:001DH         LINE#         59
+  C:0020H         LINE#         60
+  C:0023H         LINE#         61
+  C:0025H         LINE#         62
+  C:002AH         LINE#         63
+  C:002AH         LINE#         64
+  C:002DH         LINE#         65
+  C:002FH         LINE#         66
+  C:002FH         LINE#         67
+  C:0034H         LINE#         68
+  C:0034H         LINE#         69
+  C:0037H         LINE#         70
+  C:0039H         LINE#         71
+  C:003BH         LINE#         72
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/24/2019  09:56:43  PAGE 4
+
+
+  C:003DH         LINE#         73
+  C:003FH         LINE#         74
+  C:0041H         LINE#         75
+  C:0043H         LINE#         76
+  C:0045H         LINE#         77
+  C:0047H         LINE#         78
+  C:0047H         LINE#         79
+  C:004AH         LINE#         80
+  C:0052H         LINE#         81
+  C:0075H         LINE#         82
+  C:0075H         LINE#         83
+  C:0075H         LINE#         84
+  C:0077H         LINE#         85
+  C:0079H         LINE#         86
+  C:0079H         LINE#         87
+  C:007BH         LINE#         88
+  C:007DH         LINE#         89
+  C:007DH         LINE#         90
+  C:007FH         LINE#         91
+  C:0081H         LINE#         92
+  C:0081H         LINE#         93
+  C:0083H         LINE#         94
+  C:0085H         LINE#         95
+  C:0085H         LINE#         96
+  C:0087H         LINE#         97
+  C:0089H         LINE#         98
+  C:0089H         LINE#         99
+  C:008BH         LINE#         100
+  C:008DH         LINE#         101
+  C:008DH         LINE#         102
+  C:008FH         LINE#         103
+  C:0091H         LINE#         104
+  C:0091H         LINE#         105
+  C:009FH         LINE#         106
+  C:009FH         LINE#         107
+  C:009FH         LINE#         108
+  -------         ENDPROC       T0_PROCESS
+  -------         PROC          MAIN
+  C:0003H         LINE#         111
+  C:0003H         LINE#         112
+  C:0003H         LINE#         113
+  C:0006H         LINE#         114
+  C:0006H         LINE#         115
+  C:0006H         LINE#         116
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        SHUMAGUAN
+
+Program Size: data=45.0 xdata=0 code=394
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,81 @@
+C51 COMPILER V9.51   STRUCT                                                                11/04/2021 23:44:47 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE STRUCT
+OBJECT MODULE PLACED IN .\output\struct.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE source\struct.c BROWSE INCDIR(.\inc) DEBUG OBJECTEXTEND PRINT(.\list\struct
+                    -.lst) TABS(2) OBJECT(.\output\struct.obj)
+
+line level    source
+
+   1          typedef struct                         //用于各模块加载驱动
+   2          {  void (*DrvDisplayer)() reentrant;  
+   3             void (*DrvKey)()       reentrant; 
+   4             char (*GetKey)()       reentrant;  
+   5             void (*DrvHall)()      reentrant;  
+   6             char (*GetHall)()      reentrant; 
+   7             void (*DrvVib)()       reentrant;   
+   8             char (*GetVib)()       reentrant; 
+   9             void (*DrvBeep)()      reentrant;  
+  10             void (*DrvMusic)()     reentrant; 
+  11             void (*DrvADC)()       reentrant;    
+  12             char (*GetNav)()       reentrant;            
+  13             char (*GetXADC)()      reentrant; 
+  14             char (*GetUart1Rxd)()  reentrant;
+  15             char (*GetUart2Rxd)()  reentrant;    
+  16             void (*DrvStepMotor)() reentrant; 
+  17             void (*FMRadio)()      reentrant; 
+  18             void (*DS1302_RTC)()   reentrant; 
+  19             void (*EXT)()          reentrant;
+  20          }  struct_SysPt;                         //系统驱动函数指针
+  21          
+  22          typedef struct 
+  23          {  void (*task_1mS_callback)()          reentrant;
+  24             void (*task_10mS_callback)()         reentrant;   //申明一个指向函数的指针变量,函数无参数,无返回值,"指针
+             -函数"声明
+  25             void (*task_100mS_callback)()        reentrant; 
+  26             void (*task_1S_callback)()           reentrant; 
+  27             void (*keyEvent_callback)()          reentrant; 
+  28             void (*SVEvent_callback)()           reentrant;
+  29             void (*hallEvent_callback)()         reentrant;
+  30             void (*KNEvent_callback)()           reentrant;  
+  31             void (*EXTADCEvent_callback)()       reentrant;  
+  32             void (*Uart1RxdEvent_callback)()     reentrant; 
+  33             void (*Uart2RxdEvent_callback)()     reentrant; 
+  34             void (*IrRxdEvent_callback)()        reentrant; 
+  35          } struct_callbackPC;                     //事件回调函数指针
+  36          
+  37          typedef struct 
+  38            {  unsigned int  band;                  //波特率
+  39              
+  40               unsigned char *txd_pt;               //发送字节指针(首地址）
+  41               unsigned int  txd_pc;                //发送字节计数变量 
+  42              
+  43               unsigned int  txd_Nmax;              //数据包总字节数,  可以超过256
+  44               char          txd_flag;              //=enumRxFree  空闲   
+  45               
+  46               unsigned char *rxd_pt;               //接收字节首指针（不变量）
+  47               unsigned int  rxd_Nmax;              //数据包总字节数    
+  48               unsigned int  rxd_pc;                //接收字节计数变量  
+  49               char          rxd_flag;              //=1 接收到新数据包， =0  无新数据包    
+  50          
+  51               unsigned char *rxd_head;             //匹配的包头首地址  
+  52               unsigned int  rxd_Nhead;             //需要匹配的数据包头 字节数量(有效：1 - rxd_Nmax，进行匹配。超出范
+             -围，不匹配进行输出），   
+C51 COMPILER V9.51   STRUCT                                                                11/04/2021 23:44:47 PAGE 2   
+
+  53            }struct_uart; 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

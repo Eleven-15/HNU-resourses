@@ -1,0 +1,617 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/29/2023  15:15:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL_V5\C51\BIN\BL51.EXE .\output\main.obj, .\source\STCBSP_V3.6.LIB TO .\output\BSP_Demo PRINT (.\list\BSP_Demo.m51)
+>>  RAMSIZE (256) XDATA (0X0000-0X07FF)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\output\main.obj (MAIN)
+  .\source\STCBSP_V3.6.LIB (SYS)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?LMUL)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLDIV)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLSHR)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDCODE)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTXDATA)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?ICALL)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+
+
+LINK MAP OF MODULE:  .\output\BSP_Demo (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0012H     UNIT         ?DT?SYS
+            DATA    001AH     0003H     UNIT         ?DT?_SETEVENTCALLBACK?SYS
+            DATA    001DH     0002H     UNIT         ?DT?GETULTRASONIC?SYS
+                    001FH     0001H                  *** GAP ***
+            BIT     0020H.0   0001H.7   UNIT         ?BI?SYS
+                    0021H.7   0000H.1                *** GAP ***
+            IDATA   0022H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     006EH     UNIT         ?XD?SYS
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0007H     UNIT         ?PR?GETSYSPERFORMANCE?SYS
+            CODE    000AH     0001H     UNIT         ?PR?MYKEY_CALLBACK?MAIN
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     002BH     UNIT         ?PR?SYS_TASK_1S?SYS
+            CODE    0039H     0001H     UNIT         ?PR?_?NULLFUNC?SYS
+                    003AH     0001H                  *** GAP ***
+            CODE    003BH     0003H     ABSOLUTE     
+            CODE    003EH     0180H     UNIT         ?C?LIB_CODE
+            CODE    01BEH     00EDH     UNIT         ?PR?SYS_TASK_1MS?SYS
+            CODE    02ABH     00A8H     UNIT         ?PR?SYS_CCP_ISR?SYS
+            CODE    0353H     0093H     UNIT         ?PR?SYS_TASK_10MS?SYS
+            CODE    03E6H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0472H     008BH     UNIT         ?PR?SYS_TASK_IR?SYS
+            CODE    04FDH     008BH     UNIT         ?C_INITSEG
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 2
+
+
+            CODE    0588H     007DH     UNIT         ?PR?_SETEVENTCALLBACK?SYS
+            CODE    0605H     0053H     UNIT         ?PR?GETULTRASONIC?SYS
+            CODE    0658H     0052H     UNIT         ?PR?SYS_TIMER0_ISR?SYS
+            CODE    06AAH     0047H     UNIT         ?PR?SYS_TIMER0_INIT?SYS
+            CODE    06F1H     0044H     UNIT         ?C?LDIV
+            CODE    0735H     003FH     UNIT         ?PR?SYS_TASK_100MS?SYS
+            CODE    0774H     003EH     UNIT         ?PR?MYSTC_OS?SYS
+            CODE    07B2H     0011H     UNIT         ?PR?_SETCCP0?SYS
+            CODE    07C3H     000BH     UNIT         ?PR?MAIN?MAIN
+            CODE    07CEH     0009H     UNIT         ?PR?GETBEEPTIMER?SYS
+            CODE    07D7H     0009H     UNIT         ?PR?_SETBEEPTIMER?SYS
+            CODE    07E0H     0006H     UNIT         ?PR?MYSTC_INIT?SYS
+            CODE    07E6H     0004H     UNIT         ?CO?MAIN
+            CODE    07EAH     0003H     UNIT         ?PR?_?RET0FUNC?SYS
+            CODE    07EDH     0003H     UNIT         ?PR?CLRBEEPPIN?SYS
+
+
+
+OVERLAY MAP OF MODULE:   .\output\BSP_Demo (MAIN)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN
+  +--> ?PR?MYSTC_INIT?SYS
+  +--> ?PR?MYSTC_OS?SYS
+
+?PR?MYSTC_INIT?SYS
+  +--> ?PR?SYS_TIMER0_INIT?SYS
+
+?PR?SYS_TIMER0_INIT?SYS
+  +--> ?CO?MAIN
+
+?PR?MYSTC_OS?SYS
+  +--> ?PR?SYS_TASK_IR?SYS
+  +--> ?PR?SYS_TASK_1MS?SYS
+  +--> ?PR?SYS_TASK_10MS?SYS
+  +--> ?PR?SYS_TASK_100MS?SYS
+  +--> ?PR?SYS_TASK_1S?SYS
+
+?C_INITSEG
+  +--> ?PR?_?NULLFUNC?SYS
+  +--> ?PR?_?RET0FUNC?SYS
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   EXTINIT
+
+
+
+SYMBOL TABLE OF MODULE:  .\output\BSP_Demo (MAIN)
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 3
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:000AH         PUBLIC        myKey_callback
+  C:07C3H         PUBLIC        main
+  C:07E6H         PUBLIC        SysClock
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MYKEY_CALLBACK
+  C:000AH         LINE#         14
+  C:000AH         LINE#         15
+  C:000AH         LINE#         17
+  -------         ENDPROC       MYKEY_CALLBACK
+  -------         PROC          MAIN
+  C:07C3H         LINE#         19
+  C:07C3H         LINE#         20
+  C:07C3H         LINE#         21
+  C:07C6H         LINE#         22
+  C:07C9H         LINE#         23
+  C:07C9H         LINE#         24
+  C:07CCH         LINE#         25
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        SYS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  X:0000H         PUBLIC        count_1mS
+  B:00D8H.2       PUBLIC        CCF2
+  D:0080H         PUBLIC        P0
+  B:0020H.1       PUBLIC        flag_1S
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  X:0001H         PUBLIC        T1
+  D:00C8H         PUBLIC        P5
+  X:0003H         PUBLIC        T2
+  B:00A8H.7       PUBLIC        EA
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:0009H         PUBLIC        IrDatNum
+  B:00D8H.7       PUBLIC        CF
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 4
+
+
+  B:0020H.2       PUBLIC        Ir_Coder
+  B:0020H.3       PUBLIC        Ir_RxBusy
+  D:00A8H         PUBLIC        IE
+  B:0020H.4       PUBLIC        Ir_TxBusy
+  X:0005H         PUBLIC        userfunccall
+  D:00FAH         PUBLIC        CCAP0H
+  D:00FBH         PUBLIC        CCAP1H
+  C:0472H         PUBLIC        sys_task_Ir
+  D:000AH         PUBLIC        IrCount_j
+  D:000BH         PUBLIC        IrRx_count
+  D:000CH         PUBLIC        IrProtocol
+  D:00EAH         PUBLIC        CCAP0L
+  D:000DH         PUBLIC        IrTx_count
+  D:00EBH         PUBLIC        CCAP1L
+  D:00DAH         PUBLIC        CCAPM0
+  D:00DBH         PUBLIC        CCAPM1
+  D:000EH         PUBLIC        MainLoops
+  D:00B8H         PUBLIC        IP
+  B:00D0H.7       PUBLIC        CY
+  B:0020H.5       PUBLIC        flag_10mS
+  D:00D8H         PUBLIC        CCON
+  C:07CEH         PUBLIC        GetBeepTimer
+  C:0658H         PUBLIC        sys_Timer0_isr
+  C:0588H         PUBLIC        _SetEventCallBack
+  C:07E0H         PUBLIC        MySTC_Init
+  C:0735H         PUBLIC        sys_task_100mS
+  D:0012H         PUBLIC        ModBus_interval_time
+  C:07EAH         PUBLIC        _?ret0func
+  C:0605H         PUBLIC        GetUltraSonic
+  X:0029H         PUBLIC        count_10mS
+  X:002AH         PUBLIC        stcDrivers
+  C:07D7H         PUBLIC        _SetBeepTimer
+  B:0020H.6       PUBLIC        flag_IrRxFinished
+  D:0098H         PUBLIC        SCON
+  C:07B2H         PUBLIC        _SetCCP0
+  C:0774H         PUBLIC        MySTC_OS
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:0020H.7       PUBLIC        flag_Ir
+  B:00B0H.5       PUBLIC        P35
+  D:0013H         PUBLIC        IrRxNum
+  X:0060H         PUBLIC        SysPerformance
+  D:008EH         PUBLIC        AUXR
+  C:02ABH         PUBLIC        sys_CCP_isr
+  C:01BEH         PUBLIC        sys_task_1mS
+  B:00A8H.1       PUBLIC        ET0
+  C:07EDH         PUBLIC        ClrBeepPin
+  D:008CH         PUBLIC        TH0
+  B:0021H.0       PUBLIC        flag_100mS
+  X:0065H         PUBLIC        distance
+  D:008AH         PUBLIC        TL0
+  D:0014H         PUBLIC        PollingMisses
+  X:0067H         PUBLIC        sys_BP
+  B:0088H.4       PUBLIC        TR0
+  C:000EH         PUBLIC        sys_task_1S
+  C:0003H         PUBLIC        GetSysPerformance
+  B:0021H.1       PUBLIC        matchModBus
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 5
+
+
+  X:006DH         PUBLIC        count_100mS
+  B:0021H.2       PUBLIC        Ir_BitBusy
+  D:0015H         PUBLIC        IrDat_count
+  D:0016H         PUBLIC        IrMute_count
+  B:0021H.3       PUBLIC        newFrame1
+  C:06AAH         PUBLIC        sys_Timer0_Init
+  B:0021H.4       PUBLIC        newFrame2
+  D:0017H         PUBLIC        IrDataPc
+  C:0039H         PUBLIC        _?nullfunc
+  B:0021H.5       PUBLIC        flag_1mS
+  B:0021H.6       PUBLIC        newUS
+  D:008FH         PUBLIC        INT_CLKO
+  C:0353H         PUBLIC        sys_task_10mS
+  D:00D0H         PUBLIC        PSW
+  B:00D8H.0       PUBLIC        CCF0
+  B:00B0H.4       PUBLIC        Beep
+  B:00D8H.1       PUBLIC        CCF1
+  -------         PROC          _?NULLFUNC
+  C:0039H         LINE#         13
+  -------         ENDPROC       _?NULLFUNC
+  -------         PROC          _?RET0FUNC
+  C:07EAH         LINE#         14
+  -------         ENDPROC       _?RET0FUNC
+  -------         PROC          SYS_TIMER0_INIT
+  C:06AAH         LINE#         96
+  C:06AAH         LINE#         97
+  C:06ADH         LINE#         98
+  C:06B0H         LINE#         99
+  C:06C6H         LINE#         100
+  C:06ECH         LINE#         101
+  C:06EEH         LINE#         102
+  C:06F0H         LINE#         103
+  -------         ENDPROC       SYS_TIMER0_INIT
+  -------         PROC          SYS_TIMER0_ISR
+  -------         DO            
+  D:0008H         SYMBOL        i
+  -------         ENDDO         
+  C:0658H         LINE#         105
+  C:065CH         LINE#         107
+  C:065FH         LINE#         108
+  C:0662H         LINE#         109
+  C:0667H         LINE#         110
+  C:0669H         LINE#         111
+  C:0669H         LINE#         112
+  C:066FH         LINE#         113
+  C:0675H         LINE#         114
+  C:0678H         LINE#         115
+  C:067AH         LINE#         116
+  C:067DH         LINE#         117
+  C:0681H         LINE#         118
+  C:0683H         LINE#         119
+  C:0686H         LINE#         120
+  C:0688H         LINE#         122
+  C:068BH         LINE#         123
+  C:068DH         LINE#         124
+  C:0692H         LINE#         125
+  C:0692H         LINE#         126
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 6
+
+
+  C:0694H         LINE#         128
+  C:069DH         LINE#         129
+  C:069FH         LINE#         130
+  C:06A5H         LINE#         131
+  C:06A5H         LINE#         132
+  C:06A5H         LINE#         133
+  C:06A5H         LINE#         134
+  -------         ENDPROC       SYS_TIMER0_ISR
+  -------         PROC          GETULTRASONIC
+  -------         DO            
+  D:001DH         SYMBOL        a
+  -------         ENDDO         
+  C:0605H         LINE#         138
+  C:0605H         LINE#         139
+  C:0605H         LINE#         140
+  C:0608H         LINE#         141
+  C:060AH         LINE#         142
+  C:0619H         LINE#         143
+  C:064FH         LINE#         144
+  C:064FH         LINE#         145
+  C:0657H         LINE#         146
+  -------         ENDPROC       GETULTRASONIC
+  -------         PROC          GETBEEPTIMER
+  C:07CEH         LINE#         148
+  C:07CEH         LINE#         149
+  C:07D6H         LINE#         150
+  -------         ENDPROC       GETBEEPTIMER
+  -------         PROC          _SETBEEPTIMER
+  D:0006H         SYMBOL        a
+  C:07D7H         LINE#         152
+  C:07D7H         LINE#         153
+  C:07DFH         LINE#         154
+  -------         ENDPROC       _SETBEEPTIMER
+  -------         PROC          _SETCCP0
+  D:0006H         SYMBOL        step
+  D:0004H         SYMBOL        next
+  C:07B2H         LINE#         156
+  C:07B2H         LINE#         157
+  C:07BAH         LINE#         158
+  C:07C2H         LINE#         159
+  -------         ENDPROC       _SETCCP0
+  -------         PROC          CLRBEEPPIN
+  C:07EDH         LINE#         161
+  C:07EDH         LINE#         162
+  C:07EFH         LINE#         163
+  -------         ENDPROC       CLRBEEPPIN
+  -------         PROC          SYS_CCP_ISR
+  -------         DO            
+  B:0020H.0       SYMBOL        a
+  -------         ENDDO         
+  C:02ABH         LINE#         165
+  C:02BEH         LINE#         167
+  C:02C5H         LINE#         168
+  C:02CCH         LINE#         169
+  C:02CFH         LINE#         170
+  C:02D1H         LINE#         171
+  C:02E1H         LINE#         172
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 7
+
+
+  C:02E8H         LINE#         173
+  C:02EBH         LINE#         174
+  C:02EDH         LINE#         175
+  C:02EFH         LINE#         177
+  C:0303H         LINE#         178
+  C:0306H         LINE#         179
+  C:0308H         LINE#         180
+  C:030AH         LINE#         181
+  C:030CH         LINE#         183
+  C:030CH         LINE#         184
+  C:030FH         LINE#         185
+  C:0311H         LINE#         186
+  C:031BH         LINE#         187
+  C:031DH         LINE#         188
+  C:0326H         LINE#         189
+  C:0329H         LINE#         190
+  C:033BH         LINE#         191
+  C:033DH         LINE#         193
+  C:033FH         LINE#         194
+  C:0342H         LINE#         195
+  C:0342H         LINE#         196
+  C:0342H         LINE#         197
+  -------         ENDPROC       SYS_CCP_ISR
+  -------         PROC          MYSTC_INIT
+  C:07E0H         LINE#         199
+  C:07E0H         LINE#         200
+  C:07E3H         LINE#         201
+  C:07E5H         LINE#         202
+  -------         ENDPROC       MYSTC_INIT
+  -------         PROC          SYS_TASK_IR
+  -------         DO            
+  D:0007H         SYMBOL        a
+  -------         ENDDO         
+  C:0472H         LINE#         204
+  C:0472H         LINE#         205
+  C:0472H         LINE#         206
+  C:0488H         LINE#         207
+  C:048FH         LINE#         208
+  C:0492H         LINE#         209
+  C:0495H         LINE#         210
+  C:04ABH         LINE#         211
+  C:04BBH         LINE#         212
+  C:04C3H         LINE#         213
+  C:04C6H         LINE#         214
+  C:04C8H         LINE#         216
+  C:04DEH         LINE#         217
+  C:04F2H         LINE#         218
+  C:04F2H         LINE#         219
+  C:04F4H         LINE#         220
+  C:04F7H         LINE#         222
+  C:04F7H         LINE#         224
+  C:04F9H         LINE#         225
+  C:04FCH         LINE#         226
+  C:04FCH         LINE#         227
+  -------         ENDPROC       SYS_TASK_IR
+  -------         PROC          SYS_TASK_1MS
+  C:01BEH         LINE#         229
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 8
+
+
+  C:01BEH         LINE#         230
+  C:01C6H         LINE#         231
+  C:01C9H         LINE#         232
+  C:01CBH         LINE#         233
+  C:01D3H         LINE#         234
+  C:01D6H         LINE#         235
+  C:01D8H         LINE#         236
+  C:01E0H         LINE#         237
+  C:01E3H         LINE#         238
+  C:01E5H         LINE#         239
+  C:01E5H         LINE#         240
+  C:01E5H         LINE#         241
+  C:01E5H         LINE#         242
+  C:01F1H         LINE#         243
+  C:01FDH         LINE#         244
+  C:0209H         LINE#         245
+  C:0215H         LINE#         246
+  C:0221H         LINE#         247
+  C:022DH         LINE#         248
+  C:0248H         LINE#         249
+  C:0257H         LINE#         250
+  C:0263H         LINE#         251
+  C:0265H         LINE#         252
+  C:0265H         LINE#         253
+  C:026CH         LINE#         254
+  C:026FH         LINE#         255
+  C:027EH         LINE#         256
+  C:0280H         LINE#         257
+  C:0280H         LINE#         258
+  C:0282H         LINE#         260
+  C:0291H         LINE#         261
+  C:029DH         LINE#         262
+  C:029FH         LINE#         263
+  C:029FH         LINE#         264
+  C:029FH         LINE#         265
+  -------         ENDPROC       SYS_TASK_1MS
+  -------         PROC          SYS_TASK_10MS
+  C:0353H         LINE#         268
+  C:0353H         LINE#         269
+  C:035FH         LINE#         270
+  C:036BH         LINE#         271
+  C:0377H         LINE#         272
+  C:0383H         LINE#         273
+  C:039EH         LINE#         274
+  C:03B9H         LINE#         275
+  C:03D4H         LINE#         276
+  C:03D7H         LINE#         277
+  C:03D9H         LINE#         278
+  C:03E5H         LINE#         279
+  C:03E5H         LINE#         280
+  -------         ENDPROC       SYS_TASK_10MS
+  -------         PROC          SYS_TASK_100MS
+  C:0735H         LINE#         282
+  C:0735H         LINE#         283
+  C:0741H         LINE#         284
+  C:075CH         LINE#         285
+  C:0768H         LINE#         286
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 9
+
+
+  -------         ENDPROC       SYS_TASK_100MS
+  -------         PROC          SYS_TASK_1S
+  C:000EH         LINE#         289
+  C:000EH         LINE#         290
+  C:001CH         LINE#         291
+  C:0022H         LINE#         292
+  C:002BH         LINE#         293
+  C:002DH         LINE#         294
+  -------         ENDPROC       SYS_TASK_1S
+  -------         PROC          MYSTC_OS
+  C:0774H         LINE#         297
+  C:0774H         LINE#         298
+  C:077CH         LINE#         299
+  C:0784H         LINE#         300
+  C:078CH         LINE#         301
+  C:0794H         LINE#         302
+  C:079CH         LINE#         303
+  C:07B1H         LINE#         306
+  -------         ENDPROC       MYSTC_OS
+  -------         PROC          _SETEVENTCALLBACK
+  D:0007H         SYMBOL        event
+  D:001AH         SYMBOL        user_callback
+  C:0588H         LINE#         308
+  C:058EH         LINE#         309
+  C:05BFH         LINE#         310
+  C:05C2H         LINE#         311
+  C:05C4H         LINE#         312
+  C:05C7H         LINE#         313
+  C:05C9H         LINE#         314
+  C:05CCH         LINE#         315
+  C:05CEH         LINE#         316
+  C:05D1H         LINE#         317
+  C:05D3H         LINE#         318
+  C:05D6H         LINE#         319
+  C:05D8H         LINE#         320
+  C:05DBH         LINE#         321
+  C:05DDH         LINE#         322
+  C:05E0H         LINE#         323
+  C:05E2H         LINE#         324
+  C:05E5H         LINE#         325
+  C:05E7H         LINE#         326
+  C:05EAH         LINE#         327
+  C:05ECH         LINE#         328
+  C:05EFH         LINE#         329
+  C:05F1H         LINE#         330
+  C:05F4H         LINE#         331
+  C:05F6H         LINE#         332
+  C:0604H         LINE#         333
+  C:0604H         LINE#         334
+  C:0604H         LINE#         335
+  C:0604H         LINE#         336
+  -------         ENDPROC       _SETEVENTCALLBACK
+  -------         PROC          GETSYSPERFORMANCE
+  C:0003H         LINE#         338
+  C:0003H         LINE#         339
+  C:0009H         LINE#         340
+  -------         ENDPROC       GETSYSPERFORMANCE
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 10
+
+
+  -------         ENDMOD        SYS
+
+  -------         MODULE        ?C?CLDOPTR
+  C:003EH         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?LMUL
+  C:006BH         PUBLIC        ?C?LMUL
+  -------         ENDMOD        ?C?LMUL
+
+  -------         MODULE        ?C?SLDIV
+  C:06F1H         PUBLIC        ?C?SLDIV
+  -------         ENDMOD        ?C?SLDIV
+
+  -------         MODULE        ?C?SLSHR
+  C:00BAH         PUBLIC        ?C?SLSHR
+  -------         ENDMOD        ?C?SLSHR
+
+  -------         MODULE        ?C?LLDCODE
+  C:00CEH         PUBLIC        ?C?LLDCODE
+  -------         ENDMOD        ?C?LLDCODE
+
+  -------         MODULE        ?C?LSTXDATA
+  C:00DEH         PUBLIC        ?C?LSTXDATA
+  -------         ENDMOD        ?C?LSTXDATA
+
+  -------         MODULE        ?C?ICALL
+  C:00EAH         PUBLIC        ?C?ICALL
+  C:00EEH         PUBLIC        ?C?ICALL2
+  -------         ENDMOD        ?C?ICALL
+
+  -------         MODULE        ?C?ULDIV
+  C:012CH         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?MYKEY_CALLBACK?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?GETULTRASONIC?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?GETBEEPTIMER?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETBEEPTIMER?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETCCP0?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CLRBEEPPIN?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SETEVENTCALLBACK?SYS
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/29/2023  15:15:51  PAGE 11
+
+
+    SEGMENT: ?PR?GETSYSPERFORMANCE?SYS
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  EXTINIT
+    MODULE:  .\output\main.obj (MAIN)
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  EXTINIT
+    MODULE:  .\output\main.obj (MAIN)
+    ADDRESS: 07C4H
+
+Program Size: data=33.7 xdata=110 code=2031
+LINK/LOCATE RUN COMPLETE.  10 WARNING(S),  0 ERROR(S)

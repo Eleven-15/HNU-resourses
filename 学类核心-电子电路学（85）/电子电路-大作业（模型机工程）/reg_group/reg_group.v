@@ -1,0 +1,35 @@
+module reg_group(clk,we,raa,rwba,i,s,d,A,B,C);
+input clk,we;
+input [1:0] raa,rwba;
+input [7:0] i;
+output reg [7:0] s,d;
+output reg [7:0] A,B,C;
+
+initial C=8'b10000000;
+
+always@(*)
+begin
+    // s=(raa==2'b00) ? A : (raa==2'b01) ? B : C;
+    // d=(rwba==2'b00) ? A : (rwba==2'b01) ? B : C;
+    if (raa==2'b00) s=A;
+    else if (raa==2'b01) s=B;
+    else s=C;
+    
+    if (rwba==2'b00) d=A;
+    else if (rwba==2'b01) d=B;
+    else d=C;
+end
+
+always@(negedge clk)
+begin
+    if (we==1'b0) 
+    begin
+        case(rwba)
+        2'b00:A=i;
+        2'b01:B=i;
+        2'b10:C=i;
+        endcase
+    end
+    else;
+end
+endmodule

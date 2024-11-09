@@ -1,0 +1,9 @@
+module sm(clk,sm_en,sm);
+input clk,sm_en;
+output wire sm;
+
+always@(negedge clk)
+begin
+    if (sm_en) sm=!sm;
+end
+endmodule

@@ -1,0 +1,152 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/29/2023  10:41:17  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\test.obj, .\Objects\STARTUP.obj TO .\Objects\ ˝¬Îπ‹œ‘ æ12HL-21 PRINT (.\Listings\ 
+>> ˝¬Îπ‹œ‘ æ12HL-21.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\test.obj (TEST)
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  E:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\ ˝¬Îπ‹œ‘ æ12HL-21 (TEST)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     003CH     UNIT         ?DT?TEST
+            IDATA   0044H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0047H     UNIT         ?C_INITSEG
+            CODE    00D6H     003DH     UNIT         ?PR?MAIN?TEST
+            CODE    0113H     000BH     UNIT         ?PR?_DELAY?TEST
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\ ˝¬Îπ‹œ‘ æ12HL-21 (TEST)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TEST
+  +--> ?C_INITSEG
+
+?PR?MAIN?TEST
+  +--> ?PR?_DELAY?TEST
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\ ˝¬Îπ‹œ‘ æ12HL-21 (TEST)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TEST
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0093H         PUBLIC        P0M1
+  D:0096H         PUBLIC        P2M0
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/29/2023  10:41:17  PAGE 2
+
+
+  D:0080H         PUBLIC        P0
+  D:0095H         PUBLIC        P2M1
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:0008H         PUBLIC        weixuan
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:0010H         PUBLIC        letters
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  D:002AH         PUBLIC        duanxuan_12HL21
+  C:00D6H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:0032H         PUBLIC        i
+  D:0034H         PUBLIC        duanxuan
+  C:0113H         PUBLIC        _Delay
+  D:00D0H         PUBLIC        PSW
+  D:0094H         PUBLIC        P0M0
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        n
+  C:0113H         LINE#         66
+  C:0113H         LINE#         67
+  C:0113H         LINE#         68
+  C:011DH         LINE#         69
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  C:00D6H         LINE#         71
+  C:00D6H         LINE#         72
+  C:00D6H         LINE#         73
+  C:00D9H         LINE#         74
+  C:00DCH         LINE#         75
+  C:00DFH         LINE#         76
+  C:00E1H         LINE#         78
+  C:00E1H         LINE#         79
+  C:00E1H         LINE#         80
+  C:00E6H         LINE#         81
+  C:00E6H         LINE#         82
+  C:00E9H         LINE#         83
+  C:00F2H         LINE#         84
+  C:00F9H         LINE#         85
+  C:0100H         LINE#         86
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TEST
+
+  -------         MODULE        ?C_STARTUP
+  C:0003H         SEGMENT       ?C_C51STARTUP
+  I:0044H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/29/2023  10:41:17  PAGE 3
+
+
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0006H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0003H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0003H         LINE#         133
+  C:0005H         LINE#         134
+  C:0006H         LINE#         135
+  C:0007H         LINE#         136
+  C:0009H         LINE#         185
+  C:000CH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+Program Size: data=69.0 xdata=0 code=286
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

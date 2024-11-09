@@ -1,0 +1,70 @@
+C51 COMPILER V9.51   MAIN                                                                  05/23/2019 14:46:56 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "KEY.H"
+   2          //#include "led.h"
+   3          #include "Delay.h"
+   4          #include "FM.h"
+   5                                        
+   6          unsigned char Radio_Write_Data[8]={          
+   7            0xc0,0x11,          //02H:音频输出，静音禁用，12MHZ，启用状态
+   8            0x1a,0x50,          //03H:97500KHZ,频率使能87-108M(US/Europe)，步进100KHZ
+   9            0x40,0x02,        //04H:1-0为GPIO1(10为低，灯亮；11为高，灯灭)，...
+  10            0x88,0xa5 };      //a5中的5为初始音量
+  11          unsigned long frequency=0;
+  12          unsigned int chan=0;
+  13          unsigned char volume; 
+  14          /*系统初始化函数
+  15          *初始化系统的A/D,IO口以及收音机芯片（RDA5807P）
+  16          */
+  17          void Init()
+  18          { 
+  19   1        Init_KEY();   
+  20   1        Config_LED();
+  21   1          
+  22   1        /*FM硬件初始化*/
+  23   1         P4M0=0x00;
+  24   1         P4M1=0x00;
+  25   1        
+  26   1         P5M0=0xff;
+  27   1         P5M1=0x00;
+  28   1        
+  29   1         Init_Radio();
+  30   1        P2_3 = 0;
+  31   1      }
+  32          
+  33          /*主函数
+  34          *初始化系统，然后循环调用按键监听函数以及数码管显示函数
+  35          */
+  36          void main()
+  37          {
+  38   1        Init(); 
+  39   1        while(1)
+  40   1        {
+  41   2          Frequency_Display();
+  42   2          Search_Keyscan();
+  43   2          KeyScan();      
+  44   2        }
+  45   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     36    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     15    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.51   MAIN                                                                  05/23/2019 14:46:56 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

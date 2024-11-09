@@ -1,0 +1,145 @@
+C51 COMPILER V9.51   SHUMAGUAN                                                             04/24/2019 09:56:43 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE SHUMAGUAN
+OBJECT MODULE PLACED IN shumaguan.OBJ
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE shumaguan.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /**********************
+   2          mySeg7Shift 八位数码管滚动显示
+   3          型号:STC15F2K60S2 主频:11.0592MHz
+   4          ************************/
+   5          #include "STC15F2K60S2.H"
+   6          #define uint unsigned int
+   7          #define uchar unsigned char
+   8          
+   9          /*---------引脚别名定义---------*/
+  10          sbit sbtSel0 = P2 ^ 0; //
+  11          sbit sbtSel1 = P2 ^ 1; //
+  12          sbit sbtSel2 = P2 ^ 2; //位选的三个引脚控制位
+  13          
+  14          /*---------变量定义---------*/
+  15          uchar ucDig1Tmp;
+  16          uchar ucDig2Tmp;
+  17          uchar ucDig3Tmp;
+  18          uchar ucDig4Tmp;
+  19          uchar ucDig5Tmp;
+  20          uchar ucDig6Tmp;
+  21          uchar ucDig7Tmp;
+  22          uchar ucDig8Tmp;//show_wi(i=1,2,3,4,……,8)分别是对应左到右的各个数码管上的显示的数字
+  23          uchar ucSeg7State;
+  24          uchar ucCount;
+  25          uchar arrSegSelect[] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e
+             -, 0x79, 0x71, 0x40, 0x00}; //段选，显示0-f
+  26          uchar arrDigSelect[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07}; //位选,选择是0-7中的一个数码管
+  27          
+  28          /*---------初始化函数---------*/
+  29          void Init()
+  30          {
+  31   1          P2M0 = 0xff;
+  32   1          P2M1 = 0x00;
+  33   1          P0M0 = 0xff;
+  34   1          P0M1 = 0x00; //P0，P2都设置为推挽输出
+  35   1      
+  36   1          ucSeg7State = 0;
+  37   1          ucCount = 0;
+  38   1      
+  39   1          ucDig1Tmp = 0; //最开始数码管从左到右显示0-7
+  40   1          ucDig2Tmp = 1;
+  41   1          ucDig3Tmp = 2;
+  42   1          ucDig4Tmp = 3;
+  43   1          ucDig5Tmp = 4;
+  44   1          ucDig6Tmp = 5;
+  45   1          ucDig7Tmp = 6;
+  46   1          ucDig8Tmp = 7;
+  47   1      
+  48   1          TMOD = 0x01;             //定时器0，方式1
+  49   1          ET0 = 1;                  //开启定时器中断
+  50   1          TH0 = ( 65535 - 1000 ) / 256; //定时器0的高八位设置
+  51   1          TL0 = ( 65535 - 1000 ) % 256; //定时器0的低八位设置，这里总体就是设置定时器0的初始值是1ms
+  52   1          TR0 = 1;                 //启动定时器
+  53   1          EA = 1;                  //打开总的中断
+  54   1      }
+C51 COMPILER V9.51   SHUMAGUAN                                                             04/24/2019 09:56:43 PAGE 2   
+
+  55          
+  56          /*---------定时器T0中断服务函数---------*/
+  57          void T0_Process() interrupt 1     //把数码管的显示提到中断里面来了
+  58          {
+  59   1          TH0 = ( 65535 - 1000 ) / 256; //重新装载定时器0的初始值，为了下一次定时器溢出准备
+  60   1          TL0 = ( 65535 - 1000 ) % 256;
+  61   1          ucSeg7State++;         //这变量两个作用：具有下面分频作用，和扫描过程中显示第ucSeg7State个数码管的作用
+  62   1          if( ucSeg7State == 8 )    //进行分频，每中断八次才让ucCount的值加一次
+  63   1          {
+  64   2              ucSeg7State = 0;
+  65   2              ucCount++;
+  66   2          }
+  67   1          if( ucCount == 100 )     //考虑到扫描频率很高这里再次分频，ucCount加到100才执行
+  68   1          {
+  69   2              ucCount = 0;
+  70   2              ucDig1Tmp++;     //让从左到右各个数码管上的数字都加一
+  71   2              ucDig2Tmp++;
+  72   2              ucDig3Tmp++;
+  73   2              ucDig4Tmp++;
+  74   2              ucDig5Tmp++;
+  75   2              ucDig6Tmp++;
+  76   2              ucDig7Tmp++;
+  77   2              ucDig8Tmp++;
+  78   2          }
+  79   1          P0 = 0;                       //让数码管显示更加好，不受上一次P0赋的值的影响
+  80   1          P2 = arrDigSelect[ucSeg7State];   //位选，选第ucSeg7State个数码管
+  81   1          switch( ucSeg7State )           //每次中断显示一个数码管来显示
+  82   1          {
+  83   2              case 0:
+  84   2                  P0 = arrSegSelect[ucDig1Tmp % 10];
+  85   2                  break;//从左到右，第一个数码管显示
+  86   2              case 1:
+  87   2                  P0 = arrSegSelect[ucDig2Tmp % 10];
+  88   2                  break;//从左到右，第二个数码管显示
+  89   2              case 2:
+  90   2                  P0 = arrSegSelect[ucDig3Tmp % 10];
+  91   2                  break;//从左到右，第三个数码管显示
+  92   2              case 3:
+  93   2                  P0 = arrSegSelect[ucDig4Tmp % 10];
+  94   2                  break;//从左到右，第四个数码管显示
+  95   2              case 4:
+  96   2                  P0 = arrSegSelect[ucDig5Tmp % 10];
+  97   2                  break;//从左到右，第五个数码管显示
+  98   2              case 5:
+  99   2                  P0 = arrSegSelect[ucDig6Tmp % 10];
+ 100   2                  break;//从左到右，第六个数码管显示
+ 101   2              case 6:
+ 102   2                  P0 = arrSegSelect[ucDig7Tmp % 10];
+ 103   2                  break;//从左到右，第七个数码管显示
+ 104   2              default:
+ 105   2                  P0 = arrSegSelect[ucDig8Tmp % 10];
+ 106   2                  break;//从左到右，第八个数码管显示
+ 107   2          }
+ 108   1      }
+ 109          
+ 110          /*---------主函数---------*/
+ 111          void main()
+ 112          {
+ 113   1          Init(); //初始化
+ 114   1          while( 1 )
+ 115   1          {
+ 116   2          }
+C51 COMPILER V9.51   SHUMAGUAN                                                             04/24/2019 09:56:43 PAGE 3   
+
+ 117   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    217    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     36    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

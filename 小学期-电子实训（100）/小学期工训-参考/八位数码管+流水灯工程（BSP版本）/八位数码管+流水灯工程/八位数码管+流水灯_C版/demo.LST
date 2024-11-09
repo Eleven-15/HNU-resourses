@@ -1,0 +1,100 @@
+C51 COMPILER V9.51   DEMO                                                                  03/20/2022 10:35:36 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE DEMO
+OBJECT MODULE PLACED IN demo.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE demo.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /**********************
+   2              :八位数码管+流水灯
+   3          型号:STC15F2K60S2 主频:11.0592MHz
+   4          ************************/
+   5          #include <STC15F2K60S2.h>
+   6          #define uint unsigned int
+   7          #define uchar unsigned char
+   8          
+   9          uchar arrSeg7Select[] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f}; //显示0-8
+  10          uchar arrDigitSelect[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};   //数码管0-7
+  11          
+  12          /*---------引脚别名定义---------*/
+  13          sbit sbtLedSel = P2 ^ 3;  //数码管与LED灯切换引脚
+  14          
+  15          /*---------变量定义---------*/
+  16          uchar uiLed = 0x01;        //LED灯值寄存
+  17          uint  uiLedCnt = 0;        //LED灯累计计数器
+  18          uchar i = 0;               //数码管扫描显示循环
+  19          
+  20          /*---------初始化函数---------*/
+  21          void Init()
+  22          {
+  23   1          P0M1 = 0x00;
+  24   1          P0M0 = 0xff;
+  25   1          P2M1 = 0x00;
+  26   1          P2M0 = 0x08;
+  27   1          sbtLedSel = 0;  //先选择数码管亮
+  28   1      }
+  29          
+  30          /*---------延时函数---------*/
+  31          //下为生成1ms的延时函数，通过传入参数n，函数可以延时n毫秒
+  32          void delay_ms( uint n )
+  33          {
+  34   1          while( n )
+  35   1          {
+  36   2              uchar i, j;
+  37   2              i = 11;
+  38   2              j = 190;
+  39   2              do
+  40   2              {
+  41   3                  while ( --j );
+  42   3              }
+  43   2              while ( --i );
+  44   2              n--;
+  45   2          }
+  46   1      }
+  47          
+  48          /*---------主函数---------*/
+  49          void main()
+  50          {
+  51   1          Init();
+  52   1          while( 1 )
+  53   1          {
+  54   2              sbtLedSel = 0;
+  55   2              for( i = 0; i < 8; i++ )
+C51 COMPILER V9.51   DEMO                                                                  03/20/2022 10:35:36 PAGE 2   
+
+  56   2              {
+  57   3                  P0 = 0;
+  58   3                  P2 = arrDigitSelect[i];     //选择数码管的位数
+  59   3                  P0 = arrSeg7Select[i + 1];  //显示对应的数值
+  60   3                  delay_ms( 1 );
+  61   3              }
+  62   2              uiLedCnt++;
+  63   2              sbtLedSel = 1;
+  64   2              P0 = uiLed;                     //LED显示
+  65   2              delay_ms( 1 );                  //延时200ms
+  66   2              if( uiLedCnt == 50 )
+  67   2              {
+  68   3                  if( uiLed == 0x80 )        //value等于0x80时，重新赋初值0x01
+  69   3                      uiLed = 0x01;
+  70   3                  else
+  71   3                      uiLed = uiLed << 1;    //value值逐一左移
+  72   3                  uiLedCnt = 0;
+  73   3              }
+  74   2          }
+  75   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    132    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     21       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

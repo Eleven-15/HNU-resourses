@@ -1,0 +1,1130 @@
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02a
+OBJECT MODULE PLACED IN demo.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE demo.asm NOMOD51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;$include (STC15F2K60S2.H) 
+                +1     2     
+                +1     3     
+                +1     4     
+                +1     5     
+                +1     6     
+                +1     7     
+                +1     8     
+                +1     9     
+  00E0          +1    10     sfr ACC         =   0xE0;   //0000,0000 ÀÛ¼ÓÆ÷Accumulator
+  00F0          +1    11     sfr B           =   0xF0;   //0000,0000 B¼Ä´æÆ÷
+  00D0          +1    12     sfr PSW         =   0xD0;   //0000,0000 ³ÌÐò×´Ì¬×Ö
+  00D7          +1    13     sbit CY         =   PSW^7;
+  00D6          +1    14     sbit AC         =   PSW^6;
+  00D5          +1    15     sbit F0         =   PSW^5;
+  00D4          +1    16     sbit RS1        =   PSW^4;
+  00D3          +1    17     sbit RS0        =   PSW^3;
+  00D2          +1    18     sbit OV         =   PSW^2;
+  00D0          +1    19     sbit P          =   PSW^0;
+  0081          +1    20     sfr SP          =   0x81;   //0000,0111 ¶ÑÕ»Ö¸Õë
+  0082          +1    21     sfr DPL         =   0x82;   //0000,0000 Ê¾ÝÖ¸ÕëµÍ×Ö½Ú
+  0083          +1    22     sfr DPH         =   0x83;   //0000,0000 Ê¾ÝÖ¸Õë¸ß×Ö½Ú
+                +1    23     
+                +1    24     
+  0080          +1    25     sfr P0          =   0x80;   //1111,1111 ¶Ë¿Ú0
+  0080          +1    26     sbit P00        =   P0^0;
+  0081          +1    27     sbit P01        =   P0^1;
+  0082          +1    28     sbit P02        =   P0^2;
+  0083          +1    29     sbit P03        =   P0^3;
+  0084          +1    30     sbit P04        =   P0^4;
+  0085          +1    31     sbit P05        =   P0^5;
+  0086          +1    32     sbit P06        =   P0^6;
+  0087          +1    33     sbit P07        =   P0^7;
+  0090          +1    34     sfr P1          =   0x90;   //1111,1111 ¶Ë¿Ú1
+  0090          +1    35     sbit P10        =   P1^0;
+  0091          +1    36     sbit P11        =   P1^1;
+  0092          +1    37     sbit P12        =   P1^2;
+  0093          +1    38     sbit P13        =   P1^3;
+  0094          +1    39     sbit P14        =   P1^4;
+  0095          +1    40     sbit P15        =   P1^5;
+  0096          +1    41     sbit P16        =   P1^6;
+  0097          +1    42     sbit P17        =   P1^7;
+  00A0          +1    43     sfr P2          =   0xA0;   //1111,1111 ¶Ë¿Ú2
+  00A0          +1    44     sbit P20        =   P2^0;
+  00A1          +1    45     sbit P21        =   P2^1;
+  00A2          +1    46     sbit P22        =   P2^2;
+  00A3          +1    47     sbit P23        =   P2^3;
+  00A4          +1    48     sbit P24        =   P2^4;
+  00A5          +1    49     sbit P25        =   P2^5;
+  00A6          +1    50     sbit P26        =   P2^6;
+  00A7          +1    51     sbit P27        =   P2^7;
+  00B0          +1    52     sfr P3          =   0xB0;   //1111,1111 ¶Ë¿Ú3
+  00B0          +1    53     sbit P30        =   P3^0;
+  00B1          +1    54     sbit P31        =   P3^1;
+  00B2          +1    55     sbit P32        =   P3^2;
+  00B3          +1    56     sbit P33        =   P3^3;
+  00B4          +1    57     sbit P34        =   P3^4;
+  00B5          +1    58     sbit P35        =   P3^5;
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     2
+
+  00B6          +1    59     sbit P36        =   P3^6;
+  00B7          +1    60     sbit P37        =   P3^7;
+  00C0          +1    61     sfr P4          =   0xC0;   //1111,1111 ¶Ë¿Ú4
+  00C0          +1    62     sbit P40        =   P4^0;
+  00C1          +1    63     sbit P41        =   P4^1;
+  00C2          +1    64     sbit P42        =   P4^2;
+  00C3          +1    65     sbit P43        =   P4^3;
+  00C4          +1    66     sbit P44        =   P4^4;
+  00C5          +1    67     sbit P45        =   P4^5;
+  00C6          +1    68     sbit P46        =   P4^6;
+  00C7          +1    69     sbit P47        =   P4^7;
+  00C8          +1    70     sfr P5          =   0xC8;   //xxxx,1111 ¶Ë¿Ú5
+  00C8          +1    71     sbit P50        =   P5^0;
+  00C9          +1    72     sbit P51        =   P5^1;
+  00CA          +1    73     sbit P52        =   P5^2;
+  00CB          +1    74     sbit P53        =   P5^3;
+  00CC          +1    75     sbit P54        =   P5^4;
+  00CD          +1    76     sbit P55        =   P5^5;
+  00CE          +1    77     sbit P56        =   P5^6;
+  00CF          +1    78     sbit P57        =   P5^7;
+  00E8          +1    79     sfr P6          =   0xE8;   //0000,0000 ¶Ë¿Ú6
+  00E8          +1    80     sbit P60        =   P6^0;
+  00E9          +1    81     sbit P61        =   P6^1;
+  00EA          +1    82     sbit P62        =   P6^2;
+  00EB          +1    83     sbit P63        =   P6^3;
+  00EC          +1    84     sbit P64        =   P6^4;
+  00ED          +1    85     sbit P65        =   P6^5;
+  00EE          +1    86     sbit P66        =   P6^6;
+  00EF          +1    87     sbit P67        =   P6^7;
+  00F8          +1    88     sfr P7          =   0xF8;   //0000,0000 ¶Ë¿Ú7
+  00F8          +1    89     sbit P70        =   P7^0;
+  00F9          +1    90     sbit P71        =   P7^1;
+  00FA          +1    91     sbit P72        =   P7^2;
+  00FB          +1    92     sbit P73        =   P7^3;
+  00FC          +1    93     sbit P74        =   P7^4;
+  00FD          +1    94     sbit P75        =   P7^5;
+  00FE          +1    95     sbit P76        =   P7^6;
+  00FF          +1    96     sbit P77        =   P7^7;
+  0094          +1    97     sfr P0M0        =   0x94;   //0000,0000 ¶Ë¿Ú0Ä£Ê½¼Ä´æÆ÷0
+  0093          +1    98     sfr P0M1        =   0x93;   //0000,0000 ¶Ë¿Ú0Ä£Ê½¼Ä´æÆ÷1
+  0092          +1    99     sfr P1M0        =   0x92;   //0000,0000 ¶Ë¿Ú1Ä£Ê½¼Ä´æÆ÷0
+  0091          +1   100     sfr P1M1        =   0x91;   //0000,0000 ¶Ë¿Ú1Ä£Ê½¼Ä´æÆ÷1
+  0096          +1   101     sfr P2M0        =   0x96;   //0000,0000 ¶Ë¿Ú2Ä£Ê½¼Ä´æÆ÷0
+  0095          +1   102     sfr P2M1        =   0x95;   //0000,0000 ¶Ë¿Ú2Ä£Ê½¼Ä´æÆ÷1
+  00B2          +1   103     sfr P3M0        =   0xB2;   //0000,0000 ¶Ë¿Ú3Ä£Ê½¼Ä´æÆ÷0
+  00B1          +1   104     sfr P3M1        =   0xB1;   //0000,0000 ¶Ë¿Ú3Ä£Ê½¼Ä´æÆ÷1
+  00B4          +1   105     sfr P4M0        =   0xB4;   //0000,0000 ¶Ë¿Ú4Ä£Ê½¼Ä´æÆ÷0
+  00B3          +1   106     sfr P4M1        =   0xB3;   //0000,0000 ¶Ë¿Ú4Ä£Ê½¼Ä´æÆ÷1
+  00CA          +1   107     sfr P5M0        =   0xCA;   //0000,0000 ¶Ë¿Ú5Ä£Ê½¼Ä´æÆ÷0
+  00C9          +1   108     sfr P5M1        =   0xC9;   //0000,0000 ¶Ë¿Ú5Ä£Ê½¼Ä´æÆ÷1
+  00CC          +1   109     sfr P6M0        =   0xCC;   //0000,0000 ¶Ë¿Ú6Ä£Ê½¼Ä´æÆ÷0
+  00CB          +1   110     sfr P6M1        =   0xCB;   //0000,0000 ¶Ë¿Ú6Ä£Ê½¼Ä´æÆ÷1
+  00E2          +1   111     sfr P7M0        =   0xE2;   //0000,0000 ¶Ë¿Ú7Ä£Ê½¼Ä´æÆ÷0
+  00E1          +1   112     sfr P7M1        =   0xE1;   //0000,0000 ¶Ë¿Ú7Ä£Ê½¼Ä´æÆ÷1
+                +1   113     
+                +1   114     
+  0087          +1   115     sfr PCON        =   0x87;   //0001,0000 µçÔ´¿ØÖÆ¼Ä´æÆ÷
+  008E          +1   116     sfr AUXR        =   0x8E;   //0000,0000 ¸¨Öú¼Ä´æÆ÷
+  00A2          +1   117     sfr AUXR1       =   0xA2;   //0000,0000 ¸¨Öú¼Ä´æÆ÷1
+  00A2          +1   118     sfr P_SW1       =   0xA2;   //0000,0000 ÍâÉè¶Ë¿ÚÇÐ»»¼Ä´æÆ÷1
+  0097          +1   119     sfr CLK_DIV     =   0x97;   //0000,0000 Ê±ÖÓ·ÖÆµ¿ØÖÆ¼Ä´æÆ÷
+  00A1          +1   120     sfr BUS_SPEED   =   0xA1;   //xx10,x011 ×ÜÏßËÙ¶È¿ØÖÆ¼Ä´æÆ÷
+  009D          +1   121     sfr P1ASF       =   0x9D;   //0000,0000 ¶Ë¿Ú1Ä£Äâ¹¦ÄÜÅäÖÃ¼Ä´æÆ÷
+  00BA          +1   122     sfr P_SW2       =   0xBA;   //xxxx,x000 ÍâÉè¶Ë¿ÚÇÐ»»¼Ä´æÆ÷
+                +1   123     
+                +1   124     
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     3
+
+  00A8          +1   125     sfr IE          =   0xA8;   //0000,0000 ÖÐ¶Ï¿ØÖÆ¼Ä´æÆ÷
+  00AF          +1   126     sbit EA         =   IE^7;
+  00AE          +1   127     sbit ELVD       =   IE^6;
+  00AD          +1   128     sbit EADC       =   IE^5;
+  00AC          +1   129     sbit ES         =   IE^4;
+  00AB          +1   130     sbit ET1        =   IE^3;
+  00AA          +1   131     sbit EX1        =   IE^2;
+  00A9          +1   132     sbit ET0        =   IE^1;
+  00A8          +1   133     sbit EX0        =   IE^0;
+  00B8          +1   134     sfr IP          =   0xB8;   //0000,0000 ÖÐ¶ÏÓÅÏÈ¼¶¼Ä´æÆ÷
+  00BF          +1   135     sbit PPCA       =   IP^7;
+  00BE          +1   136     sbit PLVD       =   IP^6;
+  00BD          +1   137     sbit PADC       =   IP^5;
+  00BC          +1   138     sbit PS         =   IP^4;
+  00BB          +1   139     sbit PT1        =   IP^3;
+  00BA          +1   140     sbit PX1        =   IP^2;
+  00B9          +1   141     sbit PT0        =   IP^1;
+  00B8          +1   142     sbit PX0        =   IP^0;
+  00AF          +1   143     sfr IE2         =   0xAF;   //0000,0000 ÖÐ¶Ï¿ØÖÆ¼Ä´æÆ÷2
+  00B5          +1   144     sfr IP2         =   0xB5;   //xxxx,xx00 ÖÐ¶ÏÓÅÏÈ¼¶¼Ä´æÆ÷2
+  008F          +1   145     sfr INT_CLKO    =   0x8F;   //0000,0000 Íâ²¿ÖÐ¶ÏÓëÊ±ÖÓÊä³ö¿ØÖÆ¼Ä´æÆ÷
+                +1   146     
+                +1   147     
+  0088          +1   148     sfr TCON        =   0x88;   //0000,0000 T0/T1¿ØÖÆ¼Ä´æÆ÷
+  008F          +1   149     sbit TF1        =   TCON^7;
+  008E          +1   150     sbit TR1        =   TCON^6;
+  008D          +1   151     sbit TF0        =   TCON^5;
+  008C          +1   152     sbit TR0        =   TCON^4;
+  008B          +1   153     sbit IE1        =   TCON^3;
+  008A          +1   154     sbit IT1        =   TCON^2;
+  0089          +1   155     sbit IE0        =   TCON^1;
+  0088          +1   156     sbit IT0        =   TCON^0;
+  0089          +1   157     sfr TMOD        =   0x89;   //0000,0000 T0/T1Ä£Ê½¼Ä´æÆ÷
+  008A          +1   158     sfr TL0         =   0x8A;   //0000,0000 T0µÍ×Ö½Ú
+  008B          +1   159     sfr TL1         =   0x8B;   //0000,0000 T1µÍ×Ö½Ú
+  008C          +1   160     sfr TH0         =   0x8C;   //0000,0000 T0¸ß×Ö½Ú
+  008D          +1   161     sfr TH1         =   0x8D;   //0000,0000 T1¸ß×Ö½Ú
+  00D1          +1   162     sfr T4T3M       =   0xD1;   //0000,0000 T3/T4Ä£Ê½¼Ä´æÆ÷
+  00D1          +1   163     sfr T3T4M       =   0xD1;   //0000,0000 T3/T4Ä£Ê½¼Ä´æÆ÷
+  00D2          +1   164     sfr T4H         =   0xD2;   //0000,0000 T4¸ß×Ö½Ú
+  00D3          +1   165     sfr T4L         =   0xD3;   //0000,0000 T4µÍ×Ö½Ú
+  00D4          +1   166     sfr T3H         =   0xD4;   //0000,0000 T3¸ß×Ö½Ú
+  00D5          +1   167     sfr T3L         =   0xD5;   //0000,0000 T3µÍ×Ö½Ú
+  00D6          +1   168     sfr T2H         =   0xD6;   //0000,0000 T2¸ß×Ö½Ú
+  00D7          +1   169     sfr T2L         =   0xD7;   //0000,0000 T2µÍ×Ö½Ú
+  00AA          +1   170     sfr WKTCL       =   0xAA;   //0000,0000 µôµç»½ÐÑ¶¨Ê±Æ÷µÍ×Ö½Ú
+  00AB          +1   171     sfr WKTCH       =   0xAB;   //0000,0000 µôµç»½ÐÑ¶¨Ê±Æ÷¸ß×Ö½Ú
+  00C1          +1   172     sfr WDT_CONTR   =   0xC1;   //0000,0000 ¿´ÃÅ¹·¿ØÖÆ¼Ä´æÆ÷
+                +1   173     
+                +1   174     
+  0098          +1   175     sfr SCON        =   0x98;   //0000,0000 ´®¿Ú1¿ØÖÆ¼Ä´æÆ÷
+  009F          +1   176     sbit SM0        =   SCON^7;
+  009E          +1   177     sbit SM1        =   SCON^6;
+  009D          +1   178     sbit SM2        =   SCON^5;
+  009C          +1   179     sbit REN        =   SCON^4;
+  009B          +1   180     sbit TB8        =   SCON^3;
+  009A          +1   181     sbit RB8        =   SCON^2;
+  0099          +1   182     sbit TI         =   SCON^1;
+  0098          +1   183     sbit RI         =   SCON^0;
+  0099          +1   184     sfr SBUF        =   0x99;   //xxxx,xxxx ´®¿Ú1Ê¾Ý¼Ä´æÆ÷
+  009A          +1   185     sfr S2CON       =   0x9A;   //0000,0000 ´®¿Ú2¿ØÖÆ¼Ä´æÆ÷
+  009B          +1   186     sfr S2BUF       =   0x9B;   //xxxx,xxxx ´®¿Ú2Ê¾Ý¼Ä´æÆ÷
+  00AC          +1   187     sfr S3CON       =   0xAC;   //0000,0000 ´®¿Ú3¿ØÖÆ¼Ä´æÆ÷
+  00AD          +1   188     sfr S3BUF       =   0xAD;   //xxxx,xxxx ´®¿Ú3Ê¾Ý¼Ä´æÆ÷
+  0084          +1   189     sfr S4CON       =   0x84;   //0000,0000 ´®¿Ú4¿ØÖÆ¼Ä´æÆ÷
+  0085          +1   190     sfr S4BUF       =   0x85;   //xxxx,xxxx ´®¿Ú4Ê¾Ý¼Ä´æÆ÷
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     4
+
+  00A9          +1   191     sfr SADDR       =   0xA9;   //0000,0000 ´Ó»úµØÖ·¼Ä´æÆ÷
+  00B9          +1   192     sfr SADEN       =   0xB9;   //0000,0000 ´Ó»úµØÖ·ÆÁ±Î¼Ä´æÆ÷
+                +1   193     
+                +1   194     
+  00BC          +1   195     sfr ADC_CONTR   =   0xBC;   //0000,0000 A/D×ª»»¿ØÖÆ¼Ä´æÆ÷
+  00BD          +1   196     sfr ADC_RES     =   0xBD;   //0000,0000 A/D×ª»»½á¹û¸ß8Î»
+  00BE          +1   197     sfr ADC_RESL    =   0xBE;   //0000,0000 A/D×ª»»½á¹ûµÍ2Î»
+                +1   198     
+                +1   199     
+  00CD          +1   200     sfr SPSTAT      =   0xCD;   //00xx,xxxx SPI×´Ì¬¼Ä´æÆ÷
+  00CE          +1   201     sfr SPCTL       =   0xCE;   //0000,0100 SPI¿ØÖÆ¼Ä´æÆ÷
+  00CF          +1   202     sfr SPDAT       =   0xCF;   //0000,0000 SPIÊ¾Ý¼Ä´æÆ÷
+                +1   203     
+                +1   204     
+  00C2          +1   205     sfr IAP_DATA    =   0xC2;   //0000,0000 EEPROMÊ¾Ý¼Ä´æÆ÷
+  00C3          +1   206     sfr IAP_ADDRH   =   0xC3;   //0000,0000 EEPROMµØÖ·¸ß×Ö½Ú
+  00C4          +1   207     sfr IAP_ADDRL   =   0xC4;   //0000,0000 EEPROMµØÖ·µÚ×Ö½Ú
+  00C5          +1   208     sfr IAP_CMD     =   0xC5;   //xxxx,xx00 EEPROMÃüÁî¼Ä´æÆ÷
+  00C6          +1   209     sfr IAP_TRIG    =   0xC6;   //0000,0000 EEPRPMÃüÁî´¥·¢¼Ä´æÆ÷
+  00C7          +1   210     sfr IAP_CONTR   =   0xC7;   //0000,x000 EEPROM¿ØÖÆ¼Ä´æÆ÷
+                +1   211     
+                +1   212     
+  00D8          +1   213     sfr CCON        =   0xD8;   //00xx,xx00 PCA¿ØÖÆ¼Ä´æÆ÷
+  00DF          +1   214     sbit CF         =   CCON^7;
+  00DE          +1   215     sbit CR         =   CCON^6;
+  00DA          +1   216     sbit CCF2       =   CCON^2;
+  00D9          +1   217     sbit CCF1       =   CCON^1;
+  00D8          +1   218     sbit CCF0       =   CCON^0;
+  00D9          +1   219     sfr CMOD        =   0xD9;   //0xxx,x000 PCA ¹¤×÷Ä£Ê½¼Ä´æÆ÷
+  00E9          +1   220     sfr CL          =   0xE9;   //0000,0000 PCA¼ÆÊÆ÷µÍ×Ö½Ú
+  00F9          +1   221     sfr CH          =   0xF9;   //0000,0000 PCA¼ÆÊÆ÷¸ß×Ö½Ú
+  00DA          +1   222     sfr CCAPM0      =   0xDA;   //0000,0000 PCAÄ£¿é0µÄPWM¼Ä´æÆ÷
+  00DB          +1   223     sfr CCAPM1      =   0xDB;   //0000,0000 PCAÄ£¿é1µÄPWM¼Ä´æÆ÷
+  00DC          +1   224     sfr CCAPM2      =   0xDC;   //0000,0000 PCAÄ£¿é2µÄPWM ¼Ä´æÆ÷
+  00EA          +1   225     sfr CCAP0L      =   0xEA;   //0000,0000 PCAÄ£¿é0µÄ²¶×½/±È½Ï¼Ä´æÆ÷µÍ×Ö½Ú
+  00EB          +1   226     sfr CCAP1L      =   0xEB;   //0000,0000 PCAÄ£¿é1µÄ²¶×½/±È½Ï¼Ä´æÆ÷µÍ×Ö½Ú
+  00EC          +1   227     sfr CCAP2L      =   0xEC;   //0000,0000 PCAÄ£¿é2µÄ²¶×½/±È½Ï¼Ä´æÆ÷µÍ×Ö½Ú
+  00F2          +1   228     sfr PCA_PWM0    =   0xF2;   //xxxx,xx00 PCAÄ£¿é0µÄPWM¼Ä´æÆ÷
+  00F3          +1   229     sfr PCA_PWM1    =   0xF3;   //xxxx,xx00 PCAÄ£¿é1µÄPWM¼Ä´æÆ÷
+  00F4          +1   230     sfr PCA_PWM2    =   0xF4;   //xxxx,xx00 PCAÄ£¿é1µÄPWM¼Ä´æÆ÷
+  00FA          +1   231     sfr CCAP0H      =   0xFA;   //0000,0000 PCAÄ£¿é0µÄ²¶×½/±È½Ï¼Ä´æÆ÷¸ß×Ö½Ú
+  00FB          +1   232     sfr CCAP1H      =   0xFB;   //0000,0000 PCAÄ£¿é1µÄ²¶×½/±È½Ï¼Ä´æÆ÷¸ß×Ö½Ú
+  00FC          +1   233     sfr CCAP2H      =   0xFC;   //0000,0000 PCAÄ£¿é2µÄ²¶×½/±È½Ï¼Ä´æÆ÷¸ß×Ö½Ú
+                +1   234     
+                +1   235     
+                +1   236     
+                +1   237     
+                +1   238     
+                     239     
+  2B33               240     FOSC      EQU   11059  
+  0032               241     TCLICK    EQU   50      ;»ù´¡¶¨Ê±Æ÷   uS
+  0032               242     NMAX_KEY  EQU   50      ;´Î
+                     243                                                                
+  00D2               244     DATA_TH0  EQU   256-(FOSC/120*TCLICK+50)/100  ;¶¨Ê±Æ÷0 ¹¤×÷·½Ê½2£º8bitÖØ×°¡¢ÓÃ×÷256uSÒÔÄÚ¶¨
+                             Ê±  ¶¨Ê±³õÖµ£½£¨256£­Fosc¡Á¶¨Ê±Ê±¼ä/12£©
+                     245      
+  0000               246     CLICK_50uS       BIT            00H      ;=100uSµÎ´ðÐÅºÅ
+  0001               247     CLICK_1mS        BIT            01H      ;=1mS  µÎ´ðÐÅºÅ
+  0002               248     CLICK_50mS       BIT            02H      ;=20mS µÎ´ðÐÅºÅ
+  0003               249     CLICK_200mS      BIT            03H
+  0004               250     CLICK_1S         BIT            04H      ;=1S   µÎ´ðÐÅºÅ
+  0005               251     CLICK_1Min       BIT            05H      ;=1Min µÎ´ðÐÅºÅ
+  0006               252     CLICK_1HOUR      BIT            06H 
+                     253     
+  00B2               254     KEY1             BIT            P3.2      ;°´¼ü¼°Ê±Öµ
+  00B3               255     KEY2             BIT            P3.3
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     5
+
+  000A               256     KEY3             BIT            0AH
+  000B               257     KEYR             BIT            0BH
+  000C               258     KEYD             BIT            0CH
+  000D               259     KEYC             BIT            0DH
+  000E               260     KEYL             BIT            0EH
+  000F               261     KEYU             BIT            0FH   
+                     262     
+  0010               263     KEY1_C           BIT            10H             ;°´¼üµ±Ç°×´Ì¬
+  0011               264     KEY2_C           BIT            11H
+  0012               265     KEY3_C           BIT            12H
+  0013               266     KEYR_C           BIT            13H
+  0014               267     KEYD_C           BIT            14H
+  0015               268     KEYC_C           BIT            15H
+  0016               269     KEYL_C           BIT            16H
+  0017               270     KEYU_C           BIT            17H 
+                     271     
+  0018               272     KEY1_P           BIT            18H             ;°´¼üÉÏÒ»¸ö×´Ì¬
+  0019               273     KEY2_P           BIT            19H
+  001A               274     KEY3_P           BIT            1AH
+  001B               275     KEYR_P           BIT            1BH
+  001C               276     KEYD_P           BIT            1CH
+  001D               277     KEYC_P           BIT            1DH
+  001E               278     KEYL_P           BIT            1EH
+  001F               279     KEYU_P           BIT            1FH         
+                     280      
+  0020               281     VKEY1            BIT            20H      ;°´¼üÊÂ¼þÖµ
+  0021               282     VKEY2            BIT            21H
+  0022               283     VKEY3            BIT            22H
+  0023               284     VKEYR            BIT            23H
+  0024               285     VKEYD            BIT            24H
+  0025               286     VKEYC            BIT            25H
+  0026               287     VKEYL            BIT            26H
+  0027               288     VKEYU            BIT            27H 
+                     289     
+  0030               290     TIME_50uS        EQU            30H      ;100uS¼ÆÊ
+  0031               291     TIME_1mS         EQU            31H      ;1mS  ¼ÆÊ
+  0032               292     TIME_50mS        EQU            32H      ;20mS ¼ÆÊ
+  0034               293     TIME_1S          EQU            34H      ;1S   ¼ÆÊ
+  0035               294     TIME_1MIN        EQU            35H      ;1MIN  ¼ÆÊ
+  0036               295     TIME_1HOUR       EQU            36H      ;1HOUR ¼ÆÊ
+                     296     
+  0040               297     SEC_1            EQU            40H
+  0041               298     SEC_10           EQU            41H
+  0042               299     MIN_1            EQU            42H
+  0043               300     MIN_10           EQU            43H
+  0044               301     HOUR_1           EQU            44H
+  0045               302     HOUR_10          EQU            45H
+  0046               303     MID_LINE         EQU            46H
+                     304     
+  0047               305     KEY_COUNTER      EQU            47H         ;°´¼üÏû¶¶¼ÆÊ
+                     306     
+  0048               307     KEY1_COUNTER     EQU            48H             ;°´¼üÖµÍ³¼Æ
+  0049               308     KEY2_COUNTER     EQU            49H
+  004A               309     KEY3_COUNTER     EQU            4AH
+  004B               310     KEYR_COUNTER     EQU            4BH
+  004C               311     KEYD_COUNTER     EQU            4CH
+  004D               312     KEYC_COUNTER     EQU            4DH
+  004E               313     KEYL_COUNTER     EQU            4EH
+  004F               314     KEYU_COUNTER     EQU            4FH
+                     315     
+  0057               316     GROUP_Dis        EQU            57H     ;µ±Ç°ÏÔÊ¾Ê¾Ý×é  £º  0¡«N
+  0058               317     N_MaxDis         EQU            58H             ;¶¨Òå×î´óÏÔÊ¾Î»Ê£¬¿ÉÐ¡ÓÚ8¡¢¿É´óÓÚ8¿É¿ØÖÆÏÔÊ
+                             ¾ÁÁ¶È
+  0059               318     CurDis           EQU            59H     ;±äÁ¿£º¼ÇÂ¼ÏÔÊ¾Î»£º1¡«8 ÓÐÐ§  ´óÓÚ8ÎÞÏÔÊ¾
+                     319     ;ÏÔÊ¾ÄÚÈÝ¶¨Òå
+                     320     ;GROUP_Dis=0
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     6
+
+  0045               321     G0_A1            EQU                    HOUR_10 ; Çë¾ßÌå¶¨ÒåËüÃÇ
+  0044               322     G0_A2            EQU                    HOUR_1
+  0046               323     G0_A3            EQU                    MID_LINE
+  0043               324     G0_A4            EQU                    MIN_10
+  0042               325     G0_A5            EQU                    MIN_1
+  0046               326     G0_A6            EQU                    MID_LINE
+  0041               327     G0_A7            EQU                    SEC_10
+  0040               328     G0_A8            EQU                    SEC_1
+                     329     
+                     330     ;GROUP_Dis=1
+  0041               331     G1_A1            EQU                    SEC_10  ; Çë¾ßÌå¶¨ÒåËüÃÇ
+  0040               332     G1_A2            EQU                    SEC_1
+  0046               333     G1_A3            EQU                    MID_LINE
+  0043               334     G1_A4            EQU                    MIN_10
+  0042               335     G1_A5            EQU                    MIN_1
+  0046               336     G1_A6            EQU                    MID_LINE
+  0046               337     G1_A7            EQU                    MID_LINE
+  0057               338     G1_A8            EQU                    GROUP_Dis
+                     339     
+                     340     ;GROUP_Dis=2
+  0046               341     G2_A1            EQU                    MID_LINE
+  0046               342     G2_A2            EQU                    MID_LINE
+  0046               343     G2_A3            EQU                    MID_LINE
+  0057               344     G2_A4            EQU                    GROUP_Dis
+  0046               345     G2_A5            EQU                    MID_LINE
+  0046               346     G2_A6            EQU                    MID_LINE
+  0046               347     G2_A7            EQU                    MID_LINE
+  0040               348     G2_A8            EQU                    SEC_1
+                     349     
+0000                 350     ORG   0000H
+0000 020100          351             LJMP   START
+0003                 352     ORG   0003H
+0003 32              353                     RETI
+0013                 354     ORG   0013H
+0013 32              355                     RETI
+                     356     ;-----------------------------------------TIMER0ÖÐ¶Ï----------------------
+000B                 357     ORG   000BH
+000B 6175            358             JMP   INT_T0
+                     359     
+                     360     ;---------------------------------------Ö÷³ÌÐò----------------------------
+0100                 361     ORG   0100H              
+0100                 362     START: 
+                     363     ;-----------------------ÏµÍ³³õÊ¼»¯-----------------
+0100 759300          364             MOV    P0M1, #00000000B            ;00¡ª¡ª×¼Ë«Ïò¿Ú   01¡ª¡ªÍÆÍì   10¡ª¡ª¸ß×èÊäÈë   
+                                   11¡ª¡ªOC
+0103 7594FF          365             MOV    P0M0, #11111111B 
+0106 759500          366             MOV    P2M1, #00000000B
+0109 759609          367                 MOV    P2M0, #00001001B
+                     368     ;----------------------±äÁ¿³õÊ¼»¯--------------------
+010C 753014          369                     MOV   TIME_50uS,    #20
+010F 753132          370             MOV   TIME_1mS,     #50
+0112 753214          371             MOV   TIME_50mS,    #20   
+0115 75343C          372             MOV   TIME_1S,      #60
+0118 75353C          373                     MOV   TIME_1MIN,    #60
+011B 753618          374                     MOV   TIME_1HOUR,   #24
+                     375     
+011E C200            376                     CLR   CLICK_50uS
+0120 C201            377             CLR   CLICK_1mS        
+0122 C202            378             CLR   CLICK_50mS  
+0124 C204            379                     CLR   CLICK_1S
+0126 C205            380                     CLR   CLICK_1Min
+0128 C206            381                     CLR   CLICK_1HOUR
+                     382     
+012A C220            383                     CLR   VKEY1
+012C C221            384                     CLR   VKEY2
+012E C222            385                     CLR   VKEY3
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     7
+
+0130 C223            386                     CLR   VKEYR
+0132 C224            387                     CLR   VKEYD
+0134 C225            388                     CLR   VKEYC
+0136 C226            389                     CLR   VKEYL
+0138 C227            390                     CLR   VKEYU
+                     391     
+013A D218            392             SETB  KEY1_P
+013C D219            393             SETB  KEY2_P
+013E D21A            394             SETB  KEY3_P
+0140 D21B            395             SETB  KEYR_P
+0142 D21C            396             SETB  KEYD_P
+0144 D21D            397             SETB  KEYC_P
+0146 D21E            398             SETB  KEYL_P
+0148 D21F            399             SETB  KEYU_P
+                     400     
+014A 754732          401                     MOV   KEY_COUNTER,  #NMAX_KEY
+                     402     
+014D 7548A0          403                     MOV   KEY1_COUNTER, #(80H+NMAX_KEY/3*2)
+0150 7549A0          404                 MOV   KEY2_COUNTER, #(80H+NMAX_KEY/3*2)
+0153 754AA0          405                     MOV   KEY3_COUNTER, #(80H+NMAX_KEY/3*2)
+0156 754BA0          406                     MOV   KEYR_COUNTER, #(80H+NMAX_KEY/3*2)
+0159 754CA0          407                     MOV   KEYD_COUNTER, #(80H+NMAX_KEY/3*2)
+015C 754DA0          408                 MOV   KEYC_COUNTER, #(80H+NMAX_KEY/3*2)
+015F 754EA0          409                     MOV   KEYL_COUNTER, #(80H+NMAX_KEY/3*2)
+0162 754FA0          410                     MOV   KEYU_COUNTER, #(80H+NMAX_KEY/3*2)
+                     411     
+0165 755901          412             MOV   CurDis,       #1        ;³õÊ¼ÏÔÊ¾Î»       
+0168 755808          413                     MOV   N_MaxDis,     #8
+016B 755700          414                     MOV   GROUP_Dis,    #0
+                     415                                  
+016E 754000          416                     MOV   SEC_1,        #0            ;Ê¾À£ºÆäËüÏÔÊ¾ÄÚÈÝ¸³¸ø¶ÔÓ¦±äÁ¿
+0171 754100          417                     MOV   SEC_10,       #0
+0174 754200          418                     MOV   MIN_1,        #0
+0177 754300          419                     MOV   MIN_10,       #0
+017A 754400          420                     MOV   HOUR_1,       #0
+017D 754500          421                     MOV   HOUR_10,      #0
+0180 75460A          422                     MOV   MID_LINE,     #10
+                     423     
+                     424     ;------------------ÏµÍ³Éè±¸³õÊ¼»¯----------------------------------
+0183 758922          425             MOV   TMOD, #22H    ; C/T0 mode is 2 and C/T1 'S MOD is 2
+0186 758780          426                     MOV   PCON, #80H     ;  
+0189 758CD2          427                     MOV   TH0,  #DATA_TH0 
+018C D288            428                     SETB  IT0                                            ;ÉèÖÃ  INT0  ÎªÏÂ½µÑØ´
+                             ¥·¢
+018E D28A            429                     SETB  IT1     
+0190 D28C            430             SETB  TR0                                                ;Æô¶¯Ê±ÖÓ
+0192 75A882          431             MOV   IE,   #10000010B                   ;¿ªÖÐ¶Ï£º                                
+                     432     ;-----------------------------------Ö÷Ñ­»·------------------------------------------
+0195 100029          433     MAINLOOP:JBC   CLICK_50uS,  C_50uS 
+0198 100128          434              JBC   CLICK_1mS,   C_1mS  
+019B 100227          435              JBC   CLICK_50mS,  C_50mS
+019E 100426          436                  JBC   CLICK_1S,    C_1S
+01A1 100525          437                  JBC   CLICK_1Min,  C_1Min 
+01A4 100624          438                      JBC   CLICK_1HOUR, C_1HOUR 
+01A7 102023          439                      JBC   VKEY1,       C_KEY1  
+01AA 102122          440                      JBC   VKEY2,       C_KEY2 
+01AD 102221          441                      JBC   VKEY3,       C_KEY3
+01B0 102320          442                      JBC   VKEYR,       C_KEYR
+01B3 10241F          443                      JBC   VKEYD,       C_KEYD
+01B6 10251E          444                      JBC   VKEYC,       C_KEYC
+01B9 10261D          445                      JBC   VKEYL,       C_KEYL
+01BC 10271C          446                      JBC   VKEYU,       C_KEYU
+01BF 80D4            447              JMP   MAINLOOP                            
+                     448     ;-----------------------------------------------------
+01C1 8030            449     C_50uS:  JMP   TASK_50uS 
+01C3 806D            450     C_1mS:   JMP   TASK_1mS  
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     8
+
+01C5 6131            451     C_50mS:  JMP   TASK_50mS
+01C7 6133            452     C_1S:    JMP   TASK_1S
+01C9 6149            453     C_1Min:  JMP   TASK_1Min
+01CB 615F            454     C_1HOUR: JMP   TASK_1HOUR
+01CD 8010            455     C_KEY1:  JMP   TASK_KEY1
+01CF 8012            456     C_KEY2:  JMP   TASK_KEY2
+01D1 8014            457     C_KEY3:  JMP   TASK_KEY3
+01D3 8014            458     C_KEYR:  JMP   TASK_KEYR
+01D5 8014            459     C_KEYD:  JMP   TASK_KEYD
+01D7 8014            460     C_KEYC:  JMP   TASK_KEYC
+01D9 8014            461     C_KEYL:  JMP   TASK_KEYL
+01DB 8014            462     C_KEYU:  JMP   TASK_KEYU
+                     463     ;-----------------------------------ÊÕµ½Ö¸Áî-------------------------
+01DD                 464     NEW_COMMAND:
+                     465                                                               ;ÇëÔÚÕâÀï¼ÆËãÒªÏÔÊ¾µÄÈ«²¿±äÁ¿
+01DD 80B6            466              JMP    MAINLOOP
+                     467     ;------------------------------------°´¼ü------------------------------
+01DF                 468     TASK_KEY1:
+01DF 0558            469              INC    N_MaxDis
+01E1 80B2            470              JMP    MAINLOOP
+01E3                 471     TASK_KEY2:
+01E3 1558            472              DEC    N_MaxDis
+01E5 80AE            473              JMP    MAINLOOP
+01E7                 474     TASK_KEY3:
+01E7 80AC            475              JMP    MAINLOOP
+01E9                 476     TASK_KEYR:
+01E9 80AA            477              JMP    MAINLOOP
+01EB                 478     TASK_KEYD:
+01EB 80A8            479              JMP    MAINLOOP
+01ED                 480     TASK_KEYC:
+01ED 80A6            481              JMP    MAINLOOP
+01EF                 482     TASK_KEYL:
+01EF 80A4            483              JMP    MAINLOOP
+01F1                 484     TASK_KEYU:
+01F1 80A2            485              JMP    MAINLOOP
+                     486     ;-------------------------------------¶¨Ê±ÈÎÎñ-------------------------
+01F3                 487     TASK_50uS:
+01F3 758000          488              MOV    P0,     #00000000B        ;¹ØÏÔÊ¾ 
+01F6 C2A3            489              CLR    P2.3
+01F8 E559            490              MOV    A,      CurDis  
+                     491                             
+01FA B4FF0F          492                      CJNE   A,      #0FFH,   T1mS_1
+01FD 7401            493                      MOV    A,      #00000001B
+01FF A857            494                      MOV    R0,     GROUP_Dis
+0201 08              495                      INC    R0
+0202 03              496     T1mS_0:  RR     A
+0203 D8FD            497                      DJNZ   R0,     T1mS_0    
+                     498     
+0205 855880          499                      MOV    P0,     N_MaxDis                   ;CurDis=0FFHÊ±£¬ÏÔÊ¾LEDµÆ
+                     500     
+0208 D2A3            501              SETB   P2.3     
+020A 801A            502                      JMP    T1mS_2
+                     503     
+020C 54F8            504     T1mS_1:  ANL    A,      #11111000B               
+020E 7016            505                      JNZ    T1mS_2                                    ;²»ÏÔÊ¾´óÓÚ8µÄÎ»Ê
+                     506     
+0210 E557            507              MOV    A,      GROUP_Dis                  ;ËÍ¶ÎÑ¡
+0212 23              508                      RL     A                                                         ;Ñ¡ÏÔÊ¾×é
+0213 23              509                      RL     A
+0214 23              510                      RL     A
+0215 2559            511                      ADD    A,      CurDis               
+0217 90030E          512                      MOV    DPTR,   #TAB_GROUP_Dis
+021A 93              513                      MOVC   A,      @A+DPTR
+021B F8              514                      MOV    R0,     A
+021C E6              515                      MOV    A,      @R0
+021D 900326          516                      MOV    DPTR,   #TAB_Decode
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE     9
+
+0220 93              517                      MOVC   A,      @A+DPTR
+0221 F580            518                      MOV    P0,     A                                          ;¶ÎÑ¡ ËÍP0¿Ú
+                     519     
+0223 8559A0          520              MOV    P2,      CurDis                                ;Î»Ñ¡ËÍ P2¿Ú
+                     521                                       
+0226 0559            522     T1mS_2:  INC    CurDis                    ;È·¶¨ÏÂÒ»´ÎÒªÏÔÊ¾µÄÎ»             
+0228 E559            523                      MOV    A,      CurDis
+022A B55803          524                      CJNE   A,      N_MaxDis,  T50uS_1  
+022D 7559FF          525                      MOV    CurDis, #0FFH
+0230 2195            526     T50uS_1: JMP   MAINLOOP
+                     527     ;------------------------------  
+0232                 528     TASK_1mS:
+                     529     
+0232 20B202          530     T1mS_3:  JB     KEY1,   T1mS_4             ;´¦Àí°´¼ü
+0235 1548            531                      DEC    KEY1_COUNTER                       ;°´¼üÍ³¼Æ
+0237 20B302          532     T1mS_4:  JB     KEY2,   T1mS_5
+023A 1549            533              DEC    KEY2_COUNTER
+                     534     
+023C D54717          535     T1mS_5:  DJNZ   KEY_COUNTER,  T1mS_END 
+023F 754732          536                      MOV    KEY_COUNTER,  #NMAX_KEY   ;Í³¼Æ´ÎÊµ½£¬ÖØÖÃÍ³¼Æ´ÎÊ
+                     537     
+0242 E548            538              MOV   A,      KEY1_COUNTER        ;´¦ÀíKEY1
+0244 7548A0          539                      MOV   KEY1_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+0247 33              540                      RLC   A
+0248 9210            541                      MOV   KEY1_C,  C                      ;µÃµ½°´¼ü KEY1 µ±Ç°µÄÍ³¼Æ×´Ì¬
+024A 20100B          542                      JB    KEY1_C,  T1mS_6             ;´¦Àí°´¼ü KEY1 ¶ÔÓ¦µÄ²Ù×÷£¨¼ûÏàÓ¦Á÷³ÌÍ¼£
+                             ©
+024D 30180D          543                      JNB   KEY1_P,  T1mS_7  
+0250 C218            544                      CLR   KEY1_P
+0252 D220            545                      SETB  VKEY1                        ;°´¼üKEY1ÊÂ¼þ·¢Éú£¨ÏÂ½µÑØ£©
+0254 8007            546              JMP   T1mS_7
+0256 2195            547     T1mS_END: JMP    MAINLOOP
+0258 201802          548     T1mS_6:  JB    KEY1_P,  T1mS_7  
+025B D218            549                      SETB  KEY1_P
+                     550     
+025D E549            551     T1mS_7:  MOV   A,      KEY2_COUNTER        ;´¦ÀíKEY2
+025F 7549A0          552                      MOV   KEY2_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+0262 33              553                      RLC   A
+0263 9211            554                      MOV   KEY2_C,  C                      ;µÃµ½°´¼ü KEY2 µ±Ç°µÄÍ³¼Æ×´Ì¬
+0265 201109          555                      JB    KEY2_C,  T1mS_8             ;´¦Àí°´¼ü KEY2 ¶ÔÓ¦µÄ²Ù×÷£¨¼ûÏàÓ¦Á÷³ÌÍ¼£
+                             ©
+0268 30190B          556                      JNB   KEY2_P,  T1mS_9  
+026B C219            557                      CLR   KEY2_P
+026D D221            558                      SETB  VKEY2                        ;°´¼üKEY2ÊÂ¼þ·¢Éú£¨ÏÂ½µÑØ£©
+026F 8005            559              JMP   T1mS_9
+0271 201902          560     T1mS_8:  JB    KEY2_P,  T1mS_9  
+0274 D219            561                      SETB  KEY2_P
+                     562     
+0276 E54A            563     T1mS_9:  MOV   A,      KEY3_COUNTER        ;´¦ÀíKEY3
+0278 754AA0          564                      MOV   KEY3_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+027B 33              565                      RLC   A
+027C 9212            566                      MOV   KEY3_C,  C                      
+027E 201209          567                      JB    KEY3_C,  T1mS_A             
+0281 301A0B          568                      JNB   KEY3_P,  T1mS_B  
+0284 C21A            569                      CLR   KEY3_P
+0286 D222            570                      SETB  VKEY3                        
+0288 8005            571              JMP   T1mS_B
+028A 201A02          572     T1mS_A:  JB    KEY3_P,  T1mS_B  
+028D D21A            573                      SETB  KEY3_P
+                     574     
+028F E54E            575     T1mS_B:  MOV   A,      KEYL_COUNTER        ;´¦ÀíKEYL
+0291 754EA0          576                      MOV   KEYL_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+0294 33              577                      RLC   A
+0295 9216            578                      MOV   KEYL_C,  C                      
+0297 201609          579                      JB    KEYL_C,  T1mS_C             
+029A 301E0B          580                      JNB   KEYL_P,  T1mS_D  
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    10
+
+029D C21E            581                      CLR   KEYL_P
+029F D226            582                      SETB  VKEYL                        
+02A1 8005            583              JMP   T1mS_D
+02A3 201E02          584     T1mS_C:  JB    KEYL_P,  T1mS_D  
+02A6 D21E            585                      SETB  KEYL_P
+                     586     
+02A8 E54C            587     T1mS_D:  MOV   A,      KEYD_COUNTER        ;´¦ÀíKEYD
+02AA 754CA0          588                      MOV   KEYD_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+02AD 33              589                      RLC   A
+02AE 9214            590                      MOV   KEYD_C,  C                      
+02B0 201409          591                      JB    KEYD_C,  T1mS_E             
+02B3 301C0B          592                      JNB   KEYD_P,  T1mS_F  
+02B6 C21C            593                      CLR   KEYD_P
+02B8 D224            594                      SETB  VKEYD                        
+02BA 8005            595              JMP   T1mS_F
+02BC 201C02          596     T1mS_E:  JB    KEYD_P,  T1mS_F  
+02BF D21C            597                      SETB  KEYD_P
+                     598     
+02C1 E54D            599     T1mS_F:  MOV   A,      KEYC_COUNTER        ;´¦ÀíKEYC
+02C3 754DA0          600                      MOV   KEYC_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+02C6 33              601                      RLC   A
+02C7 9215            602                      MOV   KEYC_C,  C                      
+02C9 201509          603                      JB    KEYC_C,  T1mS_G             
+02CC 301D0B          604                      JNB   KEYC_P,  T1mS_H  
+02CF C21D            605                      CLR   KEYC_P
+02D1 D225            606                      SETB  VKEYC                        
+02D3 8005            607              JMP   T1mS_H
+02D5 201D02          608     T1mS_G:  JB    KEYC_P,  T1mS_H  
+02D8 D21D            609                      SETB  KEYC_P
+                     610     
+02DA E54E            611     T1mS_H:  MOV   A,      KEYL_COUNTER        ;´¦ÀíKEYL
+02DC 754EA0          612                      MOV   KEYL_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+02DF 33              613                      RLC   A
+02E0 9216            614                      MOV   KEYL_C,  C                      
+02E2 201609          615                      JB    KEYL_C,  T1mS_I             
+02E5 301E0B          616                      JNB   KEYL_P,  T1mS_J  
+02E8 C21E            617                      CLR   KEYL_P
+02EA D226            618                      SETB  VKEYL                        
+02EC 8005            619              JMP   T1mS_J
+02EE 201E02          620     T1mS_I:  JB    KEYL_P,  T1mS_J  
+02F1 D21E            621                      SETB  KEYL_P
+                     622     
+02F3 E54F            623     T1mS_J:  MOV   A,      KEYU_COUNTER        ;´¦ÀíKEYU
+02F5 754FA0          624                      MOV   KEYU_COUNTER,    #(80H+NMAX_KEY/3*2)        ;ÖØÖÃÏÂÒ»ÂÖÍ³¼Æ³õÖµ
+02F8 33              625                      RLC   A
+02F9 9217            626                      MOV   KEYU_C,  C                      
+02FB 201709          627                      JB    KEYU_C,  T1mS_K             
+02FE 301F0B          628                      JNB   KEYU_P,  T1mS_L  
+0301 C21F            629                      CLR   KEYU_P
+0303 D227            630                      SETB  VKEYU                        
+0305 8005            631              JMP   T1mS_L
+0307 201F02          632     T1mS_K:  JB    KEYU_P,  T1mS_L  
+030A D21F            633                      SETB  KEYU_P
+                     634     
+030C 2195            635     T1mS_L:  JMP    MAINLOOP
+                     636     
+030E 45444643        637     TAB_GROUP_Dis:   DB   G0_A1,G0_A2,G0_A3,G0_A4,G0_A5,G0_A6,G0_A7,G0_A8
+0312 42464140                
+0316 41404643        638                      DB   G1_A1,G1_A2,G1_A3,G1_A4,G1_A5,G1_A6,G1_A7,G1_A8
+031A 42464657                
+031E 46464657        639                                  DB   G2_A1,G2_A2,G2_A3,G2_A4,G2_A5,G2_A6,G2_A7,G2_A8
+0322 46464640                
+                     640     
+0326 3F              641     TAB_Decode:      DB   03FH                      ; 0
+0327 06              642                  DB   06H                   ; 1
+0328 5B              643                              DB   5BH                   ; 2
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    11
+
+0329 4F              644                              DB   4FH                       ; 3
+032A 66              645                              DB   66H                       ; 4
+032B 6D              646                              DB   6DH                       ; 5
+032C 7D              647                              DB   7DH                       ; 6
+032D 07              648                              DB   07H                       ; 7
+032E 7F              649                              DB   7FH                       ; 8 
+032F 6F              650                              DB   6FH                       ; 9
+0330 40              651                              DB   40H                       ; -
+                     652     ;------------------------------
+0331                 653     TASK_50mS:
+0331 2195            654             JMP   MAINLOOP
+                     655     ;------------------------------
+0333                 656     TASK_1S:
+0333 0540            657             INC   SEC_1
+0335 E540            658                     MOV   A,        SEC_1
+0337 B40A0D          659                     CJNE  A,        #10,    T_1S_1
+033A 754000          660                     MOV   SEC_1,    #0
+033D 0541            661                     INC   SEC_10
+033F E541            662                     MOV   A,        SEC_10
+0341 B40603          663                     CJNE  A,        #6,     T_1S_1
+0344 754100          664                     MOV   SEC_10,   #0
+0347 2195            665     T_1S_1: JMP   MAINLOOP
+                     666     ;------------------------------
+0349                 667     TASK_1Min:
+0349 0542            668             INC   MIN_1
+034B E542            669                     MOV   A,        MIN_1
+034D B40A0D          670                     CJNE  A,        #10,    T_1M_1
+0350 754200          671                     MOV   MIN_1,    #0
+0353 0543            672                     INC   MIN_10
+0355 E543            673                     MOV   A,        MIN_10
+0357 B40603          674                     CJNE  A,        #6,     T_1M_1
+035A 754300          675                     MOV   MIN_10,   #0
+035D 2195            676      T_1M_1:JMP   MAINLOOP
+                     677     ;------------------------------
+035F                 678     TASK_1HOUR:
+035F 0544            679             INC   HOUR_1
+0361 E544            680                     MOV   A,        HOUR_1
+0363 B40A0D          681                     CJNE  A,        #10,    T_1H_1
+0366 754400          682                     MOV   HOUR_1,   #0
+0369 0545            683                     INC   HOUR_10
+036B E545            684                     MOV   A,        HOUR_10
+036D B40203          685                     CJNE  A,        #2,     T_1H_1
+0370 754500          686                     MOV   HOUR_10,  #0
+0373 2195            687      T_1H_1:JMP   MAINLOOP
+                     688     ;--------------------------------------INT_T0--------------------------
+0375 D200            689     INT_T0: SETB   CLICK_50uS
+0377 D53025          690                 DJNZ   TIME_50uS,    EXIT_T0
+037A 753014          691             MOV    TIME_50uS,    #20
+037D D201            692             SETB   CLICK_1mS 
+037F D5311D          693                 DJNZ   TIME_1mS,     EXIT_T0
+0382 753132          694             MOV    TIME_1mS,     #50
+0385 D202            695                 SETB   CLICK_50mS
+0387 D53215          696                 DJNZ   TIME_50mS,    EXIT_T0
+038A 753214          697             MOV    TIME_50mS,    #20
+038D D204            698                 SETB   CLICK_1S
+038F D5340D          699                 DJNZ   TIME_1S,      EXIT_T0
+0392 75343C          700             MOV    TIME_1S,      #60
+0395 D205            701                 SETB   CLICK_1Min 
+0397 D53505          702                 DJNZ   TIME_1MIN,    EXIT_T0
+039A 75353C          703             MOV    TIME_1MIN,    #60
+039D D206            704                 SETB   CLICK_1HOUR                    
+039F 32              705     EXIT_T0:RETI
+                     706     
+                     707             END           
+                             
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    12
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AC . . . . . . . .  B ADDR   00D0H.6 A   
+ACC. . . . . . . .  D ADDR   00E0H   A   
+ADC_CONTR. . . . .  D ADDR   00BCH   A   
+ADC_RES. . . . . .  D ADDR   00BDH   A   
+ADC_RESL . . . . .  D ADDR   00BEH   A   
+AUXR . . . . . . .  D ADDR   008EH   A   
+AUXR1. . . . . . .  D ADDR   00A2H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+BUS_SPEED. . . . .  D ADDR   00A1H   A   
+CCAP0H . . . . . .  D ADDR   00FAH   A   
+CCAP0L . . . . . .  D ADDR   00EAH   A   
+CCAP1H . . . . . .  D ADDR   00FBH   A   
+CCAP1L . . . . . .  D ADDR   00EBH   A   
+CCAP2H . . . . . .  D ADDR   00FCH   A   
+CCAP2L . . . . . .  D ADDR   00ECH   A   
+CCAPM0 . . . . . .  D ADDR   00DAH   A   
+CCAPM1 . . . . . .  D ADDR   00DBH   A   
+CCAPM2 . . . . . .  D ADDR   00DCH   A   
+CCF0 . . . . . . .  B ADDR   00D8H.0 A   
+CCF1 . . . . . . .  B ADDR   00D8H.1 A   
+CCF2 . . . . . . .  B ADDR   00D8H.2 A   
+CCON . . . . . . .  D ADDR   00D8H   A   
+CF . . . . . . . .  B ADDR   00D8H.7 A   
+CH . . . . . . . .  D ADDR   00F9H   A   
+CL . . . . . . . .  D ADDR   00E9H   A   
+CLICK_1HOUR. . . .  B ADDR   0020H.6 A   
+CLICK_1MIN . . . .  B ADDR   0020H.5 A   
+CLICK_1MS. . . . .  B ADDR   0020H.1 A   
+CLICK_1S . . . . .  B ADDR   0020H.4 A   
+CLICK_200MS. . . .  B ADDR   0020H.3 A   
+CLICK_50MS . . . .  B ADDR   0020H.2 A   
+CLICK_50US . . . .  B ADDR   0020H.0 A   
+CLK_DIV. . . . . .  D ADDR   0097H   A   
+CMOD . . . . . . .  D ADDR   00D9H   A   
+CR . . . . . . . .  B ADDR   00D8H.6 A   
+CURDIS . . . . . .  N NUMB   0059H   A   
+CY . . . . . . . .  B ADDR   00D0H.7 A   
+C_1HOUR. . . . . .  C ADDR   01CBH   A   
+C_1MIN . . . . . .  C ADDR   01C9H   A   
+C_1MS. . . . . . .  C ADDR   01C3H   A   
+C_1S . . . . . . .  C ADDR   01C7H   A   
+C_50MS . . . . . .  C ADDR   01C5H   A   
+C_50US . . . . . .  C ADDR   01C1H   A   
+C_KEY1 . . . . . .  C ADDR   01CDH   A   
+C_KEY2 . . . . . .  C ADDR   01CFH   A   
+C_KEY3 . . . . . .  C ADDR   01D1H   A   
+C_KEYC . . . . . .  C ADDR   01D7H   A   
+C_KEYD . . . . . .  C ADDR   01D5H   A   
+C_KEYL . . . . . .  C ADDR   01D9H   A   
+C_KEYR . . . . . .  C ADDR   01D3H   A   
+C_KEYU . . . . . .  C ADDR   01DBH   A   
+DATA_TH0 . . . . .  N NUMB   00D2H   A   
+DPH. . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . .  D ADDR   0082H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EADC . . . . . . .  B ADDR   00A8H.5 A   
+ELVD . . . . . . .  B ADDR   00A8H.6 A   
+ES . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    13
+
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+EXIT_T0. . . . . .  C ADDR   039FH   A   
+F0 . . . . . . . .  B ADDR   00D0H.5 A   
+FOSC . . . . . . .  N NUMB   2B33H   A   
+G0_A1. . . . . . .  N NUMB   0045H   A   
+G0_A2. . . . . . .  N NUMB   0044H   A   
+G0_A3. . . . . . .  N NUMB   0046H   A   
+G0_A4. . . . . . .  N NUMB   0043H   A   
+G0_A5. . . . . . .  N NUMB   0042H   A   
+G0_A6. . . . . . .  N NUMB   0046H   A   
+G0_A7. . . . . . .  N NUMB   0041H   A   
+G0_A8. . . . . . .  N NUMB   0040H   A   
+G1_A1. . . . . . .  N NUMB   0041H   A   
+G1_A2. . . . . . .  N NUMB   0040H   A   
+G1_A3. . . . . . .  N NUMB   0046H   A   
+G1_A4. . . . . . .  N NUMB   0043H   A   
+G1_A5. . . . . . .  N NUMB   0042H   A   
+G1_A6. . . . . . .  N NUMB   0046H   A   
+G1_A7. . . . . . .  N NUMB   0046H   A   
+G1_A8. . . . . . .  N NUMB   0057H   A   
+G2_A1. . . . . . .  N NUMB   0046H   A   
+G2_A2. . . . . . .  N NUMB   0046H   A   
+G2_A3. . . . . . .  N NUMB   0046H   A   
+G2_A4. . . . . . .  N NUMB   0057H   A   
+G2_A5. . . . . . .  N NUMB   0046H   A   
+G2_A6. . . . . . .  N NUMB   0046H   A   
+G2_A7. . . . . . .  N NUMB   0046H   A   
+G2_A8. . . . . . .  N NUMB   0040H   A   
+GROUP_DIS. . . . .  N NUMB   0057H   A   
+HOUR_1 . . . . . .  N NUMB   0044H   A   
+HOUR_10. . . . . .  N NUMB   0045H   A   
+IAP_ADDRH. . . . .  D ADDR   00C3H   A   
+IAP_ADDRL. . . . .  D ADDR   00C4H   A   
+IAP_CMD. . . . . .  D ADDR   00C5H   A   
+IAP_CONTR. . . . .  D ADDR   00C7H   A   
+IAP_DATA . . . . .  D ADDR   00C2H   A   
+IAP_TRIG . . . . .  D ADDR   00C6H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+IE0. . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . .  B ADDR   0088H.3 A   
+IE2. . . . . . . .  D ADDR   00AFH   A   
+INT_CLKO . . . . .  D ADDR   008FH   A   
+INT_T0 . . . . . .  C ADDR   0375H   A   
+IP . . . . . . . .  D ADDR   00B8H   A   
+IP2. . . . . . . .  D ADDR   00B5H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+KEY1 . . . . . . .  B ADDR   00B0H.2 A   
+KEY1_C . . . . . .  B ADDR   0022H.0 A   
+KEY1_COUNTER . . .  N NUMB   0048H   A   
+KEY1_P . . . . . .  B ADDR   0023H.0 A   
+KEY2 . . . . . . .  B ADDR   00B0H.3 A   
+KEY2_C . . . . . .  B ADDR   0022H.1 A   
+KEY2_COUNTER . . .  N NUMB   0049H   A   
+KEY2_P . . . . . .  B ADDR   0023H.1 A   
+KEY3 . . . . . . .  B ADDR   0021H.2 A   
+KEY3_C . . . . . .  B ADDR   0022H.2 A   
+KEY3_COUNTER . . .  N NUMB   004AH   A   
+KEY3_P . . . . . .  B ADDR   0023H.2 A   
+KEYC . . . . . . .  B ADDR   0021H.5 A   
+KEYC_C . . . . . .  B ADDR   0022H.5 A   
+KEYC_COUNTER . . .  N NUMB   004DH   A   
+KEYC_P . . . . . .  B ADDR   0023H.5 A   
+KEYD . . . . . . .  B ADDR   0021H.4 A   
+KEYD_C . . . . . .  B ADDR   0022H.4 A   
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    14
+
+KEYD_COUNTER . . .  N NUMB   004CH   A   
+KEYD_P . . . . . .  B ADDR   0023H.4 A   
+KEYL . . . . . . .  B ADDR   0021H.6 A   
+KEYL_C . . . . . .  B ADDR   0022H.6 A   
+KEYL_COUNTER . . .  N NUMB   004EH   A   
+KEYL_P . . . . . .  B ADDR   0023H.6 A   
+KEYR . . . . . . .  B ADDR   0021H.3 A   
+KEYR_C . . . . . .  B ADDR   0022H.3 A   
+KEYR_COUNTER . . .  N NUMB   004BH   A   
+KEYR_P . . . . . .  B ADDR   0023H.3 A   
+KEYU . . . . . . .  B ADDR   0021H.7 A   
+KEYU_C . . . . . .  B ADDR   0022H.7 A   
+KEYU_COUNTER . . .  N NUMB   004FH   A   
+KEYU_P . . . . . .  B ADDR   0023H.7 A   
+KEY_COUNTER. . . .  N NUMB   0047H   A   
+MAINLOOP . . . . .  C ADDR   0195H   A   
+MID_LINE . . . . .  N NUMB   0046H   A   
+MIN_1. . . . . . .  N NUMB   0042H   A   
+MIN_10 . . . . . .  N NUMB   0043H   A   
+NEW_COMMAND. . . .  C ADDR   01DDH   A   
+NMAX_KEY . . . . .  N NUMB   0032H   A   
+N_MAXDIS . . . . .  N NUMB   0058H   A   
+OV . . . . . . . .  B ADDR   00D0H.2 A   
+P. . . . . . . . .  B ADDR   00D0H.0 A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P00. . . . . . . .  B ADDR   0080H.0 A   
+P01. . . . . . . .  B ADDR   0080H.1 A   
+P02. . . . . . . .  B ADDR   0080H.2 A   
+P03. . . . . . . .  B ADDR   0080H.3 A   
+P04. . . . . . . .  B ADDR   0080H.4 A   
+P05. . . . . . . .  B ADDR   0080H.5 A   
+P06. . . . . . . .  B ADDR   0080H.6 A   
+P07. . . . . . . .  B ADDR   0080H.7 A   
+P0M0 . . . . . . .  D ADDR   0094H   A   
+P0M1 . . . . . . .  D ADDR   0093H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P10. . . . . . . .  B ADDR   0090H.0 A   
+P11. . . . . . . .  B ADDR   0090H.1 A   
+P12. . . . . . . .  B ADDR   0090H.2 A   
+P13. . . . . . . .  B ADDR   0090H.3 A   
+P14. . . . . . . .  B ADDR   0090H.4 A   
+P15. . . . . . . .  B ADDR   0090H.5 A   
+P16. . . . . . . .  B ADDR   0090H.6 A   
+P17. . . . . . . .  B ADDR   0090H.7 A   
+P1ASF. . . . . . .  D ADDR   009DH   A   
+P1M0 . . . . . . .  D ADDR   0092H   A   
+P1M1 . . . . . . .  D ADDR   0091H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P20. . . . . . . .  B ADDR   00A0H.0 A   
+P21. . . . . . . .  B ADDR   00A0H.1 A   
+P22. . . . . . . .  B ADDR   00A0H.2 A   
+P23. . . . . . . .  B ADDR   00A0H.3 A   
+P24. . . . . . . .  B ADDR   00A0H.4 A   
+P25. . . . . . . .  B ADDR   00A0H.5 A   
+P26. . . . . . . .  B ADDR   00A0H.6 A   
+P27. . . . . . . .  B ADDR   00A0H.7 A   
+P2M0 . . . . . . .  D ADDR   0096H   A   
+P2M1 . . . . . . .  D ADDR   0095H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+P30. . . . . . . .  B ADDR   00B0H.0 A   
+P31. . . . . . . .  B ADDR   00B0H.1 A   
+P32. . . . . . . .  B ADDR   00B0H.2 A   
+P33. . . . . . . .  B ADDR   00B0H.3 A   
+P34. . . . . . . .  B ADDR   00B0H.4 A   
+P35. . . . . . . .  B ADDR   00B0H.5 A   
+P36. . . . . . . .  B ADDR   00B0H.6 A   
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    15
+
+P37. . . . . . . .  B ADDR   00B0H.7 A   
+P3M0 . . . . . . .  D ADDR   00B2H   A   
+P3M1 . . . . . . .  D ADDR   00B1H   A   
+P4 . . . . . . . .  D ADDR   00C0H   A   
+P40. . . . . . . .  B ADDR   00C0H.0 A   
+P41. . . . . . . .  B ADDR   00C0H.1 A   
+P42. . . . . . . .  B ADDR   00C0H.2 A   
+P43. . . . . . . .  B ADDR   00C0H.3 A   
+P44. . . . . . . .  B ADDR   00C0H.4 A   
+P45. . . . . . . .  B ADDR   00C0H.5 A   
+P46. . . . . . . .  B ADDR   00C0H.6 A   
+P47. . . . . . . .  B ADDR   00C0H.7 A   
+P4M0 . . . . . . .  D ADDR   00B4H   A   
+P4M1 . . . . . . .  D ADDR   00B3H   A   
+P5 . . . . . . . .  D ADDR   00C8H   A   
+P50. . . . . . . .  B ADDR   00C8H.0 A   
+P51. . . . . . . .  B ADDR   00C8H.1 A   
+P52. . . . . . . .  B ADDR   00C8H.2 A   
+P53. . . . . . . .  B ADDR   00C8H.3 A   
+P54. . . . . . . .  B ADDR   00C8H.4 A   
+P55. . . . . . . .  B ADDR   00C8H.5 A   
+P56. . . . . . . .  B ADDR   00C8H.6 A   
+P57. . . . . . . .  B ADDR   00C8H.7 A   
+P5M0 . . . . . . .  D ADDR   00CAH   A   
+P5M1 . . . . . . .  D ADDR   00C9H   A   
+P6 . . . . . . . .  D ADDR   00E8H   A   
+P60. . . . . . . .  B ADDR   00E8H.0 A   
+P61. . . . . . . .  B ADDR   00E8H.1 A   
+P62. . . . . . . .  B ADDR   00E8H.2 A   
+P63. . . . . . . .  B ADDR   00E8H.3 A   
+P64. . . . . . . .  B ADDR   00E8H.4 A   
+P65. . . . . . . .  B ADDR   00E8H.5 A   
+P66. . . . . . . .  B ADDR   00E8H.6 A   
+P67. . . . . . . .  B ADDR   00E8H.7 A   
+P6M0 . . . . . . .  D ADDR   00CCH   A   
+P6M1 . . . . . . .  D ADDR   00CBH   A   
+P7 . . . . . . . .  D ADDR   00F8H   A   
+P70. . . . . . . .  B ADDR   00F8H.0 A   
+P71. . . . . . . .  B ADDR   00F8H.1 A   
+P72. . . . . . . .  B ADDR   00F8H.2 A   
+P73. . . . . . . .  B ADDR   00F8H.3 A   
+P74. . . . . . . .  B ADDR   00F8H.4 A   
+P75. . . . . . . .  B ADDR   00F8H.5 A   
+P76. . . . . . . .  B ADDR   00F8H.6 A   
+P77. . . . . . . .  B ADDR   00F8H.7 A   
+P7M0 . . . . . . .  D ADDR   00E2H   A   
+P7M1 . . . . . . .  D ADDR   00E1H   A   
+PADC . . . . . . .  B ADDR   00B8H.5 A   
+PCA_PWM0 . . . . .  D ADDR   00F2H   A   
+PCA_PWM1 . . . . .  D ADDR   00F3H   A   
+PCA_PWM2 . . . . .  D ADDR   00F4H   A   
+PCON . . . . . . .  D ADDR   0087H   A   
+PLVD . . . . . . .  B ADDR   00B8H.6 A   
+PPCA . . . . . . .  B ADDR   00B8H.7 A   
+PS . . . . . . . .  B ADDR   00B8H.4 A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+PT0. . . . . . . .  B ADDR   00B8H.1 A   
+PT1. . . . . . . .  B ADDR   00B8H.3 A   
+PX0. . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . .  B ADDR   00B8H.2 A   
+P_SW1. . . . . . .  D ADDR   00A2H   A   
+P_SW2. . . . . . .  D ADDR   00BAH   A   
+RB8. . . . . . . .  B ADDR   0098H.2 A   
+REN. . . . . . . .  B ADDR   0098H.4 A   
+RI . . . . . . . .  B ADDR   0098H.0 A   
+RS0. . . . . . . .  B ADDR   00D0H.3 A   
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    16
+
+RS1. . . . . . . .  B ADDR   00D0H.4 A   
+S2BUF. . . . . . .  D ADDR   009BH   A   
+S2CON. . . . . . .  D ADDR   009AH   A   
+S3BUF. . . . . . .  D ADDR   00ADH   A   
+S3CON. . . . . . .  D ADDR   00ACH   A   
+S4BUF. . . . . . .  D ADDR   0085H   A   
+S4CON. . . . . . .  D ADDR   0084H   A   
+SADDR. . . . . . .  D ADDR   00A9H   A   
+SADEN. . . . . . .  D ADDR   00B9H   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+SEC_1. . . . . . .  N NUMB   0040H   A   
+SEC_10 . . . . . .  N NUMB   0041H   A   
+SM0. . . . . . . .  B ADDR   0098H.7 A   
+SM1. . . . . . . .  B ADDR   0098H.6 A   
+SM2. . . . . . . .  B ADDR   0098H.5 A   
+SP . . . . . . . .  D ADDR   0081H   A   
+SPCTL. . . . . . .  D ADDR   00CEH   A   
+SPDAT. . . . . . .  D ADDR   00CFH   A   
+SPSTAT . . . . . .  D ADDR   00CDH   A   
+START. . . . . . .  C ADDR   0100H   A   
+T1MS_0 . . . . . .  C ADDR   0202H   A   
+T1MS_1 . . . . . .  C ADDR   020CH   A   
+T1MS_2 . . . . . .  C ADDR   0226H   A   
+T1MS_3 . . . . . .  C ADDR   0232H   A   
+T1MS_4 . . . . . .  C ADDR   0237H   A   
+T1MS_5 . . . . . .  C ADDR   023CH   A   
+T1MS_6 . . . . . .  C ADDR   0258H   A   
+T1MS_7 . . . . . .  C ADDR   025DH   A   
+T1MS_8 . . . . . .  C ADDR   0271H   A   
+T1MS_9 . . . . . .  C ADDR   0276H   A   
+T1MS_A . . . . . .  C ADDR   028AH   A   
+T1MS_B . . . . . .  C ADDR   028FH   A   
+T1MS_C . . . . . .  C ADDR   02A3H   A   
+T1MS_D . . . . . .  C ADDR   02A8H   A   
+T1MS_E . . . . . .  C ADDR   02BCH   A   
+T1MS_END . . . . .  C ADDR   0256H   A   
+T1MS_F . . . . . .  C ADDR   02C1H   A   
+T1MS_G . . . . . .  C ADDR   02D5H   A   
+T1MS_H . . . . . .  C ADDR   02DAH   A   
+T1MS_I . . . . . .  C ADDR   02EEH   A   
+T1MS_J . . . . . .  C ADDR   02F3H   A   
+T1MS_K . . . . . .  C ADDR   0307H   A   
+T1MS_L . . . . . .  C ADDR   030CH   A   
+T2H. . . . . . . .  D ADDR   00D6H   A   
+T2L. . . . . . . .  D ADDR   00D7H   A   
+T3H. . . . . . . .  D ADDR   00D4H   A   
+T3L. . . . . . . .  D ADDR   00D5H   A   
+T3T4M. . . . . . .  D ADDR   00D1H   A   
+T4H. . . . . . . .  D ADDR   00D2H   A   
+T4L. . . . . . . .  D ADDR   00D3H   A   
+T4T3M. . . . . . .  D ADDR   00D1H   A   
+T50US_1. . . . . .  C ADDR   0230H   A   
+TAB_DECODE . . . .  C ADDR   0326H   A   
+TAB_GROUP_DIS. . .  C ADDR   030EH   A   
+TASK_1HOUR . . . .  C ADDR   035FH   A   
+TASK_1MIN. . . . .  C ADDR   0349H   A   
+TASK_1MS . . . . .  C ADDR   0232H   A   
+TASK_1S. . . . . .  C ADDR   0333H   A   
+TASK_50MS. . . . .  C ADDR   0331H   A   
+TASK_50US. . . . .  C ADDR   01F3H   A   
+TASK_KEY1. . . . .  C ADDR   01DFH   A   
+TASK_KEY2. . . . .  C ADDR   01E3H   A   
+TASK_KEY3. . . . .  C ADDR   01E7H   A   
+TASK_KEYC. . . . .  C ADDR   01EDH   A   
+TASK_KEYD. . . . .  C ADDR   01EBH   A   
+A51 MACRO ASSEMBLER  DEMO                                                                 08/17/2015 17:41:40 PAGE    17
+
+TASK_KEYL. . . . .  C ADDR   01EFH   A   
+TASK_KEYR. . . . .  C ADDR   01E9H   A   
+TASK_KEYU. . . . .  C ADDR   01F1H   A   
+TB8. . . . . . . .  B ADDR   0098H.3 A   
+TCLICK . . . . . .  N NUMB   0032H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TIME_1HOUR . . . .  N NUMB   0036H   A   
+TIME_1MIN. . . . .  N NUMB   0035H   A   
+TIME_1MS . . . . .  N NUMB   0031H   A   
+TIME_1S. . . . . .  N NUMB   0034H   A   
+TIME_50MS. . . . .  N NUMB   0032H   A   
+TIME_50US. . . . .  N NUMB   0030H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+T_1H_1 . . . . . .  C ADDR   0373H   A   
+T_1M_1 . . . . . .  C ADDR   035DH   A   
+T_1S_1 . . . . . .  C ADDR   0347H   A   
+VKEY1. . . . . . .  B ADDR   0024H.0 A   
+VKEY2. . . . . . .  B ADDR   0024H.1 A   
+VKEY3. . . . . . .  B ADDR   0024H.2 A   
+VKEYC. . . . . . .  B ADDR   0024H.5 A   
+VKEYD. . . . . . .  B ADDR   0024H.4 A   
+VKEYL. . . . . . .  B ADDR   0024H.6 A   
+VKEYR. . . . . . .  B ADDR   0024H.3 A   
+VKEYU. . . . . . .  B ADDR   0024H.7 A   
+WDT_CONTR. . . . .  D ADDR   00C1H   A   
+WKTCH. . . . . . .  D ADDR   00ABH   A   
+WKTCL. . . . . . .  D ADDR   00AAH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

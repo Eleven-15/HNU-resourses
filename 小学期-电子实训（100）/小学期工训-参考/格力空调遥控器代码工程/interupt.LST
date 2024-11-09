@@ -1,0 +1,47 @@
+C51 COMPILER V9.05   INTERUPT                                                              08/23/2015 16:49:59 PAGE 1   
+
+
+C51 COMPILER V9.05, COMPILATION OF MODULE INTERUPT
+OBJECT MODULE PLACED IN interupt.OBJ
+COMPILER INVOKED BY: D:\Software\Study-software\keil4\C51\BIN\C51.EXE interupt.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /********************
+   2           *中断服务函数，实现了定时器0的
+   3           *中断和串口中断
+   4           *********************/
+   5          #include "device.h"
+   6          /********************
+   7           *定时器0中断
+   8           *********************/
+   9          void int_timer0(void) interrupt 1 {
+  10   1        Timer01msFlag0=1;
+  11   1              Timer01msFlag1=1;
+  12   1              TH0=TIMER01MSTH0;
+  13   1              TL0=TIMER01MSTL0;
+  14   1      }
+  15          /********************
+  16           *定时器1中断
+  17           *********************/
+  18          void int_timer1(void) interrupt 3{
+  19   1              timer0Num++;
+  20   1              if(IRFLAG)
+  21   1                      IR_OUT=~IR_OUT;
+  22   1              else
+  23   1                      IR_OUT=0;
+  24   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     36    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

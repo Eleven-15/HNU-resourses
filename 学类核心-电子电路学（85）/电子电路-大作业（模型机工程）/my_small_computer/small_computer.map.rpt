@@ -1,0 +1,404 @@
+Analysis & Synthesis report for small_computer
+Sat Feb 25 00:35:42 2023
+Quartus II Version 9.0 Build 184 04/29/2009 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Analysis & Synthesis Source Files Read
+  5. Analysis & Synthesis Resource Usage Summary
+  6. Analysis & Synthesis Resource Utilization by Entity
+  7. Analysis & Synthesis RAM Summary
+  8. General Register Statistics
+  9. Inverted Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Source assignments for LPM_RAM_IO:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated
+ 12. Parameter Settings for User Entity Instance: LPM_RAM_IO:inst
+ 13. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                      ;
++------------------------------------+----------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sat Feb 25 00:35:42 2023        ;
+; Quartus II Version                 ; 9.0 Build 184 04/29/2009 SP 1 SJ Web Edition ;
+; Revision Name                      ; small_computer                               ;
+; Top-level Entity Name              ; small_computer                               ;
+; Family                             ; Cyclone II                                   ;
+; Total logic elements               ; 225                                          ;
+;     Total combinational functions  ; 202                                          ;
+;     Dedicated logic registers      ; 43                                           ;
+; Total registers                    ; 43                                           ;
+; Total pins                         ; 60                                           ;
+; Total virtual pins                 ; 0                                            ;
+; Total memory bits                  ; 2,048                                        ;
+; Embedded Multiplier 9-bit elements ; 0                                            ;
+; Total PLLs                         ; 0                                            ;
++------------------------------------+----------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                          ;
++--------------------------------------------------------------+--------------------+--------------------+
+; Option                                                       ; Setting            ; Default Value      ;
++--------------------------------------------------------------+--------------------+--------------------+
+; Device                                                       ; EP2C5T144C8        ;                    ;
+; Top-level entity name                                        ; small_computer     ; small_computer     ;
+; Family name                                                  ; Cyclone II         ; Stratix II         ;
+; Use Generated Physical Constraints File                      ; Off                ;                    ;
+; Use smart compilation                                        ; Off                ; Off                ;
+; Restructure Multiplexers                                     ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                          ; Off                ; Off                ;
+; Preserve fewer node names                                    ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                    ; Off                ; Off                ;
+; Verilog Version                                              ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                 ; VHDL93             ; VHDL93             ;
+; State Machine Processing                                     ; Auto               ; Auto               ;
+; Safe State Machine                                           ; Off                ; Off                ;
+; Extract Verilog State Machines                               ; On                 ; On                 ;
+; Extract VHDL State Machines                                  ; On                 ; On                 ;
+; Ignore Verilog initial constructs                            ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                   ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops               ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                      ; On                 ; On                 ;
+; Parallel Synthesis                                           ; Off                ; Off                ;
+; DSP Block Balancing                                          ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                           ; On                 ; On                 ;
+; Power-Up Don't Care                                          ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                 ; Off                ; Off                ;
+; Remove Duplicate Registers                                   ; On                 ; On                 ;
+; Ignore CARRY Buffers                                         ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                       ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                    ; Off                ; Off                ;
+; Ignore LCELL Buffers                                         ; Off                ; Off                ;
+; Ignore SOFT Buffers                                          ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                               ; Off                ; Off                ;
+; Optimization Technique                                       ; Balanced           ; Balanced           ;
+; Carry Chain Length                                           ; 70                 ; 70                 ;
+; Auto Carry Chains                                            ; On                 ; On                 ;
+; Auto Open-Drain Pins                                         ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                        ; Off                ; Off                ;
+; Auto ROM Replacement                                         ; On                 ; On                 ;
+; Auto RAM Replacement                                         ; On                 ; On                 ;
+; Auto Shift Register Replacement                              ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                ; On                 ; On                 ;
+; Strict RAM Replacement                                       ; Off                ; Off                ;
+; Allow Synchronous Control Signals                            ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                       ; Off                ; Off                ;
+; Auto RAM to Logic Cell Conversion                            ; Off                ; Off                ;
+; Auto Resource Sharing                                        ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                           ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                           ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing          ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives            ; Off                ; Off                ;
+; Timing-Driven Synthesis                                      ; Off                ; Off                ;
+; Show Parameter Settings Tables in Synthesis Report           ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                           ; Off                ; Off                ;
+; Synchronization Register Chain Length                        ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                 ; Normal compilation ; Normal compilation ;
+; HDL message level                                            ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages              ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report     ; 100                ; 100                ;
+; Number of Inverted Registers Reported in Synthesis Report    ; 100                ; 100                ;
+; Clock MUX Protection                                         ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                  ; Off                ; Off                ;
+; Block Design Naming                                          ; Auto               ; Auto               ;
+; SDC constraint protection                                    ; Off                ; Off                ;
+; Synthesis Effort                                             ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal ; On                 ; On                 ;
+; Analysis & Synthesis Message Level                           ; Medium             ; Medium             ;
++--------------------------------------------------------------+--------------------+--------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                      ;
++----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                                      ;
++----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+
+; ../con_signal/con_signal.v       ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/con_signal/con_signal.v                  ;
+; ../sm/sm.v                       ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/sm/sm.v                                  ;
+; ../simple/simple.v               ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/simple/simple.v                          ;
+; ../shift/shift.v                 ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/shift/shift.v                            ;
+; ../reg_group/reg_group.v         ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/reg_group/reg_group.v                    ;
+; ../psw/psw.v                     ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/psw/psw.v                                ;
+; ../pc/pc.v                       ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/pc/pc.v                                  ;
+; ../mux3_1/mux3_1.v               ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/mux3_1/mux3_1.v                          ;
+; ../ir/ir.v                       ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/ir/ir.v                                  ;
+; ../ins_decode/ins_decode.v       ; yes             ; User Verilog HDL File              ; E:/Quartus II/quartus/AAAelectronic-file/ins_decode/ins_decode.v                  ;
+; small_computer.bdf               ; yes             ; User Block Diagram/Schematic File  ; E:/Quartus II/quartus/AAAelectronic-file/my_small_computer/small_computer.bdf     ;
+; LPM_RAM_IO.tdf                   ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/LPM_RAM_IO.tdf                      ;
+; altram.inc                       ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altram.inc                          ;
+; lpm_mux.inc                      ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/lpm_mux.inc                         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/lpm_decode.inc                      ;
+; aglobal90.inc                    ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/aglobal90.inc                       ;
+; altram.tdf                       ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altram.tdf                          ;
+; memmodes.inc                     ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/others/maxplus2/memmodes.inc                      ;
+; altsyncram.inc                   ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altsyncram.inc                      ;
+; altqpram.inc                     ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altqpram.inc                        ;
+; altsyncram.tdf                   ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altsyncram.tdf                      ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/stratix_ram_block.inc               ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/a_rdenreg.inc                       ;
+; altrom.inc                       ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altrom.inc                          ;
+; altdpram.inc                     ; yes             ; Megafunction                       ; e:/quartus ii/quartus/libraries/megafunctions/altdpram.inc                        ;
+; db/altsyncram_6h91.tdf           ; yes             ; Auto-Generated Megafunction        ; E:/Quartus II/quartus/AAAelectronic-file/my_small_computer/db/altsyncram_6h91.tdf ;
++----------------------------------+-----------------+------------------------------------+-----------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Estimated Total logic elements              ; 225   ;
+;                                             ;       ;
+; Total combinational functions               ; 202   ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 116   ;
+;     -- 3 input functions                    ; 60    ;
+;     -- <=2 input functions                  ; 26    ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 179   ;
+;     -- arithmetic mode                      ; 23    ;
+;                                             ;       ;
+; Total registers                             ; 43    ;
+;     -- Dedicated logic registers            ; 43    ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 60    ;
+; Total memory bits                           ; 2048  ;
+; Maximum fan-out node                        ; clk   ;
+; Maximum fan-out                             ; 51    ;
+; Total fan-out                               ; 987   ;
+; Average fan-out                             ; 3.15  ;
++---------------------------------------------+-------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                       ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                   ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                             ; Library Name ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------+--------------+
+; |small_computer                              ; 202 (28)          ; 43 (0)       ; 2048        ; 0            ; 0       ; 0         ; 60   ; 0            ; |small_computer                                                                                 ; work         ;
+;    |con_signal:inst9|                        ; 9 (9)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|con_signal:inst9                                                                ; work         ;
+;    |ins_decode:inst5|                        ; 14 (14)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|ins_decode:inst5                                                                ; work         ;
+;    |ir:inst1|                                ; 0 (0)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|ir:inst1                                                                        ; work         ;
+;    |lpm_ram_io:inst|                         ; 1 (1)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|lpm_ram_io:inst                                                                 ; work         ;
+;       |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|lpm_ram_io:inst|altram:sram                                                     ; work         ;
+;          |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|lpm_ram_io:inst|altram:sram|altsyncram:ram_block                                ; work         ;
+;             |altsyncram_6h91:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated ; work         ;
+;    |mux3_1:inst8|                            ; 16 (16)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|mux3_1:inst8                                                                    ; work         ;
+;    |pc:inst7|                                ; 10 (10)           ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|pc:inst7                                                                        ; work         ;
+;    |psw:inst10|                              ; 12 (12)           ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|psw:inst10                                                                      ; work         ;
+;    |reg_group:inst11|                        ; 37 (37)           ; 24 (24)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|reg_group:inst11                                                                ; work         ;
+;    |shift:inst4|                             ; 19 (19)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|shift:inst4                                                                     ; work         ;
+;    |simple:inst3|                            ; 54 (54)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|simple:inst3                                                                    ; work         ;
+;    |sm:inst6|                                ; 2 (2)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |small_computer|sm:inst6                                                                        ; work         ;
++----------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                ;
++--------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+------------+
+; Name                                                                                       ; Type ; Mode        ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF        ;
++--------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+------------+
+; lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|ALTSYNCRAM ; AUTO ; Single Port ; 256          ; 8            ; --           ; --           ; 2048 ; ./ram3.mif ;
++--------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 43    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 8     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 40    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; reg_group:inst11|C[7]                  ; 3       ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |small_computer|pc:inst7|add[6]       ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |small_computer|mux3_1:inst8|Mux1     ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |small_computer|shift:inst4|w[4]~12   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |small_computer|reg_group:inst11|s[0] ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |small_computer|reg_group:inst11|d[0] ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |small_computer|ins_decode:inst5|movc ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 32 LEs               ; 8 LEs                  ; No         ; |small_computer|simple:inst3|t[6]     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------+
+; Source assignments for LPM_RAM_IO:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                       ;
++---------------------------------+--------------------+------+------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                        ;
++---------------------------------+--------------------+------+------------------------------------------+
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: LPM_RAM_IO:inst ;
++------------------------+--------------+----------------------+
+; Parameter Name         ; Value        ; Type                 ;
++------------------------+--------------+----------------------+
+; LPM_WIDTH              ; 8            ; Signed Integer       ;
+; LPM_WIDTHAD            ; 8            ; Signed Integer       ;
+; LPM_NUMWORDS           ; 256          ; Signed Integer       ;
+; LPM_INDATA             ; REGISTERED   ; Untyped              ;
+; LPM_ADDRESS_CONTROL    ; REGISTERED   ; Untyped              ;
+; LPM_OUTDATA            ; UNREGISTERED ; Untyped              ;
+; LPM_FILE               ; ./ram3.mif   ; Untyped              ;
+; USE_EAB                ; ON           ; Untyped              ;
+; DEVICE_FAMILY          ; Cyclone II   ; Untyped              ;
+; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY           ;
+; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY         ;
+; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE         ;
+; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE       ;
++------------------------+--------------+----------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Analysis & Synthesis
+    Info: Version 9.0 Build 184 04/29/2009 Service Pack 1 SJ Web Edition
+    Info: Processing started: Sat Feb 25 00:35:40 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off small_computer -c small_computer
+Info: Found 1 design units, including 1 entities, in source file ../con_signal/con_signal.v
+    Info: Found entity 1: con_signal
+Info: Found 1 design units, including 1 entities, in source file ../sm/sm.v
+    Info: Found entity 1: sm
+Info: Found 1 design units, including 1 entities, in source file ../simple/simple.v
+    Info: Found entity 1: simple
+Info: Found 1 design units, including 1 entities, in source file ../shift/shift.v
+    Info: Found entity 1: shift
+Info: Found 1 design units, including 1 entities, in source file ../reg_group/reg_group.v
+    Info: Found entity 1: reg_group
+Info: Found 1 design units, including 1 entities, in source file ../psw/psw.v
+    Info: Found entity 1: psw
+Info: Found 1 design units, including 1 entities, in source file ../pc/pc.v
+    Info: Found entity 1: pc
+Info: Found 1 design units, including 1 entities, in source file ../mux3_1/mux3_1.v
+    Info: Found entity 1: mux3_1
+Info: Found 1 design units, including 1 entities, in source file ../ir/ir.v
+    Info: Found entity 1: ir
+Info: Found 1 design units, including 1 entities, in source file ../ins_decode/ins_decode.v
+    Info: Found entity 1: ins_decode
+Info: Found 1 design units, including 1 entities, in source file small_computer.bdf
+    Info: Found entity 1: small_computer
+Info: Elaborating entity "small_computer" for the top level hierarchy
+Info: Elaborating entity "sm" for hierarchy "sm:inst6"
+Info: Elaborating entity "con_signal" for hierarchy "con_signal:inst9"
+Info: Elaborating entity "ins_decode" for hierarchy "ins_decode:inst5"
+Info: Elaborating entity "ir" for hierarchy "ir:inst1"
+Info: Elaborating entity "LPM_RAM_IO" for hierarchy "LPM_RAM_IO:inst"
+Info: Elaborated megafunction instantiation "LPM_RAM_IO:inst"
+Info: Instantiated megafunction "LPM_RAM_IO:inst" with the following parameter:
+    Info: Parameter "LPM_ADDRESS_CONTROL" = "REGISTERED"
+    Info: Parameter "LPM_FILE" = "./ram3.mif"
+    Info: Parameter "LPM_INDATA" = "REGISTERED"
+    Info: Parameter "LPM_NUMWORDS" = "256"
+    Info: Parameter "LPM_OUTDATA" = "UNREGISTERED"
+    Info: Parameter "LPM_WIDTH" = "8"
+    Info: Parameter "LPM_WIDTHAD" = "8"
+Info: Elaborating entity "altram" for hierarchy "LPM_RAM_IO:inst|altram:sram"
+Warning: Assertion warning: altram does not support Cyclone II device family -- attempting best-case memory conversions, but power-up states and read during write behavior will be different for Cyclone II devices
+Info: Elaborated megafunction instantiation "LPM_RAM_IO:inst|altram:sram", which is child of megafunction instantiation "LPM_RAM_IO:inst"
+Info: Elaborating entity "altsyncram" for hierarchy "LPM_RAM_IO:inst|altram:sram|altsyncram:ram_block"
+Info: Elaborated megafunction instantiation "LPM_RAM_IO:inst|altram:sram|altsyncram:ram_block", which is child of megafunction instantiation "LPM_RAM_IO:inst"
+Info: Found 1 design units, including 1 entities, in source file db/altsyncram_6h91.tdf
+    Info: Found entity 1: altsyncram_6h91
+Info: Elaborating entity "altsyncram_6h91" for hierarchy "LPM_RAM_IO:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated"
+Info: Elaborating entity "mux3_1" for hierarchy "mux3_1:inst8"
+Info: Elaborating entity "pc" for hierarchy "pc:inst7"
+Info: Elaborating entity "reg_group" for hierarchy "reg_group:inst11"
+Info: Elaborating entity "shift" for hierarchy "shift:inst4"
+Info: Elaborating entity "simple" for hierarchy "simple:inst3"
+Info: Elaborating entity "psw" for hierarchy "psw:inst10"
+Warning: Always-enabled tri-state buffer(s) removed
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[7]" to the node "address[7]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[6]" to the node "address[6]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[5]" to the node "address[5]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[4]" to the node "address[4]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[3]" to the node "address[3]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[2]" to the node "address[2]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[1]" to the node "address[1]" into a wire
+    Warning: Converted the fanout from the always-enabled tri-state buffer "mux3_1:inst8|y[0]" to the node "address[0]" into a wire
+Warning: Tri-state node(s) do not directly drive top-level pin(s)
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[7]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[6]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[5]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[4]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[3]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[2]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[1]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "mux3_1:inst8|y[0]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+Warning: Tri-state node(s) do not directly drive top-level pin(s)
+    Warning: Converted the fan-out from the tri-state buffer "inst18[7]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[7]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[6]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[6]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[5]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[5]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[4]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[4]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[3]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[3]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[2]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[2]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[1]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[1]" into an OR gate
+    Warning: Converted the fan-out from the tri-state buffer "inst18[0]" to the node "lpm_ram_io:inst|altram:sram|altsyncram:ram_block|altsyncram_6h91:auto_generated|q_a[0]" into an OR gate
+Info: Implemented 301 device resources after synthesis - the final resource count might be different
+    Info: Implemented 9 input pins
+    Info: Implemented 51 output pins
+    Info: Implemented 233 logic cells
+    Info: Implemented 8 RAM segments
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 28 warnings
+    Info: Peak virtual memory: 236 megabytes
+    Info: Processing ended: Sat Feb 25 00:35:42 2023
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
+
+

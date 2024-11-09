@@ -1,0 +1,73 @@
+C51 COMPILER V9.51   MAIN                                                                  05/25/2022 20:44:26 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE source\main.c BROWSE INCDIR(.\inc) DEBUG OBJECTEXTEND PRINT(.\list\main.lst
+                    -) TABS(2) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          #include "STC15F2K60S2.H"        //±ØÐë¡£
+   2          #include "sys.H"                 //±ØÐë¡£
+   3          #include "displayer.H" 
+   4          #include "key.H" 
+   5          
+   6          code unsigned long SysClock=11059200;         //±ØÐë¡£¶¨ÒåÏµÍ³¹¤×÷Ê±ÖÓÆµÂÊ(Hz)£¬ÓÃ»§±ØÐëÐÞ¸Ä³ÉÓëÊµ¼Ê¹¤×÷Æµ
+             -ÂÊ£¨ÏÂÔØÊ±Ñ¡ÔñµÄ£©Ò»ÖÂ
+   7          #ifdef _displayer_H_                          //ÏÔÊ¾Ä£¿éÑ¡ÓÃÊ±±ØÐë¡££¨ÊýÂë¹ÜÏÔÊ¾ÒëÂë±í£¬ÓÃ‘ô¿ÉÐÞ¸Ä¡¢Ôö¼ÓµÈ
+             -£© 
+   8          code char decode_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x08,0x40,0x01, 0x41, 0x4
+             -8, 
+   9                          /* ÐòºÅ:   0   1    2    3    4     5    6    7   8    9   10    11   12   13    14     15    
+             - */
+  10                          /* ÏÔÊ¾:   0   1    2    3    4     5    6    7   8    9  (ÎÞ)   ÏÂ-  ÖÐ-  ÉÏ-  ÉÏÖÐ-  ÖÐÏ
+             -Â-   */  
+  11                                   0x3f|0x80,0x06|0x80,0x5b|0x80,0x4f|0x80,0x66|0x80,0x6d|0x80,0x7d|0x80,0x07|0x80,0x
+             -7f|0x80,0x6f|0x80 };  
+  12                       /* ´øÐ¡Êýµã     0         1         2         3         4         5         6         7      
+             -   8         9        */
+  13          #endif
+  14          
+  15          unsigned int counter=5000;
+  16          
+  17          void myKey_callback()
+  18          { char k;
+  19   1        k=GetKeyAct(enumKey1);
+  20   1        if( k == enumKeyPress ) counter++;
+  21   1        k=GetKeyAct(enumKey2);
+  22   1        if( k == enumKeyPress ) counter--;
+  23   1      }
+  24          
+  25          void my10mS_callback()
+  26          { Seg7Print(0,0,counter/1000%10,counter/100%10,counter/10%10,counter%10,0,0);
+  27   1      }
+  28          
+  29          void main() 
+  30          { DisplayerInit();  
+  31   1        KeyInit();
+  32   1        SetDisplayerArea(2,5);  
+  33   1        LedPrint(0);
+  34   1        SetEventCallBack(enumEventSys10mS, my10mS_callback);
+  35   1        SetEventCallBack(enumEventKey, myKey_callback);
+  36   1        MySTC_Init();     
+  37   1        while(1)              
+  38   1          { MySTC_OS();    
+  39   2          }              
+  40   1      }                 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    166    ----
+   CONSTANT SIZE    =     30    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.51   MAIN                                                                  05/25/2022 20:44:26 PAGE 2   
+
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

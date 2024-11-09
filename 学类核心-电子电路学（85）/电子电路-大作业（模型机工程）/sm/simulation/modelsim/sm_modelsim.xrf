@@ -1,0 +1,10 @@
+vendor_name = ModelSim
+source_file = 1, E:/Quartus II/quartus/AAAelectronic-file/sm/sm.v
+source_file = 1, E:/Quartus II/quartus/AAAelectronic-file/sm/sm.vwf
+source_file = 1, E:/Quartus II/quartus/AAAelectronic-file/sm/db/sm.cbx.xml
+design_name = sm
+instance = comp, \clk~I , clk, sm, 1
+instance = comp, \sm_en~I , sm_en, sm, 1
+instance = comp, \sm~0 , sm~0, sm, 1
+instance = comp, \sm~reg0 , sm~reg0, sm, 1
+instance = comp, \sm~I , sm, sm, 1

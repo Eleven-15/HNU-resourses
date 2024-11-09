@@ -1,0 +1,4 @@
+".\Objects\test.obj",
+".\Objects\STARTUP.obj" 
+TO ".\Objects\数码管显示12HL-21" 
+PRINT(".\Listings\数码管显示12HL-21.m51") RAMSIZE(256) 

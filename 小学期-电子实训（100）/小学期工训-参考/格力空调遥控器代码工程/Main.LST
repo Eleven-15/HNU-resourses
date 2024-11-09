@@ -1,0 +1,114 @@
+C51 COMPILER V9.05   MAIN                                                                  08/23/2015 18:30:12 PAGE 1   
+
+
+C51 COMPILER V9.05, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN Main.OBJ
+COMPILER INVOKED BY: D:\Software\Study-software\keil4\C51\BIN\C51.EXE Main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include"IRC.c"
+   2          #include"interupt.c"
+   3          /*********配置函数***********/
+   4          void configinIt()
+   5          {
+   6   1              P2M0=0xff;
+   7   1        P2M1=0x00;
+   8   1        P0M0=0xff;
+   9   1        P0M1=0x00;
+  10   1              P3M0|=0xA0;
+  11   1              P3M1|=0x80;
+  12   1              IR_OUT=0;
+  13   1              P2=0x00;
+  14   1              P0=0x00;
+  15   1              IE|=0x80;
+  16   1      }
+  17          void main(void){
+  18   1              uint8 openORClose=0;
+  19   1              uint8 temperature=16;
+  20   1              uint8 adcResult=0;
+  21   1              configinIt();
+  22   1              Timer0Init();
+  23   1              Timer1Init();
+  24   1              keyInit();
+  25   1              while(1)
+  26   1              {
+  27   2                      digitalTubeData[0]=openORClose;
+  28   2                digitalTubeData[6]=temperature/10;
+  29   2                      digitalTubeData[7]=temperature%10;
+  30   2                      digScan();
+  31   2                      keyScan();
+  32   2                      if(keygroup.state[0]==1)
+  33   2                      {
+  34   3                              while(P32==0);
+  35   3                              keygroup.state[0]=0;
+  36   3                              openORClose=1-openORClose;
+  37   3                      }
+  38   2                      if(keygroup.state[1]==1)
+  39   2                      {
+  40   3                              while(P33==0);
+  41   3                              keygroup.state[1]=0;
+  42   3                              SendInstructions(openORClose,temperature);
+  43   3                      }
+  44   2                      if(keygroup.state[7]==1)
+  45   2                      {
+  46   3                              if(ADC_CONTR&0x10)
+  47   3                                      {                                               //数模转换完成，则重新进行转换
+  48   4                                              ADC_CONTR&=~0x10;
+  49   4                                              ADC_CONTR|=0x08;
+  50   4                                              adcResult=ADC_RES>>5;
+  51   4                                      }
+  52   3                              while(adcResult!=0x07)
+  53   3                              {
+  54   4                                      if(ADC_CONTR&0x10)
+  55   4                                      {                                               //数模转换完成，则重新进行转换
+C51 COMPILER V9.05   MAIN                                                                  08/23/2015 18:30:12 PAGE 2   
+
+  56   5                                              ADC_CONTR&=~0x10;
+  57   5                                              ADC_CONTR|=0x08;
+  58   5                                              adcResult=ADC_RES>>5;
+  59   5                                      }
+  60   4                              }
+  61   3                              keygroup.state[7]=0;
+  62   3                              temperature++;
+  63   3                              if(temperature>30)
+  64   3                                      temperature=30;
+  65   3                      }
+  66   2                      if(keygroup.state[4]==1)
+  67   2                      {
+  68   3                              if(ADC_CONTR&0x10)
+  69   3                                      {                                               //数模转换完成，则重新进行转换
+  70   4                                              ADC_CONTR&=~0x10;
+  71   4                                              ADC_CONTR|=0x08;
+  72   4                                              adcResult=ADC_RES>>5;
+  73   4                                      }
+  74   3                              while(adcResult!=0x07)
+  75   3                              {
+  76   4                                      if(ADC_CONTR&0x10)
+  77   4                                      {                                               //数模转换完成，则重新进行转换
+  78   5                                              ADC_CONTR&=~0x10;
+  79   5                                              ADC_CONTR|=0x08;
+  80   5                                              adcResult=ADC_RES>>5;
+  81   5                                      }
+  82   4                              }
+  83   3                              keygroup.state[4]=0;
+  84   3                              temperature--;
+  85   3                              if(temperature<16)
+  86   3                                      temperature=16;
+  87   3                      }
+  88   2              }
+  89   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1032    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    295    ----
+   PDATA SIZE       =     18    ----
+   DATA SIZE        =     14       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

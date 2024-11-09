@@ -1,0 +1,143 @@
+C51 COMPILER V9.51   XIAODOU                                                               06/20/2017 10:29:41 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE XIAODOU
+OBJECT MODULE PLACED IN xiaodou.OBJ
+COMPILER INVOKED BY: D:\Keil_4\C51\BIN\C51.EXE xiaodou.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include "STC15F2K60S2.h"
+   2          #include<intrins.h>
+   3          
+   4          #define uchar unsigned char
+   5          #define uint unsigned int
+   6          //数码管段选信号 从0到9
+   7          uchar code duanxuan[10]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+   8          //数码管位选信号 显示在第4到7位
+   9          uchar code weixuan[4]={0x04,0x05,0x06,0x07};
+  10          
+  11          sbit led_sel=P2^3;//74HC138 的一个使能位
+  12          sbit key1=P3^2;//按键k1
+  13          sbit key2=P3^3;//按键k2
+  14          
+  15          uint number;//显示在数码管上的值
+  16          uint flag;//位选的位置
+  17          int count1,count2,count3,count4;//用于消抖计数
+  18          bit status_P,status_P2;//记录按键前一状态
+  19          void Init()
+  20          {
+  21   1      /**************************
+  22   1      将P0设置成推挽输出 P2的低四位设置成推挽输出 P3不需要设置成推挽输出
+  23   1      **************************/
+  24   1              P0M0=0XFF;
+  25   1              P0M1=0X00;
+  26   1              P2M0=0X0F;
+  27   1              P2M1=0X00;
+  28   1              
+  29   1              led_sel=0;
+  30   1              P0=0;
+  31   1              number=5000;//初始化number=5000
+  32   1              count1=0;
+  33   1              count2=0;
+  34   1              count3=0;
+  35   1              count4=0;
+  36   1              
+  37   1              
+  38   1              status_P=0;
+  39   1              status_P2=0;
+  40   1              flag=0;
+  41   1              
+  42   1              TMOD=0X00;
+  43   1              EA=1;
+  44   1              ET0=1;
+  45   1              TH0=(65536-200)/256;
+  46   1              TL0=(65536-200)%256;
+  47   1              TR0=1;
+  48   1      }
+  49          
+  50          void InterruptTimer0()interrupt 1
+  51          {
+  52   1              switch(flag)
+  53   1              {
+  54   2                      case 0:P0=0;P2=weixuan[flag];P0=duanxuan[number/1000];break;
+  55   2                      case 1:P0=0;P2=weixuan[flag];P0=duanxuan[(number/100)%10];break;
+C51 COMPILER V9.51   XIAODOU                                                               06/20/2017 10:29:41 PAGE 2   
+
+  56   2                      case 2:P0=0;P2=weixuan[flag];P0=duanxuan[(number%100)/10];break;
+  57   2                      case 3:P0=0;P2=weixuan[flag];P0=duanxuan[(number%100)%10];break;
+  58   2              }
+  59   1              flag++;
+  60   1              
+  61   1              count1++;
+  62   1              if(key1==0)
+  63   1              {
+  64   2                      count2++;
+  65   2              }
+  66   1                      
+  67   1              
+  68   1              count3++;
+  69   1              if(key2==0)
+  70   1              {
+  71   2                      count4++;
+  72   2              }
+  73   1      }
+  74          
+  75          void main()
+  76          {
+  77   1              Init();
+  78   1              while(1)
+  79   1              {
+  80   2                      if(flag==4)//修正位选位置  可放在中断程序外 放在中断外 效果更好
+  81   2                              flag=0;
+  82   2                      
+  83   2                      if(count1==30)//消抖大概6ms 总共统计次数 30次
+  84   2                      {
+  85   3                              if(count2>=20)// 如果低电平的有效次数为 2/3 以上
+  86   3                              {
+  87   4                                      if(status_P==1)
+  88   4                                      {
+  89   5                                              status_P=0;
+  90   5                                              number++;
+  91   5                                      }
+  92   4                              }
+  93   3                              else
+  94   3                                      status_P=1;
+  95   3                              count1=0;
+  96   3                              count2=0;
+  97   3                      }
+  98   2                      
+  99   2                      
+ 100   2                      if(count3==30)//消抖大概6ms 总共统计次数 60次
+ 101   2                      {
+ 102   3                              if(count4>=20)// 如果低电平的有效次数为 2/3 以上
+ 103   3                              {
+ 104   4                                      if(status_P2==1)
+ 105   4                                      {
+ 106   5                                              status_P2=0;
+ 107   5                                              number--;
+ 108   5                                      }
+ 109   4                              }
+ 110   3                              else
+ 111   3                                      status_P2=1;
+ 112   3                              count3=0;
+ 113   3                              count4=0;
+ 114   3                      }
+ 115   2              }
+ 116   1      }
+
+C51 COMPILER V9.51   XIAODOU                                                               06/20/2017 10:29:41 PAGE 3   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    464    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
