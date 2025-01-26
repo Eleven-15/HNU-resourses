@@ -1,0 +1,45 @@
+8
+# 整数除法
+in R1		# 被除数a（最终存放余数）
+movi 0
+movb R0,R1	# 被除数a存放到内存0000 0000
+
+in R1		# 除数b
+movi 1
+movb R0,R1	# 除数b存放在内存0000 0001
+
+movi 0
+mova R1,R0  # 预先设置为0
+movi 2
+movb R0,R1  # 商存放在内存 0000 0010
+
+#开始循环
+movi 1
+movc R2,R0	# 从内存中取出值b->R2
+movi 0
+movc R1,R0	# 从内存中取出值a->R1
+sub R1,R2	# 做a-b
+movi 0
+movb R0,R1  # a-b结果存回内存
+movi 1      # 预先加1，避免整除误判的问题
+add R1,R0
+sub R1,R2   # 预先做减法,看看是否会超出，设置G值
+movi 2
+movc R1,R0  # 取出商(用作累加)
+movi 1
+add R1,R0   # 商加一，表示多了一次可以整除
+movi 2
+movb R0,R1  # 将商存回
+movd       	# 保存当前的PC值到R3
+movi -16    # R0的值设置为-16
+add R3,R0  	# R3的值加-16
+jg         	# 如果减法设置G为1,就跳转
+
+#循环结束
+movi 2		# R0中设置为2，即内存地址0000 0010
+movc R1,R0	# 取出结果
+out R1		# 打印结果
+movi 0		# R0中设置为2，即内存地址0000 0010
+movc R1,R0	# 取出结果
+out R1		# 打印结果
+halt

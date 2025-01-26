@@ -1,0 +1,18 @@
+/* *** */
+
+int main(){
+    int a = 5;int b[];int c[9];
+    float d = .33;
+    /*** COMMENT1 /
+    ***/
+    while(a) {
+        a = a-1;
+        d = d+1.5;
+    }
+    a = a + func()
+    /*** /*COMMENT2 //
+    ***/
+    d = d+7.;
+    d = d+6.0;
+    return 1;
+}

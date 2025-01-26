@@ -1,0 +1,103 @@
+Kingma, D.P., & Welling, M. Auto-Encoding Variational Bayes. ICLR, 2014.
+Goodfellow, I., et al. Generative Adversarial Nets. NeurIPS, 2014.
+Mirza, M., & Osindero, S. Conditional Generative Adversarial Nets. NeurIPS, 2014.
+Xu, T., et al. AttnGAN: Fine-Grained Text to Image Generation with Attention Mechanism. CVPR, 2018.
+Kingma, D.P., & Welling, M. Auto-Encoding Variational Bayes. ICLR, 2014.
+Salimans, T., et al. PixelCNN++: Improving the PixelCNN with Discretized Logistic Mixture Likelihood and Other Modifications. NeurIPS, 2017.
+van den Oord, A., et al. Pixel Recurrent Neural Networks. ICML, 2016.
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision. NeurIPS, 2021.
+Zhao, J., et al. From text descriptions to visual denotations: Generating visual scenarios from natural language (2013).
+Karpathy, A., & Fei-Fei, L. Deep Fragment Embeddings for Text-to-Image Alignment (2015).
+Reed, S., et al. Generative adversarial text to image synthesis (2016).
+Zhang, H., et al. StackGAN: Text to photo-realistic image synthesis with stacked generative adversarial networks (2017).
+Xu, T., et al. AttnGAN: Fine-grained text to image generation with attentional generative adversarial networks (2018).
+Yan, X., et al. Attribute2Image: Conditional image generation from visual attributes (2016).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Saharia, C., et al. Imagen: Photorealistic text-to-image diffusion models with deep language understanding (2022).
+Brown, T., et al. CLIP: Connecting text and images through natural language understanding (2021).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Goodfellow, I., et al. Generative Adversarial Nets (2014).
+Reed, S., et al. Generative adversarial text to image synthesis (2016).
+Zhang, H., et al. StackGAN: Text to photo-realistic image synthesis with stacked generative adversarial networks (2017).
+Xu, T., et al. AttnGAN: Fine-grained text to image generation with attentional generative adversarial networks (2018).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Saharia, C., et al. Imagen: Photorealistic text-to-image diffusion models with deep language understanding (2022).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP) (2021).
+Mikolov, T., et al. Efficient Estimation of Word Representations in Vector Space (2013).
+Pennington, J., et al. GloVe: Global Vectors for Word Representation (2014).
+Devlin, J., et al. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (2018).
+Radford, A., et al. Language Models are Few-Shot Learners (GPT-3) (2020).
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP) (2021).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Vaswani, A., et al. Attention Is All You Need (2017).
+Xu, T., et al. AttnGAN: Fine-grained text to image generation with attentional generative adversarial networks (2018).
+Goodfellow, I., et al. Generative Adversarial Nets (2014).
+Zhang, H., et al. StackGAN: Text to photo-realistic image synthesis with stacked generative adversarial networks (2017).
+Saharia, C., et al. Imagen: Photorealistic text-to-image diffusion models with deep language understanding (2022).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Wang, Z., et al. Image Quality Assessment: From Error Visibility to Structural Similarity (2004).
+Salimans, T., et al. Improved Techniques for Training GANs (2016).
+Heusel, M., et al. GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium (2017).
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP) (2021).
+Mansimov, E., et al. Generating Images from Captions with Attention (2015).
+Mirza, M., & Osindero, S. Conditional Generative Adversarial Nets (2014).
+Zhang, H., et al. StackGAN: Text to Photo-Realistic Image Synthesis with Stacked Generative Adversarial Networks (2017).
+Xu, T., et al. AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks (2018).
+Saharia, C., et al. Imagen: Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (2022).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2). NeurIPS, 2022.
+Zhang, X., et al. ControlNet: Adding Conditional Control to Text-to-Image Diffusion Models (2023).
+Avrahami, O., et al. SEGA: Selective Guidance for Diffusion Models (2023).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Hertz, A., et al. Prompt-to-Prompt Image Editing with Cross Attention Control (2022).
+Gal, R., et al. An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion (2023).
+Karras, T., et al. A Style-Based Generator Architecture for Generative Adversarial Networks (StyleGAN) (2019).
+Saharia, C., et al. Imagen: Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (2022).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (Stable Diffusion) (2022).
+Xu, T., et al. AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks (2018).
+Brock, A., et al. Large Scale GAN Training for High Fidelity Natural Image Synthesis (2018).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Mansimov, E., et al. Generating Images from Captions with Attention (2015).
+Nichol, A., et al. GLIDE: Towards Photorealistic Image Generation and Editing with Text-Guided Diffusion Models (2021).
+Xiao, S., et al. Meta-Diffusion: Few-Shot Image Synthesis Using Diffusion Models (2022).
+Ruiz, N., et al. DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation (2023).
+Song, J., et al. Denoising Diffusion Implicit Models (DDIM) (2021).
+Rombach, R., et al. High-Resolution Image Synthesis with Latent Diffusion Models (2022).
+Ho, J., et al. Denoising Diffusion Probabilistic Models (2020).
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP) (2021).
+Zhang, H., et al. Cross-Modal Pre-training with Contrastive and Masked Autoencoders (CoMAE) (2023).
+Lin, T., et al. Microsoft COCO: Common Objects in Context (2014).
+Wu, L., et al. Image-Text Pretraining with Multi-Granular Contrastive Learning (2021).
+Johnson, J., et al. Image Generation from Captions with Attention (2015).
+Buolamwini, J., & Gebru, T. Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification (2018).
+Wang, X., et al. Fairness in Machine Learning: A Survey (2020).
+Ramesh, A., et al. Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL·E 2) (2022).
+Micikevicius, P., et al. Mixed Precision Training (2018).
+Hinton, G., et al. Distilling the Knowledge in a Neural Network (2015).
+Li, Z., et al. Large-Scale Distributed Deep Learning: A Survey (2020).
+Elgammal, A., et al. CAN: Creative Adversarial Networks for Artistic Image Generation (2017).
+McKinney, S., et al. International Evaluation of Breast Cancer Screening with Deep Learning (2020).
+Chen, M., et al. Generating Advertising Content with Neural Networks (2019).
+Cummings, M., et al. The Ethics of Artificial Intelligence: A Survey (2020).
+Caliskan, A., et al. Semantics Derived Automatically from Language Corpora Contain Human-Like Biases (2017).
+Binns, R. Fairness in Machine Learning: A Survey (2020).
+Westerlund, M. The Ethics of Deepfake Technology: A Review (2021).
+Zhang, L., et al. Fairness Constraints in Generative Models (2020).
+Sandvig, C., et al. Ethical Guidelines for AI in Journalism (2019).
+Dolgov, I., et al. Watermarking Deep Neural Networks (2019).
+Liu, X., et al. Self-supervised Learning for Text-to-Image Generation: A Unified Framework (2021).
+Chen, X., et al. SimCLR: A Simple Framework for Contrastive Learning of Visual Representations (2020).
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision (CLIP) (2021).
+He, Y., et al. Semi-supervised Text-to-Image Synthesis with GANs (2021).
+Chen, Y., et al. Audio-Visual Scene Analysis with Self-Supervised Learning (2022).
+Su, P., et al. M4C: Multimodal Modeling with Contrastive Learning for Visual Question Answering (2021).
+Xu, T., et al. Video-to-Text: Generating Video Descriptions from Textual Inputs (2021).
+Razavi, A., et al. Generating Diverse High-Fidelity Images with VQ-VAE-2 (2021).
+Christiano, P., et al. Deep Reinforcement Learning from Human Preferences (2021).
+Rombach, R., et al. Stable Diffusion: A Latent Text-to-Image Diffusion Model (2022).
+Li, X., et al. Text-to-Image Generation with Reinforcement Learning and Human Feedback (2022).
+Stiennon, N., et al. Learning to Summarize with Human Feedback (2022).
+
+

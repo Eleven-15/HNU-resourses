@@ -1,0 +1,10 @@
+int function(int a[], int n){
+	int i,sum;
+    i = n;
+    sum = 0;
+    while(i>0){
+        sum = sum+a[i];
+        i--;
+    }
+    return ;
+}

@@ -1,0 +1,20 @@
+甘晴void 202108010XXX 编译原理实验提交
+清单：
+1.各次实验改动文件
+内部有以下4个文件，分别是4次实验自己写的代码（请注意为了区分，我加了labx_前缀）
+lab1_lexical_analyzer.l
+lab2_lexical_analyzer.l
+lab3_stu_cpp
+lab3_stu_ll
+lab4_cminusf_builder.cpp
+
+2.cminus_compiler-2023-fall-master.zip
+#这是从Gitee下载的ZIP文件，是实验最终提交的工程
+
+3.共4个PDF文件，这是各次的实验报告
+编译原理-实验报告1.pdf
+编译原理-实验报告2.pdf
+编译原理-实验报告3.pdf
+编译原理-实验报告4.pdf
+
+感谢助教的审阅。
