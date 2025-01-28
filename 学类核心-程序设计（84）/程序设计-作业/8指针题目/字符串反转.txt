@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+void fun(char*s){
+	char*p=s;
+	char*q=s;
+	char temp;
+	while(*q)
+	q++;
+	q--;//找到最后一位
+	while(p<q){
+                                char temp;
+		temp=*p;
+		*p=*q;
+		*q=temp;
+		*p++;
+		*q--;
+	}
+}
+int main(){
+char str[201];
+gets(str);
+fun(str);
+puts(str); 
+
+return 0;
+}

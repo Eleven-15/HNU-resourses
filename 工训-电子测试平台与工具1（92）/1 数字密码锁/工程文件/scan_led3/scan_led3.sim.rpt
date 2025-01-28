@@ -1,0 +1,210 @@
+Simulator report for scan_led3
+Tue Mar 17 23:11:47 2020
+Quartus II Version 9.0 Build 184 04/29/2009 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Simulator Summary
+  3. Simulator Settings
+  4. Simulation Waveforms
+  5. Coverage Summary
+  6. Complete 1/0-Value Coverage
+  7. Missing 1-Value Coverage
+  8. Missing 0-Value Coverage
+  9. Simulator INI Usage
+ 10. Simulator Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------+
+; Simulator Summary                          ;
++-----------------------------+--------------+
+; Type                        ; Value        ;
++-----------------------------+--------------+
+; Simulation Start Time       ; 0 ps         ;
+; Simulation End Time         ; 4.0 us       ;
+; Simulation Netlist Size     ; 51 nodes     ;
+; Simulation Coverage         ;     100.00 % ;
+; Total Number of Transitions ; 956          ;
+; Simulation Breakpoints      ; 0            ;
+; Family                      ; Cyclone II   ;
+; Device                      ; EP2C5T144C8  ;
++-----------------------------+--------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                      ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Option                                                                                     ; Setting    ; Default Value ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Simulation mode                                                                            ; Timing     ; Timing        ;
+; Start time                                                                                 ; 0 ns       ; 0 ns          ;
+; Simulation results format                                                                  ; CVWF       ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On         ; On            ;
+; Check outputs                                                                              ; Off        ; Off           ;
+; Report simulation coverage                                                                 ; On         ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On         ; On            ;
+; Display missing 1-value coverage report                                                    ; On         ; On            ;
+; Display missing 0-value coverage report                                                    ; On         ; On            ;
+; Detect setup and hold time violations                                                      ; Off        ; Off           ;
+; Detect glitches                                                                            ; Off        ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off        ; Off           ;
+; Generate Signal Activity File                                                              ; Off        ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off        ; Off           ;
+; Group bus channels in simulation results                                                   ; Off        ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On         ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off        ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; Off        ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto       ; Auto          ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+
+
++----------------------+
+; Simulation Waveforms ;
++----------------------+
+Waveform report data cannot be output to ASCII.
+Please use Quartus II to view the waveform report data.
+
+
++--------------------------------------------------------------------+
+; Coverage Summary                                                   ;
++-----------------------------------------------------+--------------+
+; Type                                                ; Value        ;
++-----------------------------------------------------+--------------+
+; Total coverage as a percentage                      ;     100.00 % ;
+; Total nodes checked                                 ; 51           ;
+; Total output ports checked                          ; 51           ;
+; Total output ports with complete 1/0-value coverage ; 51           ;
+; Total output ports with no 1/0-value coverage       ; 0            ;
+; Total output ports with no 1-value coverage         ; 0            ;
+; Total output ports with no 0-value coverage         ; 0            ;
++-----------------------------------------------------+--------------+
+
+
+The following table displays output ports that toggle between 1 and 0 during simulation.
++------------------------------------------------------------------------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                                                                                  ;
++-----------------------------------------------------+-----------------------------------------------------+------------------+
+; Node Name                                           ; Output Port Name                                    ; Output Port Type ;
++-----------------------------------------------------+-----------------------------------------------------+------------------+
+; |scan_led3|counter4:inst|74161:inst|f74161:sub|9    ; |scan_led3|counter4:inst|74161:inst|f74161:sub|9    ; regout           ;
+; |scan_led3|counter4:inst|74161:inst|f74161:sub|87   ; |scan_led3|counter4:inst|74161:inst|f74161:sub|87   ; regout           ;
+; |scan_led3|mux4_3_1:inst2|dout[1]~8                 ; |scan_led3|mux4_3_1:inst2|dout[1]~8                 ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[1]~9                 ; |scan_led3|mux4_3_1:inst2|dout[1]~9                 ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[2]~10                ; |scan_led3|mux4_3_1:inst2|dout[2]~10                ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[2]~11                ; |scan_led3|mux4_3_1:inst2|dout[2]~11                ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[3]~12                ; |scan_led3|mux4_3_1:inst2|dout[3]~12                ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[3]~13                ; |scan_led3|mux4_3_1:inst2|dout[3]~13                ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[0]~14                ; |scan_led3|mux4_3_1:inst2|dout[0]~14                ; combout          ;
+; |scan_led3|mux4_3_1:inst2|dout[0]~15                ; |scan_led3|mux4_3_1:inst2|dout[0]~15                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[6]~42                ; |scan_led3|xiuzheng:inst7|qout[6]~42                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[5]~43                ; |scan_led3|xiuzheng:inst7|qout[5]~43                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[4]~44                ; |scan_led3|xiuzheng:inst7|qout[4]~44                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[3]~45                ; |scan_led3|xiuzheng:inst7|qout[3]~45                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[2]~46                ; |scan_led3|xiuzheng:inst7|qout[2]~46                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[1]~47                ; |scan_led3|xiuzheng:inst7|qout[1]~47                ; combout          ;
+; |scan_led3|xiuzheng:inst7|qout[0]~48                ; |scan_led3|xiuzheng:inst7|qout[0]~48                ; combout          ;
+; |scan_led3|decoder2_3:inst4|74139:inst|33~0         ; |scan_led3|decoder2_3:inst4|74139:inst|33~0         ; combout          ;
+; |scan_led3|decoder2_3:inst4|74139:inst|33~1         ; |scan_led3|decoder2_3:inst4|74139:inst|33~1         ; combout          ;
+; |scan_led3|counter4:inst|inst3                      ; |scan_led3|counter4:inst|inst3                      ; regout           ;
+; |scan_led3|counter4:inst|74161:inst|f74161:sub|87~0 ; |scan_led3|counter4:inst|74161:inst|f74161:sub|87~0 ; combout          ;
+; |scan_led3|decoder2_3:inst4|74139:inst|33~2         ; |scan_led3|decoder2_3:inst4|74139:inst|33~2         ; combout          ;
+; |scan_led3|counter4:inst|74161:inst|f74161:sub|9~0  ; |scan_led3|counter4:inst|74161:inst|f74161:sub|9~0  ; combout          ;
+; |scan_led3|din1[1]                                  ; |scan_led3|din1[1]~corein                           ; combout          ;
+; |scan_led3|din0[1]                                  ; |scan_led3|din0[1]~corein                           ; combout          ;
+; |scan_led3|din2[1]                                  ; |scan_led3|din2[1]~corein                           ; combout          ;
+; |scan_led3|din1[2]                                  ; |scan_led3|din1[2]~corein                           ; combout          ;
+; |scan_led3|din0[2]                                  ; |scan_led3|din0[2]~corein                           ; combout          ;
+; |scan_led3|din2[2]                                  ; |scan_led3|din2[2]~corein                           ; combout          ;
+; |scan_led3|din1[3]                                  ; |scan_led3|din1[3]~corein                           ; combout          ;
+; |scan_led3|din0[3]                                  ; |scan_led3|din0[3]~corein                           ; combout          ;
+; |scan_led3|din2[3]                                  ; |scan_led3|din2[3]~corein                           ; combout          ;
+; |scan_led3|din1[0]                                  ; |scan_led3|din1[0]~corein                           ; combout          ;
+; |scan_led3|din0[0]                                  ; |scan_led3|din0[0]~corein                           ; combout          ;
+; |scan_led3|din2[0]                                  ; |scan_led3|din2[0]~corein                           ; combout          ;
+; |scan_led3|clk                                      ; |scan_led3|clk~corein                               ; combout          ;
+; |scan_led3|qa                                       ; |scan_led3|qa                                       ; padio            ;
+; |scan_led3|sel[1]                                   ; |scan_led3|sel[1]                                   ; padio            ;
+; |scan_led3|sel[0]                                   ; |scan_led3|sel[0]                                   ; padio            ;
+; |scan_led3|qb                                       ; |scan_led3|qb                                       ; padio            ;
+; |scan_led3|qc                                       ; |scan_led3|qc                                       ; padio            ;
+; |scan_led3|qd                                       ; |scan_led3|qd                                       ; padio            ;
+; |scan_led3|qe                                       ; |scan_led3|qe                                       ; padio            ;
+; |scan_led3|qf                                       ; |scan_led3|qf                                       ; padio            ;
+; |scan_led3|qg                                       ; |scan_led3|qg                                       ; padio            ;
+; |scan_led3|clkout                                   ; |scan_led3|clkout                                   ; padio            ;
+; |scan_led3|beg[2]                                   ; |scan_led3|beg[2]                                   ; padio            ;
+; |scan_led3|beg[1]                                   ; |scan_led3|beg[1]                                   ; padio            ;
+; |scan_led3|beg[0]                                   ; |scan_led3|beg[0]                                   ; padio            ;
+; |scan_led3|counter4:inst|inst3~clkctrl              ; |scan_led3|counter4:inst|inst3~clkctrl              ; outclk           ;
+; |scan_led3|clk~clkctrl                              ; |scan_led3|clk~clkctrl                              ; outclk           ;
++-----------------------------------------------------+-----------------------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 1 during simulation.
++-------------------------------------------------+
+; Missing 1-Value Coverage                        ;
++-----------+------------------+------------------+
+; Node Name ; Output Port Name ; Output Port Type ;
++-----------+------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 0 during simulation.
++-------------------------------------------------+
+; Missing 0-Value Coverage                        ;
++-----------+------------------+------------------+
+; Node Name ; Output Port Name ; Output Port Type ;
++-----------+------------------+------------------+
+
+
++---------------------+
+; Simulator INI Usage ;
++--------+------------+
+; Option ; Usage      ;
++--------+------------+
+
+
++--------------------+
+; Simulator Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus II Simulator
+    Info: Version 9.0 Build 184 04/29/2009 Service Pack 1 SJ Web Edition
+    Info: Processing started: Tue Mar 17 23:11:47 2020
+Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off scan_led3 -c scan_led3
+Info: Using vector source file "C:/Users/zhans/Desktop/progr/3-2/scan_led3/scan_led3.vwf"
+Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
+    Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
+Info: Simulation partitioned into 1 sub-simulations
+Info: Simulation coverage is     100.00 %
+Info: Number of transitions in simulation is 956
+Info: Quartus II Simulator was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 168 megabytes
+    Info: Processing ended: Tue Mar 17 23:11:47 2020
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:00
+
+

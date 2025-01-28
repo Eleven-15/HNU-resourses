@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon Mar 09 16:11:03 2020
+Quartus II Version : 9.0 Build 184 04/29/2009 SP 1 SJ Web Edition
+Revision Name : mux4_3_1
+Top-level Entity Name : mux4_3_1
+Family : Cyclone II
+Total logic elements : 8
+    Total combinational functions : 8
+    Dedicated logic registers : 0
+Total registers : 0
+Total pins : 18
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

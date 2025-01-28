@@ -1,0 +1,24 @@
+library ieee;
+use ieee.std_logic_1164.all;
+entity new74 is
+port(A,B,C,D:in std_logic;
+	q,in std_logic_vector(6 downto 0);
+	qa,qb,qc,qd,qe,qf,qg:out std_logic);
+end new74;
+
+architecture exa of new74 is
+signal cin:std_logic_vector(3 downto 0);
+signal cout:std_logic_vector(6 downto 0);
+begin
+	cin<=D&C&B&A;
+	cout<=  "1110111"when cin ="1010"else
+			"0011111"when cin ="1011"else
+			"1001110"when cin ="1100"else
+			"0111101"when cin ="1101"else
+			"1001111"when cin ="1110"else
+			"1000111"when cin ="1111"else
+			q;
+	qa<=cout(6);qb<=cout(5);qc<=cout(4);qd<=cout(3);
+	qe<=cout(2);qf<=cout(1);qg<=cout(0);
+end exa;
+			

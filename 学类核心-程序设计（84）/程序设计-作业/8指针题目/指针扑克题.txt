@@ -1,0 +1,210 @@
+/*
+以下程序模拟实现扑克牌（不计大小王）发牌过程，
+对于一副扑克牌，用1~52表示全部52张牌，
+其中1~13代表黑桃S、14~26代表红心H、27~39代表方片D、40~52代表草花C
+其中定义了5个主要函数，在主函数main中调用
+ shuffle——
+ 模拟洗牌过程，先将数字1~52顺序赋值给数组元素card[1]~card[52],
+ 之后循环生成两个1~52之间的随机数loc1和 loc2，
+ 交换card[loc1]和card[loc2]，这个过程重复52次
+ cut——
+ 模拟切牌过程，随机生成1~51之间的随机数loc，表示切牌位置，
+ 数组card从loc处分为两个部分，
+ 采用动态数组存储前一部分，
+ 之后将后一部分前移，
+ 再将动态数组中的数据存储到card中
+deal——
+模拟发牌过程，定义二维数组player[4][13]表示4个玩家手中的牌，
+将card中52张牌轮流分发给4个玩家，
+在本例中，定义行指针unsigned short (*p)[13]，指向二维数组player[4][13]，
+p+0、p+1、p+2、p+3代表4个玩家手中的牌，分别指向二维数组的第0行、第1行、第2行、第3行
+reorder——
+模拟整理牌过程，即按照牌的大小将分发到玩家手中的牌按照点数从小到大的顺序排列，
+在该函数中，调用了冒泡排序函数buble来进行排序。
+由于二维数组player中的数组元素并不是该牌实际的点数，
+例如某数组元素为15表示红桃2，因此该牌的点数为2，而1、14、27、40分别表示黑桃A、红桃A、方片A、草花A，
+按照实际情况，点数最大，应排在最后，因此，在此处调用另外一个函数convert来确定每张牌的实际点数
+display——用于显示每个玩家手中的牌，
+其中S代表黑桃S、H代表红心H、C代表方片、D代表草花，
+同样需要调用convert进行点数转换，
+输出时1表示为A，11表示为J，12表示为Q，13表示为K
+*/
+ 
+#include <iostream>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+typedef unsigned short us;                             
+/* 为书写方便，将类型unsigned short重定义为us */
+void shuffle(us card[]);
+void swapCard(us *a, us *b);
+void cut(us card[]);
+void deal(us player[][13], us card[]);
+void reorder(us (*p)[13]);
+void buble(us a[], int n);
+us convert(us b);
+void display(us player[][13]);
+ 
+int main()
+{
+    us player[4][13];           /* 表示4方玩家，每家13张牌 */
+    us card[53];                /* 用于存储一副牌，1~13代表黑桃S、14~26代表红心H、27~39代表方片D、40~52代表梅花C */
+    shuffle(card);              /* 洗牌 ,已经写好*/
+    cut(card);                  /* 切牌 */
+    deal(player,card);         /* 发牌 */
+    reorder(player);            /* 整理牌 */
+    display(player);            /* 显示牌面 */
+    return 0;
+}
+void shuffle(us card[])//洗牌，已经写好，这一部分涉及到生成一定范围的随机数的写法和交换函数（需要自己写）
+{
+    srand(time(NULL));
+    int loc1, loc2;
+    for(int i = 1; i <= 52; i++)
+        card[i] = i;
+    for(int i = 1; i <= 52; i++)
+    {
+        while(!(loc1 = rand() % 53));
+        while(!(loc2 = rand() % 53));
+        if (loc1 == loc2)
+            loc2 = loc1 + 1;
+        if (loc2 == 53)
+            loc2 = 1;
+        swapCard(&card[loc1], &card[loc2]);
+    }
+}
+void swapCard(us *a, us *b)     /* 交换函数 */ 
+//涉及到交换数组元素的写法，要注意
+{
+    us tmp;    /* 用于交换数据时的中间变量 */
+tmp=*a;
+*a=*b;
+*b=tmp;
+}
+void cut(us card[])
+//涉及到生成动态数组、删除动态数组，将原数组的后一部分直接搬到前面去，不用考虑覆盖写入
+{
+    int loc;
+    srand(time(NULL));
+    while(!(loc = rand() % 52));
+    us *p = new us [loc+1];
+                           /* 生成动态数组，元素个数为loc+1 */
+    for(int i = 1; i <= loc; i++)
+    {
+ 
+        p[i] = card[i];
+ 
+    }
+    for(int i = loc + 1; i <= 52; i++)
+    {
+        card[i - loc] = card[i];
+    }
+    for(int i = 1; i <= loc; i++)
+    {
+    card[52 - loc + i] = p[i];
+    }
+delete []p;                                  /* 删除动态数组 */
+}
+void deal(us player[][13], us card[])                           
+/* 此处的形参还可以这样写：us **player,us *card//player使指向指针的指针（即多维数组），card是指针*/
+{
+    us (*p)[13] = player;                                       
+/*一个指向指针的指针。名叫p;这是一个行指针，指向一个含有13个整数的整型数组*/
+    unsigned int j = 0, k = 0;
+    us *start;                                                  //一个指针，名叫start
+    for(int i = 1; i <= 52; i++)
+    {
+        start = *(p + k);      // start指向  p所指的那一行的下标为k的那个元素                                                                                
+        start[j] = card[i];    //把52张牌中的一张发给这个元素 
+ /*   此处的两行还可以这样写:   *(*(p+k)+j)=card[i];    */
+ 
+        if (k == 3)
+        {
+            k = 0;
+            j++;
+        }
+        else
+            k++;
+    }
+}
+/*deal——
+模拟发牌过程，定义二维数组player[4][13]表示4个玩家手中的牌，
+将card中52张牌轮流分发给4个玩家，
+在本例中，定义行指针unsigned short (*p)[13]，指向二维数组player[4][13]，
+p+0、p+1、p+2、p+3代表4个玩家手中的牌，分别指向二维数组的第0行、第1行、第2行、第3行*/
+void reorder(us (*p)[13])                              //此处的形参还可以这样写：us **p
+{
+    for(int i = 0; i < 4; i++)
+    {
+ 
+        buble(*p, 13);                                      
+/* 这行及下一行还可以合并为：buble(*p++,13)
+  ，注意，不要填写分号 */
+ 
+        p++;
+ 
+    }
+}
+/*reorder——
+模拟整理牌过程，即按照牌的大小将分发到玩家手中的牌按照点数从小到大的顺序排列，
+在该函数中，调用了冒泡排序函数buble来进行排序。
+由于二维数组player中的数组元素并不是该牌实际的点数，
+例如某数组元素为15表示红桃2，因此该牌的点数为2，而1、14、27、40分别表示黑桃A、红桃A、方片A、草花A，A,2,3,4,5,6,7,8,9,10,j,q,k
+按照实际情况，点数最大，应排在最后，因此，在此处调用另外一个函数convert来确定每张牌的实际点数
+*/
+void buble(us a[], int n)
+//什么时候需要排序呢？大点数在小点数后面！
+// 冒泡排序，此处的形参还可以这样写：us *a,int n
+{
+    for(int i = 0; i < n - 1; i++)
+    {
+        for(int j = 0; j < n - i - 1; j++)//两端开始，双向排序
+        {
+            if (convert(a[i]>convert(a[j]))
+            {
+                unsigned int tmp;
+                tmp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = tmp;
+            }
+        }
+    }
+}
+us convert(us b)
+{
+    if (b % 13 == 1)
+        return 14;
+    if (b < 14)
+        return b;
+    else if (b < 27)
+        return b - 13;
+    else if (b < 40)
+        return b - 26;
+    else
+        return b - 39;
+}
+void display(us player[][13])
+{
+    char *face[14] = {NULL, "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 13; j++)
+        {
+            if (player[i][j] < 14)
+                cout << "S";
+            else if (player[i][j] < 27)
+                cout << "H";
+            else if (player[i][j] < 40)
+                cout << "D";
+            else
+                cout << "C";
+            int point = convert(player[i][j]);
+            if (point == 14)
+                point = 1;
+            cout << "(" << face[point] << ") ";
+        }
+        cout << endl;
+    }
+}
+ 

